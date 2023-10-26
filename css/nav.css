@@ -7,7 +7,7 @@
 
 .nav-link{
   font-size: clamp(1em,1.7em,4em);
-  font-family: 'Indie Flower', cursive;
+  font-family: 'Roboto';
   font-weight: 600;
 }
 #navbarNav{
@@ -22,7 +22,7 @@
   .container-fluid{
     .navbar-brand{
       font-size: clamp(1em,2em,4em);
-      font-family: 'Indie Flower', cursive;
+      font-family: 'Roboto';
       font-weight: 600;
     }
   }
