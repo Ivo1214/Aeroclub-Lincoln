@@ -1,0 +1,33 @@
+.banner{
+    display: flex;
+    background-image: url("../images/banner.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    flex-direction: column;
+    height: 40vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+
+    .redes {
+        display: flex;
+        width: 100vw;
+        flex: 0 0 30%; /* Establece la altura del servicio al 30% de la altura del banner */
+        background-color: rgba(145, 142, 145, 0.15); /* Color #AD11C7 con 50% de transparencia */
+        margin-top: auto; /* Coloca el servicio en la parte inferior del banner */
+        justify-content: center;
+        align-items: center;
+        gap: 3%;
+
+        .bi{
+            height: clamp(3em,9em,3vw);
+            width: auto;
+        }
+        .bi:hover{
+            cursor: pointer;
+            transform:scale(1.2);
+        }
+    }
+}

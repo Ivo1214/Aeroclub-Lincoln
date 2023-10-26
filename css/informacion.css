@@ -1,0 +1,26 @@
+.informacion{
+    display: flex;
+    flex-direction: column;
+    padding: 5px 2vw 5px 2vw;
+}
+.container{
+    margin: 0 !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .texto{
+        font-size: clamp(1em,1.2em,2em);
+    }
+
+    .image{
+        height:clamp(5em, 15em, 30em);
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .container{
+        flex-direction: column;
+    }
+}
