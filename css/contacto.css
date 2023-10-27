@@ -7,10 +7,11 @@
     align-items: flex-start; /* Alinea los elementos en la parte superior */
     width: fit-content;
     background-color: #49638a;
+    margin: 0 10px 0 10px;
 
     /* Box Shadow */
-    /* -webkit-box-shadow: 0px 0px 6px 7px rgba(255, 255, 255, 0.74);
-    box-shadow: 0px 0px 6px 7px rgba(255, 255, 255, 0.74); */
+    -webkit-box-shadow: 0px 0px 6px 7px rgba(255, 255, 255, 0.74);
+    box-shadow: 0px 0px 6px 7px rgba(255, 255, 255, 0.74);
 }
 
 .container-contacto {
@@ -26,11 +27,15 @@
         text-align: center;
 
         .resaltar{
-            color: #ffffff;
+            font-weight:bold;
+            color: #c49696;
         }
     }
-
-    .iconos {
+.iconos{
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    .fila-iconos {
         display: flex;
         flex-direction: row;
         align-items: center;
@@ -62,6 +67,7 @@
             fill: var(--x);
         }
     }
+}   
 }
 
 @media screen and (max-width: 550px) {
