@@ -29,5 +29,21 @@
             cursor: pointer;
             transform:scale(1.2);
         }
+        #insta{
+            font-size: clamp(3.5em,15em,4vw); /* change this to change the size*/
+        }
+        #insta:hover{
+            cursor: pointer;
+            transform:scale(1.2);
+        }
+        .bi-whatsapp{
+            fill: var(--whatsapp);
+        }
+        .bi-facebook{
+            fill: var(--facebook);
+        }
+        .bi-twitter-x{
+            fill: var(--x);
+        }
     }
 }
