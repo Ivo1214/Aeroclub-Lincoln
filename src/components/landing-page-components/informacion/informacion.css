@@ -1,0 +1,47 @@
+
+.container-informacion{
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* align-items: center; */
+    /* justify-content: center; */
+}
+.image{
+    height:clamp(5em, 15em, 20em);
+    max-width: 40%;
+}
+/* .informacion{
+    Esto provoca el overflow
+    display: flex;
+    flex-direction: column;
+    padding: 5px 2vw 5px 2vw;
+    justify-content:center;
+    align-items:center;
+    max-width: 80vw;
+}
+.container-informacion{
+    margin: 0 !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .texto{
+        font-size: clamp(1em,1em,2em);
+        font-family: 'Montserrat';
+    }
+
+    Revisar estilo de imagen, esto rompe el responsive al hacerse mas chica la pantalla
+    .image{
+        height:clamp(5em, 15em, 20em);
+        max-width: 40%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .container-informacion{
+        flex-direction: column;
+    }
+    .image{
+        height:clamp(5em, 11em, 30em);
+    }
+} */

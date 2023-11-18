@@ -1,0 +1,44 @@
+.alertaAeronavesContainer {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+}
+
+.alrtaAeronavesTitle {
+  font-size: 36px;
+  color: black;
+}
+
+.alertsContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.alertPorAeronaveContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  box-shadow: -1px -1px 16px 9px rgba(0, 0, 0, 0.52);
+  -webkit-box-shadow: -1px -1px 16px 9px rgba(0, 0, 0, 0.52);
+  -moz-box-shadow: -1px -1px 16px 9px rgba(0, 0, 0, 0.52);
+}
+
+.alertPorAeronaveModelo {
+  font-size: 18px;
+  color: black;
+}
+
+.alertPorAeronavePatente {
+  font-size: 18px;
+  color: black;
+}

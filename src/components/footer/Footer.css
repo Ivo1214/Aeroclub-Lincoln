@@ -1,0 +1,58 @@
+.footerContainer {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  background-color: var(--bordo);
+}
+
+.footerDerechos {
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  width: 30%;
+  text-align: start;
+  color: whitesmoke;
+}
+@media (max-width: 768px) {
+  .footerDerechos {
+    font-size: 14px;
+    width: 45%;
+  }
+}
+
+.footerLogo {
+  height: 100%;
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .footerLogo {
+    display: none;
+  }
+}
+
+.footerRedesContainer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: row;
+  height: 80%;
+  width: 30%;
+}
+
+@media (max-width: 768px) {
+  .footerRedesContainer {
+    width: 45%;
+  }
+}
+
+.footerRedesLink {
+}
+
+.footerRedesLinkLogo {
+  height: 50px;
+  width: 50px;
+}

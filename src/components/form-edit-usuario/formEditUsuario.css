@@ -1,0 +1,27 @@
+.formulario-editar-usuario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 15px 0px 15px 0px;
+    zoom: 1.8;
+}
+.fila-formulario-editar-usuario{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px){
+    .formulario-editar-usuario{
+        zoom: 1.5;
+    }
+}
+
+@media (max-width: 362px){
+    .formulario-editar-usuario{
+        zoom: 0;
+    }
+}

@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --bordo: #810808;
+  --rojoSemaforo: #b90c0c;
+  --verdeSemaforo: #31bf2e;
+  --amarilloSemaforo: #edcf34;
+  --azulOscuro: #2633a9;
+  --azulClaro: #4594f0;
+  --celeste: #58749d;
+  --verdeCard: #83b04a;
+  --fondoClaro: #dbdcd8;
+  --poppins: "Poppins", sans-serif;
+}
