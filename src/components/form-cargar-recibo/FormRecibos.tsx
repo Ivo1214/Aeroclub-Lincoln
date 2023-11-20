@@ -39,6 +39,9 @@ export default function FormRecibos() {
     setCantidadItinerarios(event.target.value);
   };
 
+  const [dateValuesSalida, setDateValuesSalida] = React.useState<(Dayjs | null)[]>(new Array(parseInt(cantidadItinerarios)).fill(dayjs('2022-04-17')));
+const [dateValuesLlegada, setDateValuesLlegada] = React.useState<(Dayjs | null)[]>(new Array(parseInt(cantidadItinerarios)).fill(dayjs('2022-04-17')));
+
   const [formValues, setFormValues] = useState<FormValues[]>(
     new Array(parseInt(cantidadItinerarios)).fill({
       horaSalida: "",
@@ -50,7 +53,6 @@ export default function FormRecibos() {
     })
   );
   useEffect(() => {
-    // Asegurarse de que formValues se actualice correctamente cuando cambia la cantidad de itinerarios
     setFormValues(new Array(parseInt(cantidadItinerarios)).fill({
       horaSalida: "",
       codAeroSalida: "",
@@ -59,7 +61,21 @@ export default function FormRecibos() {
       cantAterrizajes: "",
       tipoItinerario: ""
     }));
+    setDateValuesSalida(new Array(parseInt(cantidadItinerarios)).fill(dayjs('2022-04-17')));
+    setDateValuesLlegada(new Array(parseInt(cantidadItinerarios)).fill(dayjs('2022-04-17')));
   }, [cantidadItinerarios]);
+  
+
+  const handleDateChangeSalida = (itineraryIndex: number, newValue: Dayjs | null) => {
+    const newDateValues = [...dateValuesSalida];
+    newDateValues[itineraryIndex] = newValue;
+    setDateValuesSalida(newDateValues);
+  };
+  const handleDateChangeLlegada = (itineraryIndex: number, newValue: Dayjs | null) => {
+    const newDateValues = [...dateValuesLlegada];
+    newDateValues[itineraryIndex] = newValue;
+    setDateValuesLlegada(newDateValues);
+  };
 
   const handleInputChange = (
     formIndex: number,
@@ -70,6 +86,8 @@ export default function FormRecibos() {
     newFormValues[formIndex] = {
       ...newFormValues[formIndex],
       [fieldName]: value,
+      horaSalida: dateValuesSalida[formIndex]?.format('YYYY-MM-DD HH:mm:ss') || '',
+      horaLlegada: dateValuesLlegada[formIndex]?.format('YYYY-MM-DD HH:mm:ss') || '',
     };
     setFormValues(newFormValues);
   };
@@ -78,19 +96,15 @@ export default function FormRecibos() {
     const forms = [];
     for (let i = 0; i < parseInt(cantidadItinerarios); i++) {
       forms.push(
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider key={i} dateAdapter={AdapterDayjs}>
         <Box key={i} className="fila-formulario-recibo-observaciones">
           <h2>Itinerario {i + 1}</h2>
           {/* Hora de salida */}
-          <DateTimePicker
-          label="Hora de salida"
-          defaultValue={dayjs('2022-04-17T15:30')}
-          />
-          {/* <DemoContainer components={['DatePicker']}>
+          <DemoContainer components={['DatePicker']}>
             <DatePicker
               format="YYYY-MM-DD HH:mm:ss"
-              value={value}
-              onChange={(newValue) => setValue(newValue)}
+              value={dateValuesSalida[i]}
+              onChange={(newValue) => handleDateChangeSalida(i, newValue)}
               label="Hora de salida"
               slotProps={{
                 textField: {
@@ -98,7 +112,7 @@ export default function FormRecibos() {
                 },
               }}
             />
-          </DemoContainer> */}
+          </DemoContainer>
           {/* Aeropuerto de salida */}
           <TextField
             id={`codAeroSalida-${i}`}
@@ -112,8 +126,8 @@ export default function FormRecibos() {
           <DemoContainer components={['DatePicker']}>
             <DatePicker
               format="YYYY-MM-DD HH:mm:ss"
-              value={value}
-              onChange={(newValue) => setValue(newValue)}
+              value={dateValuesLlegada[i]}
+              onChange={(newValue) => handleDateChangeLlegada(i, newValue)}
               label="Hora de llegada"
               slotProps={{
                 textField: {
