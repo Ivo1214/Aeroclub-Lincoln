@@ -10,6 +10,7 @@ import FormEditUsuario  from "../components/form-edit-usuario/FormEditUsuario";
 import CargarUsuario from "../components/cargar-usuario/CargarUsuario";
 import AdminVerRecibos from "../pages/admin-ver-recibos/AdminVerRecibos";
 import Prueba from "../Prueba";
+import AdminCargarRecibo from "../pages/admin-cargar-recibo/AdminCargarRecibo";
 
 export const AppRouter = () => {
   return (
@@ -36,6 +37,9 @@ export const AppRouter = () => {
           <Route
           path="/admin-ver-recibos"
           element={<AdminVerRecibos/>}></Route>
+          <Route
+          path="/admin-cargar-recibos"
+          element={<AdminCargarRecibo/>}></Route>
           <Route
           path="/cargar-usuario"
           element={<CargarUsuario/>}></Route>

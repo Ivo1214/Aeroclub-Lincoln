@@ -10,7 +10,7 @@ export const apiUsuarios = {
             method: 'GET',
             headers: {
                 Authorization:
-                  "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDAzMTY1MzcsImV4cCI6MTcwMDM0NjUzNywiZW1haWwiOiJpdm8xMjE0QGxpdmUuY29tIiwicm9sZXMiOlsiQWRtaW5pc3RyYXRvciIsIkVkaXRvciJdfQ.nn2ZIurD-nH-yFKa4s21TVneTUtV3gi6tEeUsQJbNXY",
+                  "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA1MTI4NTIsImV4cCI6MTcwMDU0Mjg1MiwiZW1haWwiOiJpdm8xMjE0QGxpdmUuY29tIiwicm9sZXMiOlsiQWRtaW5pc3RyYXRvciIsIkVkaXRvciJdfQ.dKIuQ36ZRxyef5C6Aros7gsXQge4oJDKvOM24nmrRO8",
                 "content-type": "application/json",
               },
         });

@@ -9,16 +9,13 @@ import FormGroup from '@mui/material/FormGroup';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import InputAdornment from '@mui/material/InputAdornment';
 import InputLabel from '@mui/material/InputLabel';
-import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
 import "./formRecibos.css";
 import MenuItem from '@mui/material/MenuItem';
 import { Select, SelectChangeEvent } from '@mui/material';
 import { apiReciboVuelos } from '../../services/apiReciboVuelos';
-import { DateTimePicker } from '@mui/x-date-pickers';
+import { DateTimePicker, renderTimeViewClock } from '@mui/x-date-pickers';
 
 interface FormValues {
   horaSalida: string;
@@ -30,8 +27,6 @@ interface FormValues {
 }
 
 export default function FormRecibos() {
-  // No encontre forma de añadir la variable id en la fecha, encontre esta solucion para manejar en submit.
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
 
   // Manejo de itinerarios
   const [cantidadItinerarios, setCantidadItinerarios] = React.useState("1");
@@ -70,11 +65,26 @@ const [dateValuesLlegada, setDateValuesLlegada] = React.useState<(Dayjs | null)[
     const newDateValues = [...dateValuesSalida];
     newDateValues[itineraryIndex] = newValue;
     setDateValuesSalida(newDateValues);
+  
+    const newFormValues = [...formValues];
+    newFormValues[itineraryIndex] = {
+      ...newFormValues[itineraryIndex],
+      horaSalida: newValue?.format('YYYY-MM-DD HH:mm:ss') || '',
+    };
+    setFormValues(newFormValues);
   };
+  
   const handleDateChangeLlegada = (itineraryIndex: number, newValue: Dayjs | null) => {
     const newDateValues = [...dateValuesLlegada];
     newDateValues[itineraryIndex] = newValue;
     setDateValuesLlegada(newDateValues);
+  
+    const newFormValues = [...formValues];
+    newFormValues[itineraryIndex] = {
+      ...newFormValues[itineraryIndex],
+      horaLlegada: newValue?.format('YYYY-MM-DD HH:mm:ss') || '',
+    };
+    setFormValues(newFormValues);
   };
 
   const handleInputChange = (
@@ -89,8 +99,15 @@ const [dateValuesLlegada, setDateValuesLlegada] = React.useState<(Dayjs | null)[
       horaSalida: dateValuesSalida[formIndex]?.format('YYYY-MM-DD HH:mm:ss') || '',
       horaLlegada: dateValuesLlegada[formIndex]?.format('YYYY-MM-DD HH:mm:ss') || '',
     };
+    // Extract and store time values separately
+    if (fieldName === 'horaSalida' || fieldName === 'horaLlegada') {
+      // Use dateValuesLlegada for "Hora de llegada"
+      newFormValues[formIndex][fieldName] =
+        dateValuesLlegada[formIndex]?.format('YYYY-MM-DD HH:mm:ss') || '';
+    }
     setFormValues(newFormValues);
   };
+  
 
   const generateForms = () => {
     const forms = [];
@@ -101,15 +118,21 @@ const [dateValuesLlegada, setDateValuesLlegada] = React.useState<(Dayjs | null)[
           <h2>Itinerario {i + 1}</h2>
           {/* Hora de salida */}
           <DemoContainer components={['DatePicker']}>
-            <DatePicker
+            <DateTimePicker
               format="YYYY-MM-DD HH:mm:ss"
               value={dateValuesSalida[i]}
               onChange={(newValue) => handleDateChangeSalida(i, newValue)}
               label="Hora de salida"
+              viewRenderers={{
+                hours: renderTimeViewClock,
+                minutes: renderTimeViewClock,
+                seconds: renderTimeViewClock,
+              }}
               slotProps={{
                 textField: {
                   helperText: 'YYYY-MM-DD HH:mm:ss',
                 },
+                
               }}
             />
           </DemoContainer>
@@ -124,11 +147,16 @@ const [dateValuesLlegada, setDateValuesLlegada] = React.useState<(Dayjs | null)[
           />
           {/* Hora de llegada */}
           <DemoContainer components={['DatePicker']}>
-            <DatePicker
+            <DateTimePicker
               format="YYYY-MM-DD HH:mm:ss"
               value={dateValuesLlegada[i]}
               onChange={(newValue) => handleDateChangeLlegada(i, newValue)}
               label="Hora de llegada"
+              viewRenderers={{
+                hours: renderTimeViewClock,
+                minutes: renderTimeViewClock,
+                seconds: renderTimeViewClock,
+              }}
               slotProps={{
                 textField: {
                   helperText: 'YYYY-MM-DD HH:mm:ss',
@@ -193,7 +221,7 @@ const [dateValuesLlegada, setDateValuesLlegada] = React.useState<(Dayjs | null)[
       matricula: e.target.matricula.value,
       itinerarios: formValues
     }
-    console.log("Valores de los formularios:", formValues);
+    // console.log("Valores de los formularios:", formValues);
     try {
       await apiReciboVuelos.post(datos);
       } catch (error:any) {
