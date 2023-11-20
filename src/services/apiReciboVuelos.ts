@@ -1,6 +1,24 @@
 import {client} from './api-backend.ts';
 
 export const apiReciboVuelos = {
+    // Ver recibos
+    get: async function () {
+        const response = await client.request({
+            url: `/recibo-vuelos`,
+            method: 'GET',
+            headers: {
+                Authorization:
+                  "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDAyNTIyMTUsImV4cCI6MTcwMDI4MjIxNSwiZW1haWwiOiJpdm8xMjE0QGxpdmUuY29tIiwicm9sZXMiOlsiQWRtaW5pc3RyYXRvciIsIkVkaXRvciJdfQ.EGAsXLP-VngG_mc2zEgegphkABZgdB504XmNLxqusCQ",
+                "content-type": "application/json",
+              }
+        })
+        
+        if (response){
+            // console.log(response.data);
+            return response.data;
+        }
+    },
+
     // Cargar un recibo
     post: async function (datos:any) {
         const response = await client.request({
@@ -17,7 +35,6 @@ export const apiReciboVuelos = {
                 emailGestor: datos.emailGestor,
                 observaciones: datos.observaciones,
                 matricula: datos.matricula,
-                fecha: datos.fecha,
                 itinerarios: datos.itinerarios
             }
         })

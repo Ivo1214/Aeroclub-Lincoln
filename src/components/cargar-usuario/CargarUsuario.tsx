@@ -25,7 +25,7 @@ export default function CargarUsuario() {
 
   // Opcion para controlar ingreso de datos. Esta mal implementado, es solo de muestra
   const [error, setError] = useState('');
-  const handleValidation = (inputValue) => {
+  const handleValidation = (inputValue:any) => {
     if (inputValue.length === 0) {
       setError('Este campo es obligatorio.');
     } else {
