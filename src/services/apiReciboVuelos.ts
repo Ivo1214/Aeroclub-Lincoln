@@ -4,7 +4,6 @@ import {client} from './api-backend.ts';
 export const apiReciboVuelos = {
     // Ver recibos
     get: async function (email: string) {
-        console.log(email);
         const response = await client.request({
             url: `/recibo-vuelos/${email}`,
             method: 'GET',
@@ -15,9 +14,26 @@ export const apiReciboVuelos = {
               }
         })
         
-        if (response){
+        if (Array.isArray(response.data.respuesta)) {
             // console.log(response.data);
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Recibos cargados con exito.',
+                text: ``,
+                showConfirmButton: false,
+                timer: 2500
+                })
             return response.data;
+        }else {
+            Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Error al cargar recibos.',
+                text: ``,
+                showConfirmButton: false,
+                timer: 2500
+                })
         }
     },
 

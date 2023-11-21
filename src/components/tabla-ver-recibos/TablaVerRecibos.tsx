@@ -1,20 +1,12 @@
 import * as React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Close';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import {
   GridRowsProp,
   GridRowModesModel,
-  GridRowModes,
   DataGrid,
   GridColDef,
-  GridToolbarContainer,
   GridActionsCellItem,
   GridEventListener,
   GridRowId,
@@ -22,21 +14,15 @@ import {
   GridRowEditStopReasons,
   esES,
 } from '@mui/x-data-grid';
-import {
-  randomCreatedDate,
-  randomTraderName,
-  randomId,
-  randomArrayItem,
-} from '@mui/x-data-grid-generator';
-import { Modal} from '@mui/material';
+import { IconButton, InputBase, Modal, Paper} from '@mui/material';
 import { useState } from 'react';
-import AdminDetallesAsociados from '../../pages/admin-detalles-asociados/AdminDetallesAsociados';
-import { useNavigate } from 'react-router-dom';
 
-const roles = ['Market', 'Finance', 'Development'];
-const randomRole = () => {
-  return randomArrayItem(roles);
-};
+import { apiReciboVuelos } from '../../services/apiReciboVuelos';
+
+import SearchIcon from '@mui/icons-material/Search';
+import { CardVerRecibo } from '../card-ver-recibo/CardVerRecibo';
+
+
 const theme = createTheme(
   {
     palette: {
@@ -56,14 +42,6 @@ const modalStyle = {
   boxShadow: 24,
   p: 4,
 };
-const initialRows: GridRowsProp = [
-  { id: 1, monto: 500, asociado: 'Snow Jon', fechaPago: 11042023,estado: 'pagado' },
-  { id: 2, monto: 4536, asociado: 'Lannister Cersei', fechaPago: 11042023,estado: 'pagado' },
-  { id: 3, monto: 2347, asociado: 'Stark Arya', fechaPago: 11042023,estado: 'pagado' },
-  { id: 4, monto: 200, asociado: 'Clifford Ferrara', fechaPago: 11042023,estado: 'pagado' },
-  { id: 5, monto: 2138, asociado: 'Roxie Harvey', fechaPago: 11042023,estado: 'pagado' },
-];
-
 
 // ************************************************************************************
 // Esto te permite añadir una tupla a la lista, esta comentado por si lo necesitamos 
@@ -97,16 +75,54 @@ const initialRows: GridRowsProp = [
 //   );
 // }
 
-export default function TablaVerRecibos() {
-  const [rows, setRows] = React.useState(initialRows);
-  const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
+export default function TablaAsociadosPanelAdmin() {
+  // Borrar el valor cargado en useState, lo puse asi para realizar muestra/prueba del funcionamiento
+  const [busqueda, setBusqueda] = useState("");
+  const handleInputChange = (e:any) => {
+    // Actualizar el estado 'busqueda' cada vez que el valor del InputBase cambie
+    setBusqueda(e.target.value);
+  };
 
-  const navigate = useNavigate ();
+  // ************************************************************************************
+  //                                    Manejo de la api
+  // ************************************************************************************
+  const [rows, setRows] = useState<GridRowsProp>([]);
+  const fetchData = async () => {
+    try {
+      const response = await apiReciboVuelos.get(busqueda);
+      let i = 0;
+      // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar la tabla
+      const resultado = response.respuesta.map((recibo: any)=>{
+        const reciboFormateado = { 
+          id: i,
+          asociado: recibo[0].asociado,
+          gestor: recibo[0].gestor, 
+          instructor:  recibo[0].instructor, 
+          matricula: recibo[0].matricula, 
+          observaciones: recibo[0].observaciones, 
+          precioTotal: recibo[0].precioTotal,
+          itinerarios: recibo[1]
+        };
+        i = i + 1;
+        return reciboFormateado;
+      });
+      setRows(resultado);
+    } catch (error:any) {
+      // console.log(error.message);
+    }
+  };
+
+  
+  const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
   
   // Utilizo este estado para almacenar la informacion que se renderiza en el modal
   const [verRecibo, setVerRecibo] = useState({});
+  
 
-  // Manejo del modal para ver un asociado
+
+  // ************************************************************************************
+  //                      Manejo del modal para ver un asociado
+  // ************************************************************************************
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
     setOpen(false)
@@ -119,37 +135,13 @@ export default function TablaVerRecibos() {
     }
   };
 
-  const handleEditClick = (id: GridRowId) => () => {
-    alert("Crear componente para editar recibo");
-    // navigate("/", { replace: true })
-    // setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-  };
 
   const handleVerClick = (id: GridRowId) => () => {
     setVerRecibo(rows.filter((row) => row.id === id));
-    alert("Crear componente para ver detalles del recibo");
-    // setOpen(true);
+    setOpen(true);
   };
 
-  const handleSaveClick = (id: GridRowId) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
-  };
 
-  const handleDeleteClick = (id: GridRowId) => () => {
-    setRows(rows.filter((row) => row.id !== id));
-  };
-
-  const handleCancelClick = (id: GridRowId) => () => {
-    setRowModesModel({
-      ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
-    });
-
-    const editedRow = rows.find((row) => row.id === id);
-    if (editedRow!.isNew) {
-      setRows(rows.filter((row) => row.id !== id));
-    }
-  };
 
   const processRowUpdate = (newRow: GridRowModel) => {
     const updatedRow = { ...newRow, isNew: false };
@@ -171,33 +163,45 @@ export default function TablaVerRecibos() {
       headerAlign: 'left'
     },
     {
-      field: 'monto',
-      headerName: 'Monto',
-      type: 'number',
-      width: 80,
+      field: 'asociado',
+      headerName: 'Asociado',
+      width: 200,
+      type: 'string'
+    },
+    {
+      field: 'gestor',
+      headerName: 'Gestor',
+      type: 'string',
+      width: 100,
       align: 'left',
       headerAlign: 'left'
     },
     {
-        field: 'asociado',
-        headerName: 'Asociado',
-        width: 220,
-        type: 'string'
-      },
+      field: 'instructor',
+      headerName: 'Instructor',
+      width: 250,
+      type: 'string'
+    },
     {
-      field: 'fechaPago',
-      headerName: 'Fecha de pago',
+      field: 'matricula',
+      headerName: 'Matricula',
+      width: 170,
+      type: 'string'
+    },
+    {
+      field: 'observaciones',
+      headerName: 'Observaciones',
+      width: 170,
+      type: 'string'
+    },
+    {
+      field: 'precioTotal',
+      headerName: 'Precio Total',
       type: 'number',
-      width: 160,
+      width: 100,
       align: 'left',
       headerAlign: 'left'
     },
-    {
-        field: 'estado',
-        headerName: 'Estado',
-        width: 110,
-        type: 'string'
-      },
     {
       field: 'actions',
       type: 'actions',
@@ -205,28 +209,6 @@ export default function TablaVerRecibos() {
       width: 100,
       cellClassName: 'actions',
       getActions: ({ id }) => {
-        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
-
-        if (isInEditMode) {
-          return [
-            <GridActionsCellItem
-              icon={<SaveIcon />}
-              label="Save"
-              sx={{
-                color: 'primary.main',
-              }}
-              onClick={handleSaveClick(id)}
-            />,
-            <GridActionsCellItem
-              icon={<CancelIcon />}
-              label="Cancel"
-              className="textPrimary"
-              onClick={handleCancelClick(id)}
-              color="inherit"
-            />,
-          ];
-        }
-
         return [
           <GridActionsCellItem
             icon={<VisibilityIcon />}
@@ -234,20 +216,7 @@ export default function TablaVerRecibos() {
             className="textPrimary"
             onClick={handleVerClick(id)}
             color="inherit"
-          />,
-          <GridActionsCellItem
-            icon={<EditIcon />}
-            label="Editar"
-            className="textPrimary"
-            onClick={handleEditClick(id)}
-            color="inherit"
-          />,
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Borrar"
-            onClick={handleDeleteClick(id)}
-            color="inherit"
-          />,
+          />
         ];
       },
     },
@@ -266,9 +235,25 @@ export default function TablaVerRecibos() {
         },
       }}
     >
+      <Paper
+      component="form"
+      sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+      >
+        <InputBase
+          sx={{ ml: 1, flex: 1 }}
+          value={busqueda}
+          placeholder="Buscar recibo de asociado"
+          inputProps={{ 'aria-label': 'Buscar recibo de asociado' }}
+          onChange={handleInputChange}
+        />
+        <IconButton type="button" onClick={fetchData} sx={{ p: '10px' }} aria-label="search">
+          <SearchIcon />
+        </IconButton>
+      </Paper>
       <ThemeProvider theme={theme}>
         <DataGrid
           rows={rows}
+          getRowId={(rows) => rows?.id}
           columns={columns}
           editMode="row"
           rowModesModel={rowModesModel}
@@ -283,7 +268,7 @@ export default function TablaVerRecibos() {
           }}
         />
       </ThemeProvider>
-      {/* Modal para ver informacion de un asociado */}
+      {/* Modal para ver informacion de un recibo */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -291,8 +276,7 @@ export default function TablaVerRecibos() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
-            {/* Implementar componente para ver detalles del recibo */}
-          <AdminDetallesAsociados datos={verRecibo}/>
+          <CardVerRecibo datos={verRecibo}/>
         </Box>
       </Modal>
     </Box>
