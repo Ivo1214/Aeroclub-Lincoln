@@ -137,7 +137,7 @@ export const apiUsuarios = {
     //     method: 'DELETE',
     //     headers: {
     //         Authorization:
-    //           "bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDAyNTIyMTUsImV4cCI6MTcwMDI4MjIxNSwiZW1haWwiOiJpdm8xMjE0QGxpdmUuY29tIiwicm9sZXMiOlsiQWRtaW5pc3RyYXRvciIsIkVkaXRvciJdfQ.EGAsXLP-VngG_mc2zEgegphkABZgdB504XmNLxqusCQ",
+    //           "bearer ",
     //         "content-type": "application/json",
     //       }
     // });
