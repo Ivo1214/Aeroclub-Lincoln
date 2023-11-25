@@ -69,6 +69,18 @@ function CardVerRecibo(recibo: any) {
       </div>
     );
   };
+  function mostrarInstructor () {
+    if (datosRecibo.instructor !== "") {
+      return (
+        <Typography className="datos-asociados" variant="body2" color="text.secondary">
+              Instructor: ${datosRecibo.instructor}
+        </Typography>
+      );
+    }
+    else {
+      return (null);
+    }
+  }
 
   return (
   <div className="card">
@@ -77,9 +89,7 @@ function CardVerRecibo(recibo: any) {
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Asociado: {datosRecibo.asociado}
           </Typography>
-          <Typography className="datos-asociados" variant="body2" color="text.secondary">
-            Instructor: {datosRecibo.instructor}
-          </Typography>
+          {mostrarInstructor ()}
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Gestor: {datosRecibo.gestor}
           </Typography>
