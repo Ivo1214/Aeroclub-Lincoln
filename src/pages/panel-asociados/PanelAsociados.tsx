@@ -6,7 +6,7 @@ import TarifaActual from "../../components/card-tarifa-actual/TarifaActual";
 import SaldoActual from "../../components/card-saldo-actual/SaldoActual";
 import VencimientoCMA from "../../components/card-vencimiento-cma/VencimientoCMA";
 import VencimientoCuota from "../../components/card-vencimiento-cuota/VencimientoCuota";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
@@ -67,31 +67,24 @@ function PanelAsociados() {
           <div className="panelAdminContainerCardClima">
             <CardClima></CardClima>
           </div>
-          <CondicionPista />
+          <SaldoActual></SaldoActual>
         </div>
       </div>
 
-      <div className="filaPanelAsociado">
-        <VencimientoCuota></VencimientoCuota>
-        <VencimientoCMA></VencimientoCMA>
-      </div>
-      <div className="colorFilaPanelAsociado">
+      {/* <div className="filaPanelAsociado">
+        <TarifaActual></TarifaActual>
+        <CondicionPista />
+      </div> */}
+      
         <div className="filaPanelAsociado">
           <VencimientoCuota></VencimientoCuota>
           <VencimientoCMA></VencimientoCMA>
         </div>
-      </div>
+      
 
       <div className="colorTablaPanelAsociado">
         <div className="TablaTurnos">
           <TablaTurnosPanelAsociados />
-        </div>
-      </div>
-
-      <div className="colorFilaPanelAsociado">
-        <div className="filaPanelAsociado">
-          <TarifaActual></TarifaActual>
-          <SaldoActual></SaldoActual>
         </div>
       </div>
     </div>
