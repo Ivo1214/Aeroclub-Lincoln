@@ -11,7 +11,6 @@ import CargarUsuario from "../components/cargar-usuario/CargarUsuario";
 import AdminVerRecibos from "../pages/admin-ver-recibos/AdminVerRecibos";
 import Prueba from "../Prueba";
 import AdminCargarRecibo from "../pages/admin-cargar-recibo/AdminCargarRecibo";
-import ContinuarAuth from "../pages/continuar-auth/ContinuarAuth";
 
 export const AppRouter = () => {
   return (
@@ -42,7 +41,6 @@ export const AppRouter = () => {
           ></Route>
           <Route path="/cargar-usuario" element={<CargarUsuario />}></Route>
           <Route path="/prueba" element={<Prueba />}></Route>
-          <Route path="verificar" element={<ContinuarAuth />} />
         </Route>
         <Route path="/inicio" element={<Inicio />} />
       </Routes>
