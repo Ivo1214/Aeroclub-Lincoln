@@ -41,6 +41,26 @@
   flex-direction: row;
   height: 80%;
   width: 30%;
+  .bi{
+    height: clamp(2.3em,9em,3vw);
+    width: auto;
+  }
+  .bi:hover{
+      cursor: pointer;
+      transform:scale(1.2);
+  }
+  .bi-whatsapp{
+      fill: var(--whatsapp);
+  }
+  .bi-facebook{
+      fill: var(--facebook);
+  }
+  .bi-twitter-x{
+      fill: var(--twitter);
+  }
+  .bi-instagram{
+      fill: var(--instagram);
+  }
 }
 
 @media (max-width: 768px) {

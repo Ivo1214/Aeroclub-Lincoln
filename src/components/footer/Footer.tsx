@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import "./Footer.css";
 
 function Footer() {
@@ -18,29 +22,10 @@ function Footer() {
         alt="Logo Aero club Lincoln"
       />
       <div className="footerRedesContainer">
-        <a className="footerRedesLink">
-          <img
-            className="footerRedesLinkLogo"
-            src="http://drive.google.com/uc?export=view&id=1fATqxbF6ywa3v1EW2kNWDebAuT36PW0h"
-            alt="Facebook"
-          />
-        </a>
-
-        <a className="footerRedesLink">
-          <img
-            className="footerRedesLinkLogo"
-            src="http://drive.google.com/uc?export=view&id=1cvcesgKz1OaSPfBP8-Z37W69_CXIBSZG"
-            alt="Instagram"
-          />
-        </a>
-
-        <a className="footerRedesLink">
-          <img
-            className="footerRedesLinkLogo"
-            src="http://drive.google.com/uc?export=view&id=1I-Sc4hgFwdWGI9BZcC_7DtclYXGFKJW9"
-            alt="Whatsapp"
-          />
-        </a>
+        <TwitterIcon className="bi bi-twitter-x"/>
+        <FacebookIcon className="bi bi-facebook"/>
+        <InstagramIcon className="bi bi-instagram"/>
+        <WhatsAppIcon className="bi bi-whatsapp"/>
       </div>
     </div>
   );
