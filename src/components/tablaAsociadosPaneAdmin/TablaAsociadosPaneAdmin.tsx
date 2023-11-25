@@ -125,14 +125,15 @@ export default function TablaAsociadosPanelAdmin() {
           nombreCompleto: user.nombre + " " + user.apellido, 
           dni:  user.dni, email: user.email, 
           telefono: user.telefono, 
-          apellido: user.apellido, 
+          apellido: user.apellido,
           nombre: user.nombre,
           direccion: user.direccion,
           estado_hab_des: user.estado_hab_des,
           fecha_alta: user.fecha_alta,
           fecha_baja: user.fecha_baja,
           foto_perfil: user.foto_perfil,
-          roles: user.roles
+          roles: user.roles,
+          saldo: "Implementar"
         };
         return usuarioFormateado;
       });
@@ -233,6 +234,14 @@ export default function TablaAsociadosPanelAdmin() {
       width: 200,
       type: 'string'
     },
+    {
+        field: 'saldo',
+        headerName: 'Saldo',
+        type: 'number',
+        width: 100,
+        align: 'left',
+        headerAlign: 'left'
+      },
     // {
     //   field: 'dni',
     //   headerName: 'DNI',

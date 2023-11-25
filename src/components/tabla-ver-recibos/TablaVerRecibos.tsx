@@ -1,6 +1,7 @@
 import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
+import DownloadIcon from '@mui/icons-material/Download';
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   GridRowsProp,
@@ -14,12 +15,11 @@ import {
   GridRowEditStopReasons,
   esES,
 } from "@mui/x-data-grid";
-import { IconButton, InputBase, Modal, Paper } from "@mui/material";
-import { useState } from "react";
+import { Modal } from "@mui/material";
+import { useState, useEffect } from "react";
 
 import { apiReciboVuelos } from "../../services/apiReciboVuelos";
 
-import SearchIcon from "@mui/icons-material/Search";
 import { CardVerRecibo } from "../card-ver-recibo/CardVerRecibo";
 
 const theme = createTheme(
@@ -75,12 +75,6 @@ const modalStyle = {
 // }
 
 export default function TablaAsociadosPanelAdmin() {
-  // Borrar el valor cargado en useState, lo puse asi para realizar muestra/prueba del funcionamiento
-  const [busqueda, setBusqueda] = useState("");
-  const handleInputChange = (e: any) => {
-    // Actualizar el estado 'busqueda' cada vez que el valor del InputBase cambie
-    setBusqueda(e.target.value);
-  };
 
   // ************************************************************************************
   //                                    Manejo de la api
@@ -88,7 +82,7 @@ export default function TablaAsociadosPanelAdmin() {
   const [rows, setRows] = useState<GridRowsProp>([]);
   const fetchData = async () => {
     try {
-      const response = await apiReciboVuelos.get(busqueda);
+      const response = await apiReciboVuelos.get();
       let i = 0;
       // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar la tabla
       const resultado = response.respuesta.map((recibo: any) => {
@@ -110,6 +104,9 @@ export default function TablaAsociadosPanelAdmin() {
       // console.log(error.message);
     }
   };
+  useEffect(() => {
+    fetchData();
+  },[]);
 
   const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
     {}
@@ -140,6 +137,12 @@ export default function TablaAsociadosPanelAdmin() {
     setVerRecibo(rows.filter((row) => row.id === id));
     setOpen(true);
   };
+  
+  const handleDescargarClick = (id: GridRowId) => () => {
+    setVerRecibo(rows.filter((row) => row.id === id));
+    // Añadir logica para descargar el recibo
+    alert("Implementar logica para descargar el recibo");
+  };
 
   const processRowUpdate = (newRow: GridRowModel) => {
     const updatedRow = { ...newRow, isNew: false };
@@ -151,15 +154,8 @@ export default function TablaAsociadosPanelAdmin() {
     setRowModesModel(newRowModesModel);
   };
 
+  // Columnas de la tabla
   const columns: GridColDef[] = [
-    {
-      field: "id",
-      headerName: "ID",
-      type: "number",
-      width: 80,
-      align: "left",
-      headerAlign: "left",
-    },
     {
       field: "asociado",
       headerName: "Asociado",
@@ -215,6 +211,13 @@ export default function TablaAsociadosPanelAdmin() {
             onClick={handleVerClick(id)}
             color="inherit"
           />,
+          <GridActionsCellItem
+            icon={<DownloadIcon />}
+            label="Descargar recibo"
+            className="textPrimary"
+            onClick={handleDescargarClick(id)}
+            color="inherit"
+          />,
         ];
       },
     },
@@ -233,26 +236,6 @@ export default function TablaAsociadosPanelAdmin() {
         },
       }}
     >
-      <Paper
-        component="form"
-        sx={{ p: "2px 4px", display: "flex", alignItems: "center", width: 400 }}
-      >
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          value={busqueda}
-          placeholder="Buscar recibo de asociado"
-          inputProps={{ "aria-label": "Buscar recibo de asociado" }}
-          onChange={handleInputChange}
-        />
-        <IconButton
-          type="button"
-          onClick={fetchData}
-          sx={{ p: "10px" }}
-          aria-label="search"
-        >
-          <SearchIcon />
-        </IconButton>
-      </Paper>
       <ThemeProvider theme={theme}>
         <DataGrid
           rows={rows}

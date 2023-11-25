@@ -1,6 +1,6 @@
 import "./AdminVerRecibos.css";
 import TablaVerRecibos from "../../components/tabla-ver-recibos/TablaVerRecibos";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
