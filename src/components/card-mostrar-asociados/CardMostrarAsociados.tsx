@@ -72,9 +72,9 @@ function CardMostrarAsociados({ asociado }: Props) {
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Fecha Alta: {asociado.fecha_alta}  
           </Typography>
-          <Typography className="datos-asociados" variant="body2" color="text.secondary">
+          {/* <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Fecha Baja: {asociado.fecha_baja}
-          </Typography>
+          </Typography> */}
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Dirección: {asociado.direccion}
           </Typography>

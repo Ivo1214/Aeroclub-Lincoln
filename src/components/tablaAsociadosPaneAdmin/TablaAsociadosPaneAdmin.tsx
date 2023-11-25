@@ -217,35 +217,36 @@ export default function TablaAsociadosPanelAdmin() {
     setRowModesModel(newRowModesModel);
   };
 
+  // Columnas de la tabla
   const columns: GridColDef[] = [
-    {
-      field: 'id',
-      headerName: 'ID',
-      type: 'number',
-      width: 80,
-      align: 'left',
-      headerAlign: 'left'
-    },
+    // {
+    //   field: 'id',
+    //   headerName: 'ID',
+    //   type: 'number',
+    //   width: 80,
+    //   align: 'left',
+    //   headerAlign: 'left'
+    // },
     {
       field: 'nombreCompleto',
       headerName: 'Nombre Completo',
       width: 200,
       type: 'string'
     },
-    {
-      field: 'dni',
-      headerName: 'DNI',
-      type: 'number',
-      width: 100,
-      align: 'left',
-      headerAlign: 'left'
-    },
-    {
-      field: 'email',
-      headerName: 'E-Mail',
-      width: 250,
-      type: 'string'
-    },
+    // {
+    //   field: 'dni',
+    //   headerName: 'DNI',
+    //   type: 'number',
+    //   width: 100,
+    //   align: 'left',
+    //   headerAlign: 'left'
+    // },
+    // {
+    //   field: 'email',
+    //   headerName: 'E-Mail',
+    //   width: 250,
+    //   type: 'string'
+    // },
     {
       field: 'telefono',
       headerName: 'Telefono',
@@ -325,7 +326,6 @@ export default function TablaAsociadosPanelAdmin() {
       >
         <Box sx={modalStyle}>
           <AdminDetallesAsociados datos={verAsociado}/>
-          {/* <VerInfoAsociado datos={verAsociado}/> */}
         </Box>
       </Modal>
 

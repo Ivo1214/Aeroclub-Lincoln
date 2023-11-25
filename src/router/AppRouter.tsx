@@ -6,18 +6,19 @@ import AdminAdministrarUsuarios from "../pages/admin-administrar-usuarios/AdminA
 import AdminEditarUsuarios from "../pages/admin-editar-usuarios/AdminEditarUsuarios";
 import AdminDetallesAsociados from "../pages/admin-detalles-asociados/AdminDetallesAsociados";
 import PanelAsociados from "../pages/panel-asociados/PanelAsociados";
-import FormEditUsuario  from "../components/form-edit-usuario/FormEditUsuario";
+import FormEditUsuario from "../components/form-edit-usuario/FormEditUsuario";
 import CargarUsuario from "../components/cargar-usuario/CargarUsuario";
 import AdminVerRecibos from "../pages/admin-ver-recibos/AdminVerRecibos";
 import Prueba from "../Prueba";
 import AdminCargarRecibo from "../pages/admin-cargar-recibo/AdminCargarRecibo";
+import ContinuarAuth from "../pages/continuar-auth/ContinuarAuth";
 
 export const AppRouter = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          {/* <Route index element={<Inicio />}></Route> */}
+          <Route index element={<Inicio />}></Route>
           <Route
             path="panel-administrador"
             element={<PanelAdministradores />}
@@ -30,24 +31,20 @@ export const AppRouter = () => {
             path="admin-editar-usuarios"
             element={<AdminEditarUsuarios />}
           />
+          <Route path="panel-asociado" element={<PanelAsociados />} />
           <Route
-            path="panel-asociado"
-            element={<PanelAsociados/>}
-          />
+            path="/admin-ver-recibos"
+            element={<AdminVerRecibos />}
+          ></Route>
           <Route
-          path="/admin-ver-recibos"
-          element={<AdminVerRecibos/>}></Route>
-          <Route
-          path="/admin-cargar-recibos"
-          element={<AdminCargarRecibo/>}></Route>
-          <Route
-          path="/cargar-usuario"
-          element={<CargarUsuario/>}></Route>
-          <Route
-          path="/prueba"
-          element={<Prueba/>}></Route>
+            path="/admin-cargar-recibos"
+            element={<AdminCargarRecibo />}
+          ></Route>
+          <Route path="/cargar-usuario" element={<CargarUsuario />}></Route>
+          <Route path="/prueba" element={<Prueba />}></Route>
+          <Route path="verificar" element={<ContinuarAuth />} />
         </Route>
-        <Route path="/inicio" element={<Inicio />}/>
+        <Route path="/inicio" element={<Inicio />} />
       </Routes>
     </>
   );

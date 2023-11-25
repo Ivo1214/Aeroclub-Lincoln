@@ -1,21 +1,35 @@
-import React from 'react';
-import {Footer} from '../../components/footer/Footer';
-import NavBar from '../../components/landing-page-components/navbar/NavBar';
-import Banner from '../../components/landing-page-components/banner/Banner';
-import Informacion from '../../components/landing-page-components/informacion/Informacion';
-import Contacto from '../../components/landing-page-components/contacto/Contacto';
-import './inicio.css'
+import React from "react";
+import Banner from "../../components/landing-page-components/banner/Banner";
+import Informacion from "../../components/landing-page-components/informacion/Informacion";
+import Contacto from "../../components/landing-page-components/contacto/Contacto";
+import "./inicio.css";
+import { LoginGoogle } from "../../components/login-google/Login-google";
+import { LogoutGoogle } from "../../components/logout-google/Logout-google";
+import { useEffect } from "react";
+import { gapi } from "gapi-script";
+import { useAuthToken } from "../../hooks/useAuthToken";
 
 const Inicio = () => {
+  const clientId = import.meta.env.VITE_CLIENT_ID;
+
+  useEffect(() => {
+    function start() {
+      gapi.client.init({
+        clientId: clientId,
+        scope: "",
+      });
+    }
+
+    gapi.load("client:auth2", start);
+  }, []);
+
   return (
-  <div className="home-page">
-    <NavBar></NavBar>
-    <Banner></Banner>
-    <Informacion></Informacion>
-    <Contacto></Contacto>
-    <Footer></Footer>
-  </div>
-  )
+    <div className="home-page">
+      <Banner></Banner>
+      <Informacion></Informacion>
+      <Contacto></Contacto>
+    </div>
+  );
 };
 
 export default Inicio;

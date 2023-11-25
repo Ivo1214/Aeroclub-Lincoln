@@ -69,9 +69,6 @@ body .navbar {
 .nav-item .dropdown button{
   background-color: var(--azulClaro);
 }
-.nav-item a{
-  cursor: pointer !important;
-}
 
 .dropdown h4{
   margin: 0;
