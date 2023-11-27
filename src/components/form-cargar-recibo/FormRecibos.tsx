@@ -1,252 +1,371 @@
 import * as React from "react";
-import dayjs, { Dayjs } from "dayjs";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
 import { useEffect, useState } from "react";
 import FormGroup from "@mui/material/FormGroup";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
 import "./formRecibos.css";
-import MenuItem from "@mui/material/MenuItem";
-import { Select, SelectChangeEvent } from "@mui/material";
-import { apiReciboVuelos } from "../../services/apiReciboVuelos";
-import { DateTimePicker, renderTimeViewClock } from "@mui/x-date-pickers";
+import { Autocomplete, Checkbox, FormControlLabel } from "@mui/material";
+import { apiUsuarios } from "../../services/apiUsuarios";
 
-interface FormValues {
-  horaSalida: string;
-  codAeroSalida: string;
-  horaLlegada: string;
-  codAeroLlegada: string;
-  cantAterrizajes: string;
-  tipoItinerario: string;
+
+
+// ************************************************************************************
+//                               Manejo de itinerarios
+// ************************************************************************************
+
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import CancelIcon from '@mui/icons-material/Close';
+import {
+  GridRowsProp,
+  GridRowModesModel,
+  GridRowModes,
+  DataGrid,
+  GridColDef,
+  GridToolbarContainer,
+  GridActionsCellItem,
+  GridEventListener,
+  GridRowId,
+  GridRowModel,
+  GridRowEditStopReasons,
+} from '@mui/x-data-grid';
+import {
+  randomId,
+} from '@mui/x-data-grid-generator';
+import { apiAeronaves } from "../../services/apiAeronaves";
+import { usuarioEnSesion } from "../../atomos/atoms";
+import { useRecoilState } from "recoil";
+
+
+const initialRows: GridRowsProp = [
+  {
+    id: randomId()
+  }
+];
+
+interface EditToolbarProps {
+  setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
+  setRowModesModel: (
+    newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
+  ) => void;
 }
 
-export default function FormRecibos() {
-  // Manejo de itinerarios
-  const [cantidadItinerarios, setCantidadItinerarios] = React.useState("1");
-  const handleChange = (event: SelectChangeEvent) => {
-    setCantidadItinerarios(event.target.value);
+function EditToolbar(props: EditToolbarProps) {
+  const { setRows, setRowModesModel } = props;
+
+  const handleClick = () => {
+    const id = randomId();
+    setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+    setRowModesModel((oldModel) => ({
+      ...oldModel,
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+    }));
   };
 
-  const [dateValuesSalida, setDateValuesSalida] = React.useState<
-    (Dayjs | null)[]
-  >(new Array(parseInt(cantidadItinerarios)).fill(dayjs("2022-04-17")));
-  const [dateValuesLlegada, setDateValuesLlegada] = React.useState<
-    (Dayjs | null)[]
-  >(new Array(parseInt(cantidadItinerarios)).fill(dayjs("2022-04-17")));
-
-  const [formValues, setFormValues] = useState<FormValues[]>(
-    new Array(parseInt(cantidadItinerarios)).fill({
-      horaSalida: "",
-      codAeroSalida: "",
-      horaLlegada: "",
-      codAeroLlegada: "",
-      cantAterrizajes: "",
-      tipoItinerario: "",
-    })
+  return (
+    <GridToolbarContainer>
+      <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+        Añadir Itinerario
+      </Button>
+    </GridToolbarContainer>
   );
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export default function FormRecibos() {
+  // Cargo el input de gestor con el usuario de la sesion
+  const [userSesion, setUserSesion] = useRecoilState(usuarioEnSesion);
+  // ************************************************************************************
+  //                            Carga del selector de usuarios
+  // ************************************************************************************
+
+  const [asociados, setAsociados] = useState([]);
+  const fetchDataAsociados = async () => {
+    try {
+      const response = await apiUsuarios.getUsuarios();
+      // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar el selector de asociados
+      const resultado = response.map((user: any)=>{
+        const usuarioFormateado = { 
+          id: user.id_usuarios,
+          nombre: user.nombre + " " + user.apellido,
+          email: user.email
+        };
+        return usuarioFormateado;
+      });
+      setAsociados (resultado);
+    } catch (error:any) {
+      console.log(error.message);
+    }
+  };
+
+  const [value, setValue] = React.useState<string | null>(asociados[0]);
+  const [inputValue, setInputValue] = React.useState('');
+
+
+  // ************************************************************************************
+  //                            Carga del selector de matriculas
+  // ************************************************************************************
+
+  const [matriculas, setmatriculas] = useState([]);
+  const fetchDataMatriculas = async () => {
+    try {
+      const response = await apiAeronaves.get();
+      // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar el selector de matriculas
+      const resultado = response.map((aeronave: any)=>{
+        const matriculaFormateada = { 
+          label: aeronave.matricula
+        };
+        return matriculaFormateada;
+      });
+      setmatriculas (resultado);
+    } catch (error:any) {
+      console.log(error.message);
+    }
+  };
+
+  // ************************************************************************************
+  //                               Vuelo con instructor
+  // ************************************************************************************
+  const [conInstructor, setConInstructor] = React.useState(false);
+
+  const handleChangeInstructor = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setConInstructor(event.target.checked);
+    setValueInstructor("");
+    setInputValueInstructor('');
+  };
+
+  const [instructores, setInstructores] = useState([]);
+  const fetchDataInstructores = async () => {
+    try {
+      const response = await apiUsuarios.getUsuarios();
+      // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar el selector de asociados
+      const resultado = response.map((user: any)=>{
+        const usuarioFormateado = { 
+          id: user.id_usuarios,
+          nombre: user.nombre + " " + user.apellido,
+          email: user.email
+        };
+        return usuarioFormateado;
+      });
+      setInstructores (resultado);
+    } catch (error:any) {
+      console.log(error.message);
+    }
+  };
+
+  const [valueInstructor, setValueInstructor] = React.useState<string | null>(instructores[0]);
+  const [inputValueInstructor, setInputValueInstructor] = React.useState('');
+
+
   useEffect(() => {
-    setFormValues(
-      new Array(parseInt(cantidadItinerarios)).fill({
-        horaSalida: "",
-        codAeroSalida: "",
-        horaLlegada: "",
-        codAeroLlegada: "",
-        cantAterrizajes: "",
-        tipoItinerario: "",
-      })
-    );
-    setDateValuesSalida(
-      new Array(parseInt(cantidadItinerarios)).fill(dayjs("2022-04-17"))
-    );
-    setDateValuesLlegada(
-      new Array(parseInt(cantidadItinerarios)).fill(dayjs("2022-04-17"))
-    );
-  }, [cantidadItinerarios]);
+    fetchDataAsociados();
+    fetchDataMatriculas();
+    fetchDataInstructores();
+  }, []);
+  // ************************************************************************************
+  //                               Manejo de itinerarios
+  // ************************************************************************************
+  const [rows, setRows] = React.useState(initialRows);
+  const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
 
-  const handleDateChangeSalida = (
-    itineraryIndex: number,
-    newValue: Dayjs | null
-  ) => {
-    const newDateValues = [...dateValuesSalida];
-    newDateValues[itineraryIndex] = newValue;
-    setDateValuesSalida(newDateValues);
-
-    const newFormValues = [...formValues];
-    newFormValues[itineraryIndex] = {
-      ...newFormValues[itineraryIndex],
-      horaSalida: newValue?.format("YYYY-MM-DD HH:mm:ss") || "",
-    };
-    setFormValues(newFormValues);
-  };
-
-  const handleDateChangeLlegada = (
-    itineraryIndex: number,
-    newValue: Dayjs | null
-  ) => {
-    const newDateValues = [...dateValuesLlegada];
-    newDateValues[itineraryIndex] = newValue;
-    setDateValuesLlegada(newDateValues);
-
-    const newFormValues = [...formValues];
-    newFormValues[itineraryIndex] = {
-      ...newFormValues[itineraryIndex],
-      horaLlegada: newValue?.format("YYYY-MM-DD HH:mm:ss") || "",
-    };
-    setFormValues(newFormValues);
-  };
-
-  const handleInputChange = (
-    formIndex: number,
-    fieldName: keyof FormValues,
-    value: string
-  ) => {
-    const newFormValues = [...formValues];
-    newFormValues[formIndex] = {
-      ...newFormValues[formIndex],
-      [fieldName]: value,
-      horaSalida:
-        dateValuesSalida[formIndex]?.format("YYYY-MM-DD HH:mm:ss") || "",
-      horaLlegada:
-        dateValuesLlegada[formIndex]?.format("YYYY-MM-DD HH:mm:ss") || "",
-    };
-    // Extract and store time values separately
-    if (fieldName === "horaSalida" || fieldName === "horaLlegada") {
-      // Use dateValuesLlegada for "Hora de llegada"
-      newFormValues[formIndex][fieldName] =
-        dateValuesLlegada[formIndex]?.format("YYYY-MM-DD HH:mm:ss") || "";
-    }
-    setFormValues(newFormValues);
-  };
-
-  const generateForms = () => {
-    const forms = [];
-    for (let i = 0; i < parseInt(cantidadItinerarios); i++) {
-      forms.push(
-        <LocalizationProvider key={i} dateAdapter={AdapterDayjs}>
-          <Box key={i} className="fila-formulario-recibo-observaciones">
-            <h2>Itinerario {i + 1}</h2>
-            {/* Hora de salida */}
-            <DemoContainer components={["DatePicker"]}>
-              <DateTimePicker
-                format="YYYY-MM-DD HH:mm:ss"
-                value={dateValuesSalida[i]}
-                onChange={(newValue) => handleDateChangeSalida(i, newValue)}
-                label="Hora de salida"
-                viewRenderers={{
-                  hours: renderTimeViewClock,
-                  minutes: renderTimeViewClock,
-                  seconds: renderTimeViewClock,
-                }}
-                slotProps={{
-                  textField: {
-                    helperText: "YYYY-MM-DD HH:mm:ss",
-                  },
-                }}
-              />
-            </DemoContainer>
-            {/* Aeropuerto de salida */}
-            <TextField
-              id={`codAeroSalida-${i}`}
-              label={`Aeropuerto de salida`}
-              variant="filled"
-              defaultValue=""
-              onBlur={(e) => handleValidation(e.target.value)}
-              onChange={(e) =>
-                handleInputChange(i, "codAeroSalida", e.target.value)
-              }
-            />
-            {/* Hora de llegada */}
-            <DemoContainer components={["DatePicker"]}>
-              <DateTimePicker
-                format="YYYY-MM-DD HH:mm:ss"
-                value={dateValuesLlegada[i]}
-                onChange={(newValue) => handleDateChangeLlegada(i, newValue)}
-                label="Hora de llegada"
-                viewRenderers={{
-                  hours: renderTimeViewClock,
-                  minutes: renderTimeViewClock,
-                  seconds: renderTimeViewClock,
-                }}
-                slotProps={{
-                  textField: {
-                    helperText: "YYYY-MM-DD HH:mm:ss",
-                  },
-                }}
-              />
-            </DemoContainer>
-            {/* Aeropuerto de llegada */}
-            <TextField
-              id={`codAeroLlegada-${i}`}
-              label={`Aeropuerto de llegada`}
-              variant="filled"
-              defaultValue=""
-              onBlur={(e) => handleValidation(e.target.value)}
-              onChange={(e) =>
-                handleInputChange(i, "codAeroLlegada", e.target.value)
-              }
-            />
-            {/* Cantidad de aterrizajes */}
-            <TextField
-              id={`cantAterrizajes-${i}`}
-              label={`Cantidad de aterrizajes`}
-              variant="filled"
-              defaultValue=""
-              onBlur={(e) => handleValidation(e.target.value)}
-              onChange={(e) =>
-                handleInputChange(i, "cantAterrizajes", e.target.value)
-              }
-            />
-            {/* Tipo de itinerario */}
-            <TextField
-              id={`tipoItinerario-${i}`}
-              label={`Tipo de itinerario`}
-              variant="filled"
-              defaultValue=""
-              onBlur={(e) => handleValidation(e.target.value)}
-              onChange={(e) =>
-                handleInputChange(i, "tipoItinerario", e.target.value)
-              }
-            />
-          </Box>
-        </LocalizationProvider>
-      );
-    }
-    return forms;
-  };
-
-  // Opcion para controlar ingreso de datos. Esta mal implementado, es solo de muestra
-  const [error, setError] = useState("");
-  const handleValidation = (inputValue: any) => {
-    if (inputValue.length === 0) {
-      setError("Este campo es obligatorio.");
-    } else {
-      setError("");
+  const handleRowEditStop: GridEventListener<'rowEditStop'> = (params, event) => {
+    if (params.reason === GridRowEditStopReasons.rowFocusOut) {
+      event.defaultMuiPrevented = true;
     }
   };
 
-  // Funcion OnSubmit
+  const handleEditClick = (id: GridRowId) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  };
+
+  const handleSaveClick = (id: GridRowId) => () => {
+    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+  };
+
+  const handleDeleteClick = (id: GridRowId) => () => {
+    setRows(rows.filter((row) => row.id !== id));
+  };
+
+  const handleCancelClick = (id: GridRowId) => () => {
+    setRowModesModel({
+      ...rowModesModel,
+      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+    });
+
+    const editedRow = rows.find((row) => row.id === id);
+    if (editedRow!.isNew) {
+      setRows(rows.filter((row) => row.id !== id));
+    }
+  };
+
+  const processRowUpdate = (newRow: GridRowModel) => {
+    const updatedRow = { ...newRow, isNew: false };
+    setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+    return updatedRow;
+  };
+
+  const handleRowModesModelChange = (newRowModesModel: GridRowModesModel) => {
+    setRowModesModel(newRowModesModel);
+  };
+
+  // Columnas de la tabla
+  const columns: GridColDef[] = [
+    {
+      field: 'horaSalida',
+      headerName: 'Hora Salida',
+      type: 'dateTime',
+      width: 150,
+      align: 'left',
+      headerAlign: 'left',
+      editable: true,
+    },
+    { 
+      field: 'horaLlegada', 
+      headerName: 'Hora Llegada',
+      type: 'dateTime',
+      width: 150,
+      align: 'left',
+      headerAlign: 'left',
+      editable: true,
+    },
+    {
+      field: 'codAeroLlegada',
+      headerName: 'Lugar Llegada',
+      type: 'string',
+      width: 110,
+      align: 'left',
+      headerAlign: 'left',
+      editable: true,
+    },
+    {
+      field: 'codAeroSalida',
+      headerName: 'Lugar Salida',
+      type: 'string',
+      width: 100,
+      align: 'left',
+      headerAlign: 'left',
+      editable: true,
+    },
+    {
+      field: 'cantAterrizajes',
+      headerName: 'Aterrizajes',
+      type: 'number',
+      width: 80,
+      align: 'left',
+      headerAlign: 'left',
+      editable: true,
+    },
+    {
+      field: 'tipoItinerario',
+      headerName: 'Tipo itinerario',
+      width: 120,
+      editable: true,
+      type: 'singleSelect',
+      valueOptions: ['Comando', 'tipo2', 'tipo3'],
+    },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'Opciones',
+      width: 100,
+      cellClassName: 'actions',
+      getActions: ({ id }) => {
+        const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
+
+        if (isInEditMode) {
+          return [
+            <GridActionsCellItem
+              icon={<SaveIcon />}
+              label="Guardar"
+              sx={{
+                color: 'primary.main',
+              }}
+              onClick={handleSaveClick(id)}
+            />,
+            <GridActionsCellItem
+              icon={<CancelIcon />}
+              label="Cancelar"
+              className="textPrimary"
+              onClick={handleCancelClick(id)}
+              color="inherit"
+            />,
+          ];
+        }
+
+        return [
+          <GridActionsCellItem
+            icon={<EditIcon />}
+            label="Editar"
+            className="textPrimary"
+            onClick={handleEditClick(id)}
+            color="inherit"
+          />,
+          <GridActionsCellItem
+            icon={<DeleteIcon />}
+            label="Borrar"
+            onClick={handleDeleteClick(id)}
+            color="inherit"
+          />,
+        ];
+      },
+    },
+  ];
+  
+
+
+
+
+  
+
+  
+
+
+  // ************************************************************************************
+  //                                  Funcion OnSubmit
+  // ************************************************************************************
   const enviar = async (e: React.FormEvent) => {
     e.preventDefault();
     const datos = {
-      emailAsociado: e.target.emailAsociado.value,
-      emailInstructor: e.target.emailInstructor.value,
+      emailAsociado: value.email,
+      emailInstructor: valueInstructor.email,
       emailGestor: e.target.emailGestor.value,
       observaciones: e.target.observaciones.value,
       matricula: e.target.matricula.value,
-      itinerarios: formValues,
+      itinerarios: rows,
     };
-    // console.log("Valores de los formularios:", formValues);
-    try {
-      await apiReciboVuelos.post(datos);
-    } catch (error: any) {
-      console.log(error.message);
-    }
+    // console.log("Valores de los formularios:", rows);
+    console.log(datos);
+    // try {
+    //   await apiReciboVuelos.post(datos);
+    // } catch (error: any) {
+    //   console.log(error.message);
+    // }
   };
 
   return (
@@ -259,34 +378,57 @@ export default function FormRecibos() {
           }}
         >
           <Box className="fila-formulario-editar-usuario">
-            <TextField
+            <Autocomplete
+              disablePortal
               id="emailAsociado"
-              label="E-mail Asociado"
-              variant="filled"
-              defaultValue=""
-              helperText={error}
-              error={Boolean(error)}
-              onBlur={(e) => handleValidation(e.target.value)}
+              options={asociados}
+              getOptionLabel={(asociados) => asociados.nombre}
+              value={value}
+              onChange={(event: any, newValue: string | null) => {
+                setValue(newValue);
+              }}
+              inputValue={inputValue}
+              onInputChange={(event, newInputValue) => {
+                setInputValue(newInputValue);
+              }}
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="Asociado *" />}
             />
-            <TextField
+          </Box>
+          <Box className="fila-formulario-editar-usuario">
+            <FormControlLabel control={
+              <Checkbox
+                checked={conInstructor}
+                onChange={handleChangeInstructor}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />} 
+              label="¿Vuelo con instrucción?" 
+            />
+            <Autocomplete
+              disabled={!conInstructor}
+              disablePortal
               id="emailInstructor"
-              label="E-mail Instructor"
-              variant="filled"
-              defaultValue=""
-              helperText={error}
-              error={Boolean(error)}
-              onBlur={(e) => handleValidation(e.target.value)}
+              options={instructores}
+              getOptionLabel={(instructores) => instructores.nombre}
+              value={valueInstructor}
+              onChange={(event: any, newValue: string | null) => {
+                setValueInstructor(newValue);
+              }}
+              inputValue={inputValueInstructor}
+              onInputChange={(event, newInputValue) => {
+                setInputValueInstructor(newInputValue);
+              }}
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="Instructor" />}
             />
           </Box>
           <Box className="fila-formulario-editar-usuario">
             <TextField
               id="emailGestor"
-              label="E-mail Gestor"
+              value={userSesion.email}
+              label="E-mail Gestor *"
               variant="filled"
               defaultValue=""
-              helperText={error}
-              error={Boolean(error)}
-              onBlur={(e) => handleValidation(e.target.value)}
             />
           </Box>
 
@@ -300,56 +442,55 @@ export default function FormRecibos() {
           </Box>
 
           <Box className="fila-formulario-editar-usuario">
-            <TextField
-              id="matricula"
-              label="Matricula"
-              variant="filled"
-              defaultValue=""
-              helperText={error}
-              error={Boolean(error)}
-              onBlur={(e) => handleValidation(e.target.value)}
-            />
+          <Autocomplete
+            disablePortal
+            id="matricula"
+            options={matriculas}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Matricula *" />}
+          />
           </Box>
 
           <Box className="fila-formulario-recibo-observaciones">
             <h1>Itinerarios</h1>
           </Box>
 
-          <Box sx={{ minWidth: 120 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">Cantidad</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={cantidadItinerarios}
-                label="Cantidad"
-                onChange={handleChange}
-              >
-                <MenuItem value={1}>1</MenuItem>
-                <MenuItem value={2}>2</MenuItem>
-                <MenuItem value={3}>3</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
+          <Box
+      sx={{
+        height: 500,
+        width: '100%',
+        '& .actions': {
+          color: 'text.secondary',
+        },
+        '& .textPrimary': {
+          color: 'text.primary',
+        },
+      }}
+    >
+      <DataGrid
+        rows={rows}
+        columns={columns}
+        editMode="row"
+        rowModesModel={rowModesModel}
+        onRowModesModelChange={handleRowModesModelChange}
+        onRowEditStop={handleRowEditStop}
+        processRowUpdate={processRowUpdate}
+        slots={{
+          toolbar: EditToolbar,
+        }}
+        slotProps={{
+          toolbar: { setRows, setRowModesModel },
+        }}
+      />
+    </Box>
 
-          {/* Generar dinámicamente los formularios según la cantidad seleccionada */}
-          {generateForms()}
-          {/* <Box className="fila-formulario-recibo-observaciones">
-        <TextField
-          id="horasVuelo"
-          label="Cantidad de horas de vuelo"
-          variant="filled"
-          defaultValue=""
-          helperText={error}
-          error={Boolean(error)}
-          onBlur={(e) => handleValidation(e.target.value)}
-        />
-        </Box> */}
+          
 
-          <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+          
+        </FormGroup>
+        <Button type="submit" variant="contained" endIcon={<SendIcon />}>
             Enviar
           </Button>
-        </FormGroup>
       </LocalizationProvider>
     </form>
   );

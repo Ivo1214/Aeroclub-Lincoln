@@ -123,7 +123,8 @@ export default function TablaAsociadosPanelAdmin() {
         const usuarioFormateado = { 
           id: user.id_usuarios,
           nombreCompleto: user.nombre + " " + user.apellido, 
-          dni:  user.dni, email: user.email, 
+          dni:  user.dni, 
+          email: user.email, 
           telefono: user.telefono, 
           apellido: user.apellido,
           nombre: user.nombre,

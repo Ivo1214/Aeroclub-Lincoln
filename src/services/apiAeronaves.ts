@@ -7,7 +7,7 @@ export const apiAeronaves = {
 
   get: async function () {
     const response = await client.request({
-      url: `/aeronaves`,
+      url: `/aeronaves/`,
       method: "GET",
       headers: {
         Authorization: "bearer " + getTokenLocal,
