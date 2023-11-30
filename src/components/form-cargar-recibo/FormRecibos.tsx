@@ -139,7 +139,8 @@ export default function FormRecibos() {
       // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar el selector de matriculas
       const resultado = response.map((aeronave: any)=>{
         const matriculaFormateada = { 
-          label: aeronave.matricula
+          matricula: aeronave.matricula,
+          label: aeronave.modelo + " (" + aeronave.matricula + ")"
         };
         return matriculaFormateada;
       });
@@ -149,6 +150,8 @@ export default function FormRecibos() {
     }
   };
 
+  const [valueAeronave, setValueAeronave] = React.useState<string | null>(asociados[0]);
+  const [inputValueAeronave, setInputValueAeronave] = React.useState('');
   // ************************************************************************************
   //                               Vuelo con instructor
   // ************************************************************************************
@@ -156,11 +159,11 @@ export default function FormRecibos() {
 
   const handleChangeInstructor = (event: React.ChangeEvent<HTMLInputElement>) => {
     setConInstructor(event.target.checked);
-    setValueInstructor("");
+    setValueInstructor(null);
     setInputValueInstructor('');
   };
 
-  const [instructores, setInstructores] = useState([]);
+  const [instructores, setInstructores] = useState([{email: "", nombre: "Seleccionar"}]);
   const fetchDataInstructores = async () => {
     try {
       const response = await apiUsuarios.getUsuarios();
@@ -351,12 +354,30 @@ export default function FormRecibos() {
   // ************************************************************************************
   const enviar = async (e: React.FormEvent) => {
     e.preventDefault();
+    // Verifico si el email del instructor es null, en caso que lo sea cargo la variable con un string vacio
+    const emailInstructor = valueInstructor?.email || '';
+    console.log(emailInstructor);
+
+
+    // Validar que el día de llegada sea mayor al día de salida
+    const itinerariosValidos = rows.every((itinerario) => {
+      const horaSalida = itinerario.horaSalida as Date;
+      const horaLlegada = itinerario.horaLlegada as Date;
+      return horaSalida < horaLlegada;
+    });
+
+    if (!itinerariosValidos) {
+      alert('El día de llegada debe ser mayor al día de salida en todos los itinerarios.');
+      // Puedes mostrar un mensaje de error al usuario o tomar alguna acción adicional
+      return;
+    }
+
     const datos = {
       emailAsociado: value.email,
-      emailInstructor: valueInstructor.email,
+      emailInstructor: emailInstructor,
       emailGestor: e.target.emailGestor.value,
       observaciones: e.target.observaciones.value,
-      matricula: e.target.matricula.value,
+      matricula: valueAeronave.matricula,
       itinerarios: rows,
     };
     // console.log("Valores de los formularios:", rows);
@@ -419,7 +440,11 @@ export default function FormRecibos() {
                 setInputValueInstructor(newInputValue);
               }}
               sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Instructor" />}
+              renderInput={(params) => <TextField
+                {...params}
+                label="Instructor"
+                hidden={!conInstructor}
+              />}
             />
           </Box>
           <Box className="fila-formulario-editar-usuario">
@@ -436,19 +461,35 @@ export default function FormRecibos() {
             <TextField
               id="observaciones"
               label="Observaciones"
-              placeholder="Placeholder"
+              placeholder=""
               multiline
             />
           </Box>
 
           <Box className="fila-formulario-editar-usuario">
           <Autocomplete
+              disablePortal
+              id="matricula"
+              options={matriculas}
+              getOptionLabel={(matriculas) => matriculas.label}
+              value={valueAeronave}
+              onChange={(event: any, newValue: string | null) => {
+                setValueAeronave(newValue);
+              }}
+              inputValue={inputValueAeronave}
+              onInputChange={(event, newInputValue) => {
+                setInputValueAeronave(newInputValue);
+              }}
+              sx={{ width: 300 }}
+              renderInput={(params) => <TextField {...params} label="Aeronave *" />}
+            />
+          {/* <Autocomplete
             disablePortal
             id="matricula"
             options={matriculas}
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} label="Matricula *" />}
-          />
+          /> */}
           </Box>
 
           <Box className="fila-formulario-recibo-observaciones">
