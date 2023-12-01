@@ -71,16 +71,77 @@ export default function Header() {
           />
           Aeroclub Lincoln
         </a>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+        <div className="separacion-nav">
+        <h5>{`${sessionStorage.getItem("nombre")}`}</h5>
+          <div className="dropdown rol-nav">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="roleDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {selectedRole}
+            </button>
+            <ul className="dropdown-menu" aria-labelledby="roleDropdown">
+              <li>
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => handleRoleSelection("Usuario")}
+                >
+                  Usuario
+                </a>
+              </li>
+              <li>
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => handleRoleSelection("Asociado")}
+                >
+                  Asociado
+                </a>
+              </li>
+              <li>
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => handleRoleSelection("Instructor")}
+                >
+                  Instructor
+                </a>
+              </li>
+              <li>
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => handleRoleSelection("Gestor")}
+                >
+                  Gestor
+                </a>
+              </li>
+              <li>
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  onClick={() => handleRoleSelection("Mecanico")}
+                >
+                  Mecanico
+                </a>
+              </li>
+            </ul>
+          </div>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+        </div>
         <div
           className="offcanvas offcanvas-end"
           id="offcanvasNavbar"
@@ -90,9 +151,9 @@ export default function Header() {
             <Avatar
               className="avatar"
               alt="Remy Sharp"
-              src="https://cdn.discordapp.com/attachments/623709532555575296/1173703466930151525/image.png?ex=6564eb88&is=65527688&hm=e56f9236b040b402deb80122197c9897d21b420dd5ed599b11174791f1807ba7&"
+              src={sessionStorage.getItem("avatar")}
             ></Avatar>
-            <h3>{`${userSesion.email}`}</h3>
+            <h4>{`${sessionStorage.getItem("nombre")}`}</h4>
             <button
               type="button"
               className="btn-close"
@@ -103,7 +164,7 @@ export default function Header() {
           <div className="offcanvas-body">
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
               {/*Aca agrego los botones de login y logout segun si esta loggeado o no */}
-              <li className="nav-item">
+              <li className="login-google">
                 {changeSesion ? <LogoutGoogle /> : <LoginGoogle />}
               </li>
               <li className="nav-item">

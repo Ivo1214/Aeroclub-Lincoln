@@ -47,7 +47,8 @@ function LoginGoogle() {
     setOpen(true);
     //aca tengo que guardar en un estado global el mail
     console.log("email: ", res.profileObj.email);
-
+    sessionStorage.setItem("nombre", res.profileObj.name); //no funciona el atom
+    sessionStorage.setItem("avatar", res.profileObj.imageUrl); //no funciona el atom
     setEmail(res.profileObj.email);
 
   };
