@@ -136,10 +136,9 @@ export const apiUsuarios = {
     //     url: `/usuarios/${email}`,
     //     method: 'DELETE',
     //     headers: {
-    //         Authorization:
-    //           "bearer ",
-    //         "content-type": "application/json",
-    //       }
+    //       Authorization: "bearer " + getTokenLocal,
+    //       "content-type": "application/json",
+    //     },
     // });
 
     // if (response) {
