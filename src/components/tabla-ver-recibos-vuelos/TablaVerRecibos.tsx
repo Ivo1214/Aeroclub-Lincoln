@@ -20,7 +20,7 @@ import { useState, useEffect } from "react";
 
 import { apiReciboVuelos } from "../../services/apiReciboVuelos";
 
-import { CardVerRecibo } from "../card-ver-recibo/CardVerRecibo";
+import { CardVerRecibo } from "../card-ver-recibo-vuelo/CardVerRecibo";
 
 const theme = createTheme(
   {
@@ -42,38 +42,6 @@ const modalStyle = {
   p: 4,
 };
 
-// ************************************************************************************
-// Esto te permite añadir una tupla a la lista, esta comentado por si lo necesitamos
-// ************************************************************************************
-
-// interface EditToolbarProps {
-//   setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
-//   setRowModesModel: (
-//     newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
-//   ) => void;
-// }
-
-// function EditToolbar(props: EditToolbarProps) {
-//   const { setRows, setRowModesModel } = props;
-
-//   const handleClick = () => {
-//     const id = randomId();
-//     setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
-//     setRowModesModel((oldModel) => ({
-//       ...oldModel,
-//       [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-//     }));
-//   };
-
-//   return (
-//     <GridToolbarContainer>
-//       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-//         Add record
-//       </Button>
-//     </GridToolbarContainer>
-//   );
-// }
-
 export default function TablaAsociadosPanelAdmin() {
 
   // ************************************************************************************
@@ -82,7 +50,7 @@ export default function TablaAsociadosPanelAdmin() {
   const [rows, setRows] = useState<GridRowsProp>([]);
   const fetchData = async () => {
     try {
-      const response = await apiReciboVuelos.get();
+      const response = await apiReciboVuelos.get("elpopon@example.com");
       let i = 0;
       // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar la tabla
       const resultado = response.respuesta.map((recibo: any) => {
@@ -174,7 +142,7 @@ export default function TablaAsociadosPanelAdmin() {
       field: "instructor",
       headerName: "Instructor",
       width: 250,
-      type: "string",
+      type: "string"
     },
     {
       field: "matricula",

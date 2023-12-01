@@ -70,7 +70,6 @@ function PanelAdministradores() {
           <div className="panelAdminContainerCardClima">
             <CardClima></CardClima>
           </div>
-          <CondicionPista />
         </div>
       </div>
 

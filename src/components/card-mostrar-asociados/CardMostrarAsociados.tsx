@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Box from "@mui/material/Box";
+import formatearFecha from "../../functions/formatearFecha/formatearFecha";
 
 interface Props {
   asociado: Usuarios;
@@ -16,7 +17,7 @@ function CardMostrarAsociados({ asociado }: Props) {
 
   function listaRoles () {
     let roles = asociado.roles[0];
-
+    try {
       // Si no es un array (Solo tiene 1 rol cargado) devuelvo 1 solo Typography
     if (!Array.isArray(roles)) {
       return (
@@ -36,6 +37,14 @@ function CardMostrarAsociados({ asociado }: Props) {
         ))}
       </div>
     );
+    }
+    catch (error) {
+      return (
+        <Typography className="datos-asociados" variant="body2" color="textSecondary">
+            Este asociado no posee un rol...
+        </Typography>
+      );
+    }
   };
 
   return (
@@ -70,7 +79,7 @@ function CardMostrarAsociados({ asociado }: Props) {
             DNI: {asociado.dni}
           </Typography>
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
-            Fecha Alta: {asociado.fecha_alta}  
+            Fecha Alta: {formatearFecha(asociado.fecha_alta)}  
           </Typography>
           {/* <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Fecha Baja: {asociado.fecha_baja}

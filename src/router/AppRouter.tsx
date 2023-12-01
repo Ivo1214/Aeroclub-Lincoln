@@ -8,9 +8,10 @@ import AdminDetallesAsociados from "../pages/admin-detalles-asociados/AdminDetal
 import PanelAsociados from "../pages/panel-asociados/PanelAsociados";
 import FormEditUsuario from "../components/form-edit-usuario/FormEditUsuario";
 import CargarUsuario from "../components/cargar-usuario/CargarUsuario";
-import AdminVerRecibos from "../pages/admin-ver-recibos/AdminVerRecibos";
+import AdminVerRecibos from "../pages/admin-ver-recibos-vuelos/AdminVerRecibos";
 import Prueba from "../Prueba";
 import AdminCargarRecibo from "../pages/admin-cargar-recibo/AdminCargarRecibo";
+import AdminRegistrarPago from "../pages/admin-registrar-pago/AdminRegistrarPago";
 
 export const AppRouter = () => {
   return (
@@ -32,12 +33,16 @@ export const AppRouter = () => {
           />
           <Route path="panel-asociado" element={<PanelAsociados />} />
           <Route
-            path="/admin-ver-recibos"
+            path="/admin-ver-recibos-vuelos"
             element={<AdminVerRecibos />}
           ></Route>
           <Route
             path="/admin-cargar-recibos"
             element={<AdminCargarRecibo />}
+          ></Route>
+          <Route
+            path="/admin-registrar-pago"
+            element={<AdminRegistrarPago />}
           ></Route>
           <Route path="/cargar-usuario" element={<CargarUsuario />}></Route>
           <Route path="/prueba" element={<Prueba />}></Route>

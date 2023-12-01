@@ -1,5 +1,5 @@
 import "./AdminVerRecibos.css";
-import TablaVerRecibos from "../../components/tabla-ver-recibos/TablaVerRecibos";
+import TablaVerRecibos from "../../components/tabla-ver-recibos-vuelos/TablaVerRecibos";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";

@@ -4,10 +4,14 @@ import Typography from '@mui/material/Typography';
 import Box from "@mui/material/Box";
 import { Divider } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
+import formatearFecha from '../../functions/formatearFecha/formatearFecha';
 
 
 
 function CardVerRecibo(recibo: any) {
+
+  
+  
     const datosRecibo = recibo.datos[0];
   function listaItinerarios () {
     let itinerarios = datosRecibo.itinerarios;
@@ -24,10 +28,10 @@ function CardVerRecibo(recibo: any) {
                     Llegada: {itinerarios.codAeroLlegada}
                 </Typography>
                 <Typography className="datos-asociados" variant="body2" color="textSecondary">
-                    Hora Salida: {itinerarios.horaSalida}
+                    Hora Salida: {formatearFecha(itinerarios.horaSalida)}
                 </Typography>
                 <Typography className="datos-asociados" variant="body2" color="textSecondary">
-                    Hora Llegada: {itinerarios.horaLlegada}
+                    Hora Llegada: {formatearFecha(itinerarios.horaLlegada)}
                 </Typography>
                 <Typography className="datos-asociados" variant="body2" color="textSecondary">
                     Aterrizajes: {itinerarios.cantAterrizajes}
@@ -52,10 +56,10 @@ function CardVerRecibo(recibo: any) {
                     Llegada: {itinerario.codAeroLlegada}
                 </Typography>
                 <Typography className="datos-asociados" variant="body2" color="textSecondary">
-                    Hora Salida: {itinerario.horaSalida}
+                    Hora Salida: {formatearFecha(itinerario.horaSalida)}
                 </Typography>
                 <Typography className="datos-asociados" variant="body2" color="textSecondary">
-                    Hora Llegada: {itinerario.horaLlegada}
+                    Hora Llegada: {formatearFecha(itinerario.horaLlegada)}
                 </Typography>
                 <Typography className="datos-asociados" variant="body2" color="textSecondary">
                     Aterrizajes: {itinerario.cantAterrizajes}
@@ -69,11 +73,13 @@ function CardVerRecibo(recibo: any) {
       </div>
     );
   };
+
+  // Si el vuelo fue sin instructor entonces no se muestra en la card.
   function mostrarInstructor () {
     if (datosRecibo.instructor !== "") {
       return (
         <Typography className="datos-asociados" variant="body2" color="text.secondary">
-              Instructor: ${datosRecibo.instructor}
+              Instructor: {datosRecibo.instructor}
         </Typography>
       );
     }
@@ -97,7 +103,7 @@ function CardVerRecibo(recibo: any) {
             Matricula: {datosRecibo.matricula}
           </Typography>
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
-            Precio total: {datosRecibo.precioTotal}
+            Precio total: $ {datosRecibo.precioTotal}
           </Typography>
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Observaciones: {datosRecibo.observaciones}  

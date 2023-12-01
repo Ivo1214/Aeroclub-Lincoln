@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
+import FormRegistrarPago from "../../components/form-registrar-pago/FormRegistrarPago";
 
 function AdminCargarRecibos() {
   const navigate = useNavigate();
@@ -55,8 +56,8 @@ function AdminCargarRecibos() {
 
   return (
     <div className="panelAdminContainer">
-      <h1 className="panelAdminTitle">Cargar Recibo</h1>
-      <FormRecibos></FormRecibos>
+      <h1 className="panelAdminTitle">Registrar Pago</h1>
+      <FormRegistrarPago></FormRegistrarPago>
     </div>
   );
 }
