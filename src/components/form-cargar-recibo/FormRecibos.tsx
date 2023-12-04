@@ -393,7 +393,8 @@ export default function FormRecibos() {
     <form onSubmit={enviar}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <FormGroup
-          className="formulario-editar-usuario"
+          // Esta clase hace que se vea mal los selectores
+          // className="formulario-editar-usuario"
           sx={{
             "& .MuiTextField-root": { m: 1, width: "25ch" },
           }}
