@@ -9,17 +9,27 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Autocomplete, FormControl, InputAdornment, InputLabel, OutlinedInput } from "@mui/material";
 import { apiUsuarios } from "../../services/apiUsuarios";
+import MenuItem from '@mui/material/MenuItem';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import dayjs, { Dayjs } from 'dayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { apiTransacciones } from "../../services/apiTransacciones";
 
 
-import { usuarioEnSesion } from "../../atomos/atoms";
-import { useRecoilState } from "recoil";
 
 
 
 
 export default function FormRegistrarPago() {
-  // Cargo el input de gestor con el usuario de la sesion
-  const [userSesion, setUserSesion] = useRecoilState(usuarioEnSesion);
+  // Manejo de fecha
+  const [fecha, setFecha] = React.useState<Dayjs | null>(dayjs());
+
+// Manejo del selector tipo de pago
+  const [tipoPago, setTipoPago] = React.useState('');
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setTipoPago(event.target.value as string);
+  };
   // ************************************************************************************
   //                            Carga del selector de usuarios
   // ************************************************************************************
@@ -59,18 +69,18 @@ export default function FormRegistrarPago() {
     e.preventDefault();
 
     const datos = {
-      emailAsociado: value.email,
-      emailGestor: e.target.emailGestor.value,
-      observaciones: e.target.observaciones.value,
-      monto : e.target.monto.value
+      monto : e.target.monto.value,
+      idUsuario: value.id, 
+      motivo: e.target.motivo.value,
+      tipoPago: tipoPago,
+      fecha: fecha.format('YYYY-MM-DD'), // Formatear la fecha
     };
-    // console.log("Valores de los formularios:", rows);
-    console.log(datos);
-    // try {
-    //   await apiReciboVuelos.post(datos);
-    // } catch (error: any) {
-    //   console.log(error.message);
-    // }
+    
+    try {
+      await apiTransacciones.post(datos);
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -110,26 +120,38 @@ export default function FormRegistrarPago() {
                     type="number"
                 />
             </FormControl>
-            <Box className="fila-formulario-editar-usuario">
-                <TextField
-                    id="emailGestor"
-                    value={userSesion.email}
-                    label="E-mail Gestor *"
-                    variant="filled"
-                    defaultValue=""
-                />
-            </Box>
+            
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Tipo de pago</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="tipoPago"
+                value={tipoPago}
+                label="Tipo de pago"
+                onChange={handleChange}
+              >
+                <MenuItem value={1}>??</MenuItem>
+                <MenuItem value={2}>Efectivo</MenuItem>
+                <MenuItem value={3}>??</MenuItem>
+              </Select>
+            </FormControl>
 
             <Box className="fila-formulario-recibo-observaciones">
                 <TextField
-                    id="observaciones"
-                    label="Observaciones"
+                    id="motivo"
+                    label="Motivo"
                     placeholder=""
                     multiline
                 />
             </Box>
 
+
           
+            <DatePicker
+              label="Fecha"
+              value={fecha}
+              onChange={(newFecha) => setFecha(newFecha)}
+            />
         </FormGroup>
         <Button type="submit" variant="contained" endIcon={<SendIcon />}>
             Cargar

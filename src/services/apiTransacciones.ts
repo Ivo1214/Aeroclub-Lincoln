@@ -44,7 +44,7 @@ export const apiTransacciones =  {
     const getTokenLocal = await localStorage.getItem("token");
 
     const response = await client.request({
-      url: `/transacciones`,
+      url: `/transacciones/`,
       method: "POST",
       headers: {
         Authorization: "bearer " + getTokenLocal,
