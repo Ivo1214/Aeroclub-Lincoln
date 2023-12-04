@@ -26,6 +26,7 @@ export default function Header() {
     await decodificarToken();
   }
 
+
   // Efecto para decodificar el token cuando el componente se monta
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export default function Header() {
 
   console.log("el mail del usuario en sesion: ", userSesion.email);
 
-  const handleRoleSelection = (role: any) => {
+  const handleRoleSelection = (role: string) => {
     if (userSesion.roles.includes(role)) {
       setSelectedRole(role);
     } else {
@@ -55,23 +56,13 @@ export default function Header() {
     }
   };
 
-  useEffect(() => {
-    // Actualizar el estado con el rol almacenado en el local storage al cargar el componente
-    buscarUsuario();
-  }, []);
 
-  return (
-    <nav className="navbar bg-body-tertiary">
-      <div className="container-fluid">
-        <a className="navbar-brand">
-          {" "}
-          <img
-            src="https://drive.google.com/uc?export=view&id=19U8BFR2N0VfapOWtSvoiRSsXvOc6iVdH"
-            alt=""
-          />
-          Aeroclub Lincoln
-        </a>
-        <div className="separacion-nav">
+  // ------------------------------------------------------------------------------------------------------------------
+  function navLogueo(){
+    if (userSesion.email != "") {
+      return (
+        <>
+      <div className="separacion-nav">
         <h5>{`${sessionStorage.getItem("nombre")}`}</h5>
           <div className="dropdown rol-nav">
             <button
@@ -142,6 +133,88 @@ export default function Header() {
             <span className="navbar-toggler-icon"></span>
           </button>
         </div>
+      </>
+      )
+      
+    } else {
+      return (
+        <>
+          <div className="login-google-nav-principal">
+            {changeSesion ? <LogoutGoogle /> : <LoginGoogle />}
+          </div>
+        </>
+      )
+    }
+
+  }
+
+
+
+  function funcionGestorNav(){
+    if (selectedRole === "Gestor") {
+      return(
+      <>
+      <Divider className="divider" variant="middle" />
+      <h4>Usuarios</h4>
+      <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+        <li className="nav-item">
+          <NavLink to="/cargar-usuario">
+            {" "}
+            <a className="nav-link">Cargar Usarios</a>
+          </NavLink>
+        </li>   
+      </ul>
+
+      <Divider className="divider" variant="middle" />
+                <h4>Recibos</h4>
+            <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li className="nav-item">
+                <NavLink to="/admin-cargar-recibos">
+                  {" "}
+                  <a className="nav-link">Cargar Recibos</a>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/admin-ver-recibos-vuelos">
+                  {" "}
+                  <a className="nav-link">Ver recibos de vuelo</a>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/admin-registrar-pago">
+                  {" "}
+                  <a className="nav-link">Registrar pagos</a>
+                </NavLink>
+              </li>
+            </ul>
+      </>)
+    }
+  };
+
+
+
+  // ------------------------------------------------------------------------------------------------------------------
+
+
+
+
+  useEffect(() => {
+    // Actualizar el estado con el rol almacenado en el local storage al cargar el componente
+    buscarUsuario();
+  }, []);
+
+  return (
+    <nav className="navbar bg-body-tertiary">
+      <div className="container-fluid">
+        <a className="navbar-brand">
+          {" "}
+          <img
+            src="https://drive.google.com/uc?export=view&id=19U8BFR2N0VfapOWtSvoiRSsXvOc6iVdH"
+            alt=""
+          />
+          Aeroclub Lincoln
+        </a>
+          {navLogueo()}
         <div
           className="offcanvas offcanvas-end"
           id="offcanvasNavbar"
@@ -153,7 +226,9 @@ export default function Header() {
               alt="Remy Sharp"
               src={sessionStorage.getItem("avatar")}
             ></Avatar>
-            <h4>{`${sessionStorage.getItem("nombre")}`}</h4>
+            <div className="nombre">
+              <h4>{`${sessionStorage.getItem("nombre")}`}</h4>
+            </div>            
             <button
               type="button"
               className="btn-close"
@@ -358,6 +433,8 @@ export default function Header() {
                 </NavLink>
               </li>
             </ul>
+
+            {funcionGestorNav()}
           </div>
         </div>
       </div>
