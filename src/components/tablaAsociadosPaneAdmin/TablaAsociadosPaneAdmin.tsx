@@ -37,6 +37,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import TextField from '@mui/material/TextField';
+import { apiCuentaCorriente } from '../../services/apiCuentaCorriente';
 
 const roles = ['Market', 'Finance', 'Development'];
 const randomRole = () => {
@@ -76,50 +77,29 @@ const modalStyle = {
 // ];
 
 
-
-
-// ************************************************************************************
-// Esto te permite añadir una tupla a la lista, esta comentado por si lo necesitamos 
-// ************************************************************************************
-
-// interface EditToolbarProps {
-//   setRows: (newRows: (oldRows: GridRowsProp) => GridRowsProp) => void;
-//   setRowModesModel: (
-//     newModel: (oldModel: GridRowModesModel) => GridRowModesModel,
-//   ) => void;
-// }
-
-// function EditToolbar(props: EditToolbarProps) {
-//   const { setRows, setRowModesModel } = props;
-
-//   const handleClick = () => {
-//     const id = randomId();
-//     setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
-//     setRowModesModel((oldModel) => ({
-//       ...oldModel,
-//       [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-//     }));
-//   };
-
-//   return (
-//     <GridToolbarContainer>
-//       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-//         Add record
-//       </Button>
-//     </GridToolbarContainer>
-//   );
-// }
-
 export default function TablaAsociadosPanelAdmin() {
   // ************************************************************************************
   //                                    Manejo de la api
   // ************************************************************************************
+  const getSaldo = async (id: string) => {
+    try {
+      const response = await apiCuentaCorriente.getById(id);
+      return (parseInt(response));
+    }
+    catch (error:any) {
+      console.log(error.message);
+      return(null);
+    }
+  };
+
   const [rows, setRows] = useState<GridRowsProp>([]);
   const fetchData = async () => {
     try {
       const response = await apiUsuarios.getUsuarios();
-      // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar la tabla
-      const resultado = response.map((user: any)=>{
+      
+      const resultado = await Promise.all(response.map(async (user: any) => {
+        const saldoAsociado = await getSaldo(user.id_usuarios);
+  
         const usuarioFormateado = { 
           id: user.id_usuarios,
           nombreCompleto: user.nombre + " " + user.apellido, 
@@ -134,15 +114,16 @@ export default function TablaAsociadosPanelAdmin() {
           fecha_baja: user.fecha_baja,
           foto_perfil: user.foto_perfil,
           roles: user.roles,
-          saldo: "Implementar"
+          saldo: "$ " + saldoAsociado
         };
         return usuarioFormateado;
-      });
+      }));
       setRows(resultado);
     } catch (error:any) {
       console.log(error.message);
     }
   };
+  
 
   useEffect(() => {
     fetchData();
@@ -221,14 +202,6 @@ export default function TablaAsociadosPanelAdmin() {
 
   // Columnas de la tabla
   const columns: GridColDef[] = [
-    // {
-    //   field: 'id',
-    //   headerName: 'ID',
-    //   type: 'number',
-    //   width: 80,
-    //   align: 'left',
-    //   headerAlign: 'left'
-    // },
     {
       field: 'nombreCompleto',
       headerName: 'Nombre Completo',
@@ -243,20 +216,6 @@ export default function TablaAsociadosPanelAdmin() {
         align: 'left',
         headerAlign: 'left'
       },
-    // {
-    //   field: 'dni',
-    //   headerName: 'DNI',
-    //   type: 'number',
-    //   width: 100,
-    //   align: 'left',
-    //   headerAlign: 'left'
-    // },
-    // {
-    //   field: 'email',
-    //   headerName: 'E-Mail',
-    //   width: 250,
-    //   type: 'string'
-    // },
     {
       field: 'telefono',
       headerName: 'Telefono',

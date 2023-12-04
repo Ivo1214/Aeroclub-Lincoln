@@ -3,7 +3,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import SendIcon from '@mui/icons-material/Send';
+import SaveIcon from '@mui/icons-material/Save';
 import { useState } from 'react';
 import FormGroup from '@mui/material/FormGroup';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
@@ -15,6 +15,8 @@ import InputLabel from '@mui/material/InputLabel';
 import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
 import "./formEditUsuario.css";
+import { apiUsuarios } from '../../services/apiUsuarios';
+// import { useNavigate } from 'react-router-dom';
 
 
 function formatearFecha (fechaRecibida:any) {
@@ -36,127 +38,94 @@ export default function FormEditUsuario(props:any) {
   const [fecha_alta, setFecha_alta] = React.useState<Dayjs | null>(dayjs(formatearFecha(datosAsociado.fecha_alta)));
 
 
-  // Opcion para controlar ingreso de datos. Esta mal implementado, es solo de muestra
-  const [error, setError] = useState('');
-  const handleValidation = (inputValue:any) => {
-    if (inputValue.length === 0) {
-      setError('Este campo es obligatorio.');
-    } else {
-      setError('');
-    }
+  const handleSubmit=  async (e: React.FormEvent) => {
+    // const navigate = useNavigate();
+    e.preventDefault();
+    const datos = {
+      email: e.target.email.value,
+      apellido: e.target.apellido.value,
+      habilitado: 1
+    };
+    const response = await apiUsuarios.patch(datos);
+    // navigate ("panel-administrador");
   };
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <FormGroup
-      className='formulario-editar-usuario'
-      sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}
-    >
-      {/* Nombre y apellido */}
-      <Box className="fila-formulario-editar-usuario">
-        <TextField
-          id="nombre"
-          value={datosAsociado.nombre}
-          label="Nombre"
-          variant="filled"
-          defaultValue=""
-          helperText={error}
-          error={Boolean(error)}
-          onBlur={(e) => handleValidation(e.target.value)}
-        />
-        <TextField
-          id="apellido"
-          value={datosAsociado.apellido}
-          label="Apellido"
-          variant="filled"
-          defaultValue=""
-          helperText={error}
-          error={Boolean(error)}
-          onBlur={(e) => handleValidation(e.target.value)}
-        />
-      </Box>
-      {/* DNI y E-Mail */}
-      <Box className="fila-formulario-editar-usuario">
-        <TextField
-          id="dni"
-          value={datosAsociado.dni}
-          label="DNI"
-          variant="filled"
-          defaultValue=""
-          helperText={error}
-          error={Boolean(error)}
-          onBlur={(e) => handleValidation(e.target.value)}
-        />
-        <TextField
-          id="email"
-          value={datosAsociado.email}
-          label="E-mail"
-          variant="filled"
-          defaultValue=""
-          helperText={error}
-          error={Boolean(error)}
-          onBlur={(e) => handleValidation(e.target.value)}
-        />
-      </Box>
-      {/* Direccion y Telefono */}
-      <Box className="fila-formulario-editar-usuario">
-        <TextField
-          id="direccion"
-          value={datosAsociado.direccion}
-          label="Dirección"
-          variant="filled"
-          defaultValue=""
-          helperText={error}
-          error={Boolean(error)}
-          onBlur={(e) => handleValidation(e.target.value)}
-        />
-        <TextField
-          id="telefono"
-          value={datosAsociado.telefono}
-          label="Telefono"
-          variant="filled"
-          defaultValue=""
-          helperText={error}
-          error={Boolean(error)}
-          onBlur={(e) => handleValidation(e.target.value)}
-        />
-      </Box>
-      {/* Fecha alta y fecha de baja */}
-      <Box className="fila-formulario-editar-usuario">
-        {/* Fecha de alta */}
-        <DemoContainer components={['DatePicker']}>
-            <DatePicker
-            format="MM - DD - YYYY"
-            value={fecha_alta}
-            onChange={(newValue) => setFecha_alta(newValue)}
-            label="Fecha de alta" 
-            slotProps={{
-              textField: {
-              helperText: 'MM/DD/YYYY',
-              },
-            }}
+    <form onSubmit={handleSubmit}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <FormGroup
+          className='formulario-editar-usuario'
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: '25ch' },
+          }}
+        >
+          {/* Nombre y apellido */}
+          <Box className="fila-formulario-editar-usuario">
+            <TextField
+              id="nombre"
+              defaultValue = {datosAsociado.nombre}
+              label="Nombre"
+              variant="filled"
             />
-        </DemoContainer>
-      </Box>
-      {/* Saldo */}
-      <Box className="fila-formulario-editar-usuario">
-        <FormControl sx={{ m: 1 }} variant="filled">
-          <InputLabel htmlFor="filled-adornment-amount">Saldo</InputLabel>
-          <FilledInput
-            id="saldo"
-            error={Boolean(error)}
-            onBlur={(e) => handleValidation(e.target.value)}
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-          />
-        </FormControl>
-      </Box>
-      
-      <Button variant="contained" endIcon={<SendIcon />}>
-        Enviar
-      </Button>
-    </FormGroup>
-    </LocalizationProvider>
+            <TextField
+              id="apellido"
+              defaultValue = {datosAsociado.apellido}
+              label="Apellido"
+              variant="filled"
+            />
+          </Box>
+          {/* DNI y E-Mail */}
+          <Box className="fila-formulario-editar-usuario">
+            <TextField
+              id="dni"
+              defaultValue = {datosAsociado.dni}
+              label="DNI"
+              variant="filled"
+            />
+            <TextField
+              id="email"
+              defaultValue = {datosAsociado.email}
+              label="E-mail"
+              variant="filled"
+            />
+          </Box>
+          {/* Direccion y Telefono */}
+          <Box className="fila-formulario-editar-usuario">
+            <TextField
+              id="direccion"
+              defaultValue = {datosAsociado.direccion}
+              label="Dirección"
+              variant="filled"
+            />
+            <TextField
+              id="telefono"
+              defaultValue = {datosAsociado.telefono}
+              label="Telefono"
+              variant="filled"
+            />
+          </Box>
+          {/* Fecha alta y fecha de baja */}
+          <Box className="fila-formulario-editar-usuario">
+            {/* Fecha de alta */}
+            <DemoContainer components={['DatePicker']}>
+                <DatePicker
+                format="MM - DD - YYYY"
+                value={fecha_alta}
+                onChange={(newValue) => setFecha_alta(newValue)}
+                label="Fecha de alta" 
+                slotProps={{
+                  textField: {
+                  helperText: 'MM/DD/YYYY',
+                  },
+                }}
+                />
+            </DemoContainer>
+          </Box>
+          <Button type="submit" variant="contained" endIcon={<SaveIcon />}>
+            Guardar
+          </Button>
+        </FormGroup>
+      </LocalizationProvider>
+    </form>
   );
 }

@@ -4,8 +4,8 @@ import { client } from "./api-backend.ts";
 const getTokenLocal = localStorage.getItem("token");
 
 export const apiReciboVuelos = {
-  // Ver recibos
-  get: async function (email: string) {
+  // Buscar recibos de un usuario
+  getByEmail: async function (email: string) {
     const response = await client.request({
       url: `/recibo-vuelos/${email}`,
       method: "GET",
@@ -30,7 +30,41 @@ export const apiReciboVuelos = {
       Swal.fire({
         position: "top-end",
         icon: "error",
-        title: "Error al cargar recibos.",
+        title: `${response.data.respuesta}`,
+        text: ``,
+        showConfirmButton: false,
+        timer: 2500,
+      });
+    }
+  },
+
+  // Buscar todos los recibos
+  get: async function () {
+    const response = await client.request({
+      url: `/recibo-vuelos/`,
+      method: "GET",
+      headers: {
+        Authorization: "bearer " + getTokenLocal,
+        "content-type": "application/json",
+      },
+    });
+
+    if (Array.isArray(response.data.respuesta)) {
+      // console.log(response.data);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Recibos cargados con exito.",
+        text: ``,
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      return response.data;
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: `${response.data.respuesta}`,
         text: ``,
         showConfirmButton: false,
         timer: 2500,
