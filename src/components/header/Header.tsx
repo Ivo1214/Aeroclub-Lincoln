@@ -25,6 +25,7 @@ export default function Header() {
   async function buscarUsuario() {
     await decodificarToken();
   }
+  
 
 
   // Efecto para decodificar el token cuando el componente se monta
@@ -37,11 +38,20 @@ export default function Header() {
     }
   }, [userSesion]);
 
+  useEffect (() => {
+    const rolPrevio = localStorage.getItem("rol");
+    if (rolPrevio !== "") {
+      handleRoleSelection(rolPrevio);
+    }
+  },[]);
+
   console.log("el mail del usuario en sesion: ", userSesion.email);
 
   const handleRoleSelection = (role: string) => {
+    console.log(role);
     if (userSesion.roles.includes(role)) {
       setSelectedRole(role);
+      localStorage.setItem("rol", role);
     } else {
       Swal.fire({
         icon: "error",
@@ -55,6 +65,29 @@ export default function Header() {
       }
     }
   };
+
+
+  function seleccionarRol(){
+    const roles = userSesion.roles;
+    
+    return (
+    <>
+    <ul className="dropdown-menu" aria-labelledby="roleDropdown">
+        {roles.map((rol, index) => (
+          <li key={index}>
+            <a
+              className="dropdown-item"
+              href="#"
+              onClick={() => handleRoleSelection(rol)}
+            >
+              {rol}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </>)
+  }
+
 
 
   // ------------------------------------------------------------------------------------------------------------------
@@ -74,53 +107,7 @@ export default function Header() {
             >
               {selectedRole}
             </button>
-            <ul className="dropdown-menu" aria-labelledby="roleDropdown">
-              <li>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={() => handleRoleSelection("Usuario")}
-                >
-                  Usuario
-                </a>
-              </li>
-              <li>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={() => handleRoleSelection("Asociado")}
-                >
-                  Asociado
-                </a>
-              </li>
-              <li>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={() => handleRoleSelection("Instructor")}
-                >
-                  Instructor
-                </a>
-              </li>
-              <li>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={() => handleRoleSelection("Gestor")}
-                >
-                  Gestor
-                </a>
-              </li>
-              <li>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={() => handleRoleSelection("Mecanico")}
-                >
-                  Mecanico
-                </a>
-              </li>
-            </ul>
+            {seleccionarRol()}
           </div>
           <button
             className="navbar-toggler"
@@ -258,6 +245,12 @@ export default function Header() {
                       case "Asociado":
                         navigate("/panel-asociado", { replace: true });
                         break;
+                        case "Instructor":
+                          navigate("/", { replace: true });
+                        break;
+                        case "Mecanico":
+                        navigate("/", { replace: true });
+                        break;
                       default:
                         break;
                     }
@@ -274,25 +267,6 @@ export default function Header() {
                 </NavLink>
               </li>
               <li className="nav-item dropdown">
-                {/* <div className="dropdown rol">
-                  Seleccionar rol: 
-                  <button
-                    className="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    id="roleDropdown"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    {selectedRole}
-                  </button>
-                  <ul className="dropdown-menu" aria-labelledby="roleDropdown">
-                    <li><a className="dropdown-item" href="#" onClick={() => handleRoleSelection('Usuario')}>Usuario</a></li>
-                    <li><a className="dropdown-item" href="#" onClick={() => handleRoleSelection('Asociado')}>Asociado</a></li>
-                    <li><a className="dropdown-item" href="#" onClick={() => handleRoleSelection('Instructor')}>Instructor</a></li>
-                    <li><a className="dropdown-item" href="#" onClick={() => handleRoleSelection('Gestor')}>Gestor</a></li>
-                    <li><a className="dropdown-item" href="#" onClick={() => handleRoleSelection('Mecanico')}>Mecanico</a></li>
-                  </ul>
-                </div>                 */}
                 <div className="dropdown rol">
                   Seleccionar rol:
                   <button
@@ -304,53 +278,7 @@ export default function Header() {
                   >
                     {selectedRole}
                   </button>
-                  <ul className="dropdown-menu" aria-labelledby="roleDropdown">
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={() => handleRoleSelection("Usuario")}
-                      >
-                        Usuario
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={() => handleRoleSelection("Asociado")}
-                      >
-                        Asociado
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={() => handleRoleSelection("Instructor")}
-                      >
-                        Instructor
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={() => handleRoleSelection("Gestor")}
-                      >
-                        Gestor
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        onClick={() => handleRoleSelection("Mecanico")}
-                      >
-                        Mecanico
-                      </a>
-                    </li>
-                  </ul>
+                  {seleccionarRol()}
                 </div>
               </li>
             </ul>
@@ -408,6 +336,12 @@ export default function Header() {
                 <NavLink to="/">
                   {" "}
                   <a className="nav-link">Registro historicos de vuelos</a>
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to="/admin-administrar-usuarios">
+                  {" "}
+                  <a className="nav-link">Administrar Usuario</a>
                 </NavLink>
               </li>
             </ul>

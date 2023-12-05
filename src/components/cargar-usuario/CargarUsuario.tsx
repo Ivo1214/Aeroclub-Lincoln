@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FormGroup from '@mui/material/FormGroup';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -16,6 +16,9 @@ import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
 import "./cargarUsuario.css";
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { resolverToken } from '../../api/apiCalls';
 
 export default function CargarUsuario() {
   // No encontre forma de añadir la variable id en la fecha, encontre esta solucion para manejar en submit.
@@ -32,6 +35,59 @@ export default function CargarUsuario() {
       setError('');
     }
   };
+
+
+//   ------------------------------ Validacion------------------------------------
+    const navigate = useNavigate();
+  
+    async function checkTokenAndRol() {
+      const getTokenLocal = await localStorage.getItem("token");
+  
+      if (getTokenLocal == "") {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Sin autorización, no tenes iniciada sesión",
+        });
+        navigate("/", { replace: true });
+      }
+  
+      try {
+        const resResolverToken = await resolverToken();
+  
+        if (resResolverToken.success) {
+          const roles = resResolverToken.dataToken.roles;
+  
+          if (!roles.includes("Gestor")) {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "El usuario no posee el rol de gestor para acceder",
+            });
+  
+            navigate("/", { replace: true });
+          } else {
+            console.log(resResolverToken.dataToken);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Un error inesperado",
+        });
+      }
+    }
+  
+    useEffect(() => {
+      checkTokenAndRol().then(() => {
+        console.log("se cumplio");
+      });
+    }, []);
+  //   ------------------------------ Validacion------------------------------------
+
+
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -168,3 +224,4 @@ export default function CargarUsuario() {
     </LocalizationProvider>
   );
 }
+
