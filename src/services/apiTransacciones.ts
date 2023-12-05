@@ -8,7 +8,7 @@ export const apiTransacciones =  {
     const getTokenLocal = await localStorage.getItem("token");
 
     const response = await client.request({
-      url: `/transacciones`,
+      url: `/transacciones/`,
       method: "GET",
       headers: {
         Authorization: "bearer " + getTokenLocal,
@@ -26,7 +26,8 @@ export const apiTransacciones =  {
           showConfirmButton: false,
           timer: 2500,
         });
-        return response.data;
+        console.log(response.data.response);
+        return response.data.response;
       } else {
         Swal.fire({
           position: "top-end",

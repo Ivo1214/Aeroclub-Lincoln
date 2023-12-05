@@ -1,11 +1,10 @@
-import "./AdminVerRecibos.css";
-import TablaVerRecibos from "../../components/tabla-ver-recibos-vuelos/TablaVerRecibos";
+import TablaVerRecibos from "../../components/tabla-ver-recibos/TablaVerRecibos";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
 
-function AdminVerRecibos() {
+function AdminVerTransacciones() {
   const navigate = useNavigate();
 
   async function checkTokenAndRol() {
@@ -56,10 +55,10 @@ function AdminVerRecibos() {
 
   return (
     <div className="panelAdminContainer">
-      <h1 className="panelAdminTitle">Recibos de vuelos</h1>
+      <h1 className="panelAdminTitle">Recibos</h1>
       <TablaVerRecibos></TablaVerRecibos>
     </div>
   );
 }
 
-export default AdminVerRecibos;
+export default AdminVerTransacciones;

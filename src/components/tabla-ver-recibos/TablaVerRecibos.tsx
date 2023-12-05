@@ -18,9 +18,9 @@ import {
 import { Modal } from "@mui/material";
 import { useState, useEffect } from "react";
 
-import { apiReciboVuelos } from "../../services/apiReciboVuelos";
 
 import { CardVerRecibo } from "../card-ver-recibo-vuelo/CardVerRecibo";
+import { apiTransacciones } from "../../services/apiTransacciones";
 
 const theme = createTheme(
   {
@@ -42,7 +42,7 @@ const modalStyle = {
   p: 4,
 };
 
-export default function TablaRecibosVuelos() {
+export default function TablaRecibos() {
 
   // ************************************************************************************
   //                                    Manejo de la api
@@ -50,30 +50,27 @@ export default function TablaRecibosVuelos() {
   const [rows, setRows] = useState<GridRowsProp>([]);
   const fetchData = async () => {
     try {
-      const response = await apiReciboVuelos.get();
-      let i = 0;
+      const response = await apiTransacciones.get();
       // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar la tabla
-      const resultado = response.respuesta.map((recibo: any) => {
+      const resultado = response.map((recibo: any) => {
         const reciboFormateado = {
-          id: i,
-          asociado: recibo[0].asociado,
-          gestor: recibo[0].gestor,
-          instructor: recibo[0].instructor,
-          matricula: recibo[0].matricula,
-          observaciones: recibo[0].observaciones,
-          precioTotal: recibo[0].precioTotal,
-          itinerarios: recibo[1],
+          id: recibo.id_transacciones,
+          asociado: recibo.cuenta_corriente_id,
+          fecha: recibo.fecha,
+          monto: recibo.monto,
+          motivo: recibo.motivo,
+          tipo_pago_id: recibo.tipo_pago_id
         };
-        i = i + 1;
         return reciboFormateado;
       });
       setRows(resultado);
     } catch (error: any) {
-      // console.log(error.message);
+      console.log(error.message);
     }
   };
   useEffect(() => {
     fetchData();
+    console.log(rows);
   },[]);
 
   const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
@@ -84,7 +81,7 @@ export default function TablaRecibosVuelos() {
   const [verRecibo, setVerRecibo] = useState({});
 
   // ************************************************************************************
-  //                      Manejo del modal para ver un asociado
+  //                      Manejo del modal para ver un recibo
   // ************************************************************************************
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
@@ -131,34 +128,26 @@ export default function TablaRecibosVuelos() {
       type: "string",
     },
     {
-      field: "gestor",
-      headerName: "Gestor",
-      type: "string",
-      width: 100,
-      align: "left",
-      headerAlign: "left",
-    },
-    {
-      field: "instructor",
-      headerName: "Instructor",
-      width: 250,
-      type: "string"
-    },
-    {
-      field: "matricula",
-      headerName: "Matricula",
+      field: "fecha",
+      headerName: "Fecha",
       width: 170,
       type: "string",
     },
     {
-      field: "observaciones",
-      headerName: "Observaciones",
+      field: "motivo",
+      headerName: "Motivo",
       width: 170,
       type: "string",
     },
     {
-      field: "precioTotal",
-      headerName: "Precio Total",
+    field: "tipo_pago_id",
+    headerName: "Tipo Pago",
+    width: 170,
+    type: "string",
+      },
+    {
+      field: "monto",
+      headerName: "Monto",
       type: "number",
       width: 100,
       align: "left",

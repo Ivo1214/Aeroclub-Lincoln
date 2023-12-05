@@ -12,6 +12,7 @@ import AdminVerRecibos from "../pages/admin-ver-recibos-vuelos/AdminVerRecibos";
 import Prueba from "../Prueba";
 import AdminCargarRecibo from "../pages/admin-cargar-recibo/AdminCargarRecibo";
 import AdminRegistrarPago from "../pages/admin-registrar-pago/AdminRegistrarPago";
+import AdminVerTransacciones from "../pages/admin-ver-transacciones/AdminVerTransacciones";
 
 export const AppRouter = () => {
   return (
@@ -35,6 +36,10 @@ export const AppRouter = () => {
           <Route
             path="/admin-ver-recibos-vuelos"
             element={<AdminVerRecibos />}
+          ></Route>
+          <Route
+            path="/admin-ver-recibos"
+            element={<AdminVerTransacciones />}
           ></Route>
           <Route
             path="/admin-cargar-recibos"
