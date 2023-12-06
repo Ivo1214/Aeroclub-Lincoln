@@ -45,10 +45,10 @@ export default function Header() {
     }
   },[]);
 
-  console.log("el mail del usuario en sesion: ", userSesion.email);
+  // console.log("el mail del usuario en sesion: ", userSesion.email);
 
   const handleRoleSelection = (role: string) => {
-    console.log(role);
+    // console.log(role);
     if (userSesion.roles.includes(role)) {
       setSelectedRole(role);
       localStorage.setItem("rol", role);
@@ -147,7 +147,7 @@ export default function Header() {
         <li className="nav-item">
           <NavLink to="/cargar-usuario">
             {" "}
-            <a className="nav-link">Cargar Usarios</a>
+            <a className="nav-link">Cargar Usuarios</a>
           </NavLink>
         </li>   
       </ul>
@@ -293,7 +293,7 @@ export default function Header() {
             <Divider className="divider" variant="middle" />
 
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <div className="dropdown">
+              {/* <div className="dropdown">
                 <a
                   className="btn btn-secondary dropdown-toggle mi-info"
                   href="#"
@@ -321,7 +321,7 @@ export default function Header() {
                     </a>
                   </li>
                 </ul>
-              </div>
+              </div> */}
               <li className="nav-item turnos">
                 <NavLink to="/">
                   {" "}

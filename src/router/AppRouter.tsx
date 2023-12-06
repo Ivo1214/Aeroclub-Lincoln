@@ -12,7 +12,7 @@ import Prueba from "../Prueba";
 import AdminCargarRecibo from "../pages/admin-cargar-recibo/AdminCargarRecibo";
 import AdminRegistrarPago from "../pages/admin-registrar-pago/AdminRegistrarPago";
 import AdminVerTransacciones from "../pages/admin-ver-transacciones/AdminVerTransacciones";
-import CargaUsuarios from "../pages/carga-usuarios/cargaUsuarios";
+import CargaUsuarios from "../pages/carga-usuarios/CargaUsuarios";
 
 export const AppRouter = () => {
   return (
