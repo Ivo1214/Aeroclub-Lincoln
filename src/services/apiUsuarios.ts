@@ -164,4 +164,22 @@ export const apiUsuarios = {
     //     })
     // }
   },
+  getInstructores: async function () {
+    const getTokenLocal = await localStorage.getItem("token");
+
+    const response = await client.request({
+      url: `/usuarios/instructores?a`,
+      method: "GET",
+      headers: {
+        Authorization: "bearer " + getTokenLocal,
+        "content-type": "application/json",
+      },
+    });
+
+    if (response) {
+      console.log(response);
+      return response.data;
+    }
+  },
+  
 };

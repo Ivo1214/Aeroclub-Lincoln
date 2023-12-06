@@ -42,7 +42,7 @@ function PanelAdministradores() {
 
           navigate("/", { replace: true });
         } else {
-          console.log(resResolverToken.dataToken);
+          // console.log(resResolverToken.dataToken);
         }
       }
     } catch (error) {
@@ -57,7 +57,7 @@ function PanelAdministradores() {
 
   useEffect(() => {
     checkTokenAndRol().then(() => {
-      console.log("se cumplio");
+      // console.log("se cumplio");
     });
   }, []);
 // Fin chequeo del rol gestor

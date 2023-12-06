@@ -30,7 +30,7 @@ export const apiReciboVuelos = {
       Swal.fire({
         position: "top-end",
         icon: "error",
-        title: `${response.data.respuesta}`,
+        title: `Error al cargar los recibos de vuelo.`,
         text: ``,
         showConfirmButton: false,
         timer: 2500,

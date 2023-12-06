@@ -130,9 +130,9 @@ export default function FormRegistrarPago() {
                 label="Tipo de pago"
                 onChange={handleChange}
               >
-                <MenuItem value={1}>??</MenuItem>
+                <MenuItem value={1}>Cheque</MenuItem>
                 <MenuItem value={2}>Efectivo</MenuItem>
-                <MenuItem value={3}>??</MenuItem>
+                <MenuItem value={3}>Transferencia</MenuItem>
               </Select>
             </FormControl>
 

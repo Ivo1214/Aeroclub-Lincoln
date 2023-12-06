@@ -26,7 +26,7 @@ export const apiTransacciones =  {
           showConfirmButton: false,
           timer: 2500,
         });
-        console.log(response.data.response);
+        // console.log(response.data.response);
         return response.data.response;
       } else {
         Swal.fire({

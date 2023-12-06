@@ -41,6 +41,7 @@ import {
 import { apiAeronaves } from "../../services/apiAeronaves";
 import { usuarioEnSesion } from "../../atomos/atoms";
 import { useRecoilState } from "recoil";
+import { apiReciboVuelos } from "../../services/apiReciboVuelos";
 
 
 const initialRows: GridRowsProp = [
@@ -371,7 +372,7 @@ export default function FormRecibos() {
       // Puedes mostrar un mensaje de error al usuario o tomar alguna acción adicional
       return;
     }
-
+    console.log(rows);
     const datos = {
       emailAsociado: value.email,
       emailInstructor: emailInstructor,
@@ -381,12 +382,12 @@ export default function FormRecibos() {
       itinerarios: rows,
     };
     // console.log("Valores de los formularios:", rows);
-    console.log(datos);
-    // try {
-    //   await apiReciboVuelos.post(datos);
-    // } catch (error: any) {
-    //   console.log(error.message);
-    // }
+    // console.log(datos);
+    try {
+      await apiReciboVuelos.post(datos);
+    } catch (error: any) {
+      console.log(error.message);
+    }
   };
 
   return (
@@ -531,7 +532,7 @@ export default function FormRecibos() {
           
         </FormGroup>
         <Button type="submit" variant="contained" endIcon={<SendIcon />}>
-            Enviar
+            Cargar
           </Button>
       </LocalizationProvider>
     </form>

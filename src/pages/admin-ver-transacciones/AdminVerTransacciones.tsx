@@ -34,7 +34,7 @@ function AdminVerTransacciones() {
 
           navigate("/", { replace: true });
         } else {
-          console.log(resResolverToken.dataToken);
+          // console.log(resResolverToken.dataToken);
         }
       }
     } catch (error) {
@@ -49,7 +49,7 @@ function AdminVerTransacciones() {
 
   useEffect(() => {
     checkTokenAndRol().then(() => {
-      console.log("se cumplio");
+      // console.log("se cumplio");
     });
   }, []);
 

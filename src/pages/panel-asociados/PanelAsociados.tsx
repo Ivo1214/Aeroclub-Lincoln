@@ -41,7 +41,7 @@ function PanelAsociados() {
 
           navigate("/", { replace: true });
         } else {
-          console.log(resResolverToken.dataToken);
+          // console.log(resResolverToken.dataToken);
         }
       }
     } catch (error) {
@@ -56,7 +56,7 @@ function PanelAsociados() {
 
   useEffect(() => {
     checkTokenAndRol().then(() => {
-      console.log("se cumplio");
+      // console.log("se cumplio");
     });
   }, []);
 

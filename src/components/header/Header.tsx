@@ -45,10 +45,10 @@ export default function Header() {
     }
   },[]);
 
-  console.log("el mail del usuario en sesion: ", userSesion.email);
+  // console.log("el mail del usuario en sesion: ", userSesion.email);
 
   const handleRoleSelection = (role: string) => {
-    console.log(role);
+    // console.log(role);
     if (userSesion.roles.includes(role)) {
       setSelectedRole(role);
       localStorage.setItem("rol", role);

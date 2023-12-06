@@ -14,10 +14,9 @@ export const apiAeronaves = {
         "content-type": "application/json",
       },
     });
-
     if (response) {
       // console.log(response.data);
-      return response.data;
+      return response.data.respuesta;
     }
   },
 

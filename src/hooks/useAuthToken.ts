@@ -16,10 +16,10 @@ export function useAuthToken() {
       // Verificar el token
       const resResolverToken = await resolverToken();
 
-      console.log("respuesta de resolver el token: ", resResolverToken);
+      // console.log("respuesta de resolver el token: ", resResolverToken);
 
       if (resResolverToken.success) {
-        console.log("este es el token:", resResolverToken.dataToken);
+        // console.log("este es el token:", resResolverToken.dataToken);
 
         setUserSesion({
           email: resResolverToken.dataToken.email,

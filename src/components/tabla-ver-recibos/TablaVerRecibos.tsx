@@ -53,13 +53,27 @@ export default function TablaRecibos() {
       const response = await apiTransacciones.get();
       // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar la tabla
       const resultado = response.map((recibo: any) => {
+        let tipo_pago = "";
+        switch (recibo.tipo_pago_id) {
+          case 1:
+            tipo_pago = "Cheque"
+            break;
+          case 2:
+            tipo_pago = "Efectivo"
+            break;
+          case 3:
+            tipo_pago = "Transferencia"
+            break;
+          default:
+            break;
+        }
         const reciboFormateado = {
           id: recibo.id_transacciones,
           asociado: recibo.cuenta_corriente_id,
           fecha: recibo.fecha,
           monto: recibo.monto,
           motivo: recibo.motivo,
-          tipo_pago_id: recibo.tipo_pago_id
+          tipo_pago_id: tipo_pago
         };
         return reciboFormateado;
       });
@@ -70,7 +84,7 @@ export default function TablaRecibos() {
   };
   useEffect(() => {
     fetchData();
-    console.log(rows);
+    // console.log(rows);
   },[]);
 
   const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>(
