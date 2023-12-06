@@ -35,6 +35,7 @@ function AdminCargarRecibos() {
           navigate("/", { replace: true });
         } else {
           // console.log(resResolverToken.dataToken);
+          console.log(resResolverToken.dataToken);
         }
       }
     } catch (error) {
@@ -50,12 +51,13 @@ function AdminCargarRecibos() {
   useEffect(() => {
     checkTokenAndRol().then(() => {
       // console.log("se cumplio");
+      console.log("se cumplio");
     });
   }, []);
 
   return (
     <div className="panelAdminContainer">
-      <h1 className="panelAdminTitle">Cargar Recibo</h1>
+      <h1 className="panelAdminTitle">Cargar Recibo de vuelo</h1>
       <FormRecibos></FormRecibos>
     </div>
   );

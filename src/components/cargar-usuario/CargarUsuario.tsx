@@ -156,15 +156,6 @@ export default function CargarUsuario() {
                 }}
                 />
             </DemoContainer>
-            <FormControl sx={{ m: 1 }} variant="filled">
-            <InputLabel htmlFor="filled-adornment-amount">Saldo</InputLabel>
-            <FilledInput
-                id="saldo"
-                error={Boolean(error)}
-                onBlur={(e) => handleValidation(e.target.value)}
-                startAdornment={<InputAdornment position="start">$</InputAdornment>}
-            />
-            </FormControl>
         </Box>
         <Box className="fila-formulario-editar-usuario">
             <TextField

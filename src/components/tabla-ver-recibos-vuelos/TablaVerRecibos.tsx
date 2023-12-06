@@ -50,7 +50,7 @@ export default function TablaRecibosVuelos() {
   const [rows, setRows] = useState<GridRowsProp>([]);
   const fetchData = async () => {
     try {
-      const response = await apiReciboVuelos.getByEmail("elpopon@example.com");
+      const response = await apiReciboVuelos.get();
       let i = 0;
       // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar la tabla
       const resultado = response.respuesta.map((recibo: any) => {

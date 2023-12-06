@@ -7,12 +7,12 @@ import AdminEditarUsuarios from "../pages/admin-editar-usuarios/AdminEditarUsuar
 import AdminDetallesAsociados from "../pages/admin-detalles-asociados/AdminDetallesAsociados";
 import PanelAsociados from "../pages/panel-asociados/PanelAsociados";
 import FormEditUsuario from "../components/form-edit-usuario/FormEditUsuario";
-import CargarUsuario from "../components/cargar-usuario/CargarUsuario";
 import AdminVerRecibos from "../pages/admin-ver-recibos-vuelos/AdminVerRecibos";
 import Prueba from "../Prueba";
 import AdminCargarRecibo from "../pages/admin-cargar-recibo/AdminCargarRecibo";
 import AdminRegistrarPago from "../pages/admin-registrar-pago/AdminRegistrarPago";
 import AdminVerTransacciones from "../pages/admin-ver-transacciones/AdminVerTransacciones";
+import CargaUsuarios from "../pages/carga-usuarios/cargaUsuarios";
 
 export const AppRouter = () => {
   return (
@@ -32,7 +32,9 @@ export const AppRouter = () => {
             path="admin-editar-usuarios"
             element={<AdminEditarUsuarios />}
           />
-          <Route path="panel-asociado" element={<PanelAsociados />} />
+          <Route 
+            path="panel-asociado"
+            element={<PanelAsociados />} />
           <Route
             path="/admin-ver-recibos-vuelos"
             element={<AdminVerRecibos />}
@@ -42,14 +44,17 @@ export const AppRouter = () => {
             element={<AdminVerTransacciones />}
           ></Route>
           <Route
-            path="/admin-cargar-recibos"
+            path="/admin-cargar-recibos-vuelos"
             element={<AdminCargarRecibo />}
           ></Route>
           <Route
             path="/admin-registrar-pago"
             element={<AdminRegistrarPago />}
           ></Route>
-          <Route path="/cargar-usuario" element={<CargarUsuario />}></Route>
+          <Route 
+            path="/cargar-usuario" 
+            element={<CargaUsuarios />}
+          ></Route>
           <Route path="/prueba" element={<Prueba />}></Route>
         </Route>
         <Route path="/inicio" element={<Inicio />} />

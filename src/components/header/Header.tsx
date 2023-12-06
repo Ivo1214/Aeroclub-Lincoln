@@ -45,10 +45,10 @@ export default function Header() {
     }
   },[]);
 
-  // console.log("el mail del usuario en sesion: ", userSesion.email);
+  console.log("el mail del usuario en sesion: ", userSesion.email);
 
   const handleRoleSelection = (role: string) => {
-    // console.log(role);
+    console.log(role);
     if (userSesion.roles.includes(role)) {
       setSelectedRole(role);
       localStorage.setItem("rol", role);
@@ -90,7 +90,7 @@ export default function Header() {
 
 
 
-  // ------------------------------------------------------------------------------------------------------------------
+  // -------------------------     Gestores                  -----------------------------------------------------------------------------------------
   function navLogueo(){
     if (userSesion.email != "") {
       return (
@@ -153,27 +153,35 @@ export default function Header() {
       </ul>
 
       <Divider className="divider" variant="middle" />
-                <h4>Recibos</h4>
-            <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li className="nav-item">
-                <NavLink to="/admin-cargar-recibos">
-                  {" "}
-                  <a className="nav-link">Cargar Recibos</a>
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/admin-ver-recibos-vuelos">
-                  {" "}
-                  <a className="nav-link">Ver recibos de vuelo</a>
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to="/admin-registrar-pago">
-                  {" "}
-                  <a className="nav-link">Registrar pagos</a>
-                </NavLink>
-              </li>
-            </ul>
+        <h4>Recibos</h4>
+        <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li className="nav-item">
+            <NavLink to="/admin-ver-recibos">
+              {" "}
+              <a className="nav-link">Ver recibos de pago</a>
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/admin-registrar-pago">
+              {" "}
+              <a className="nav-link">Registrar pago</a>
+            </NavLink>
+          </li>
+          <p></p>
+
+          <li className="nav-item">
+            <NavLink to="/admin-cargar-recibos-vuelos">
+              {" "}
+              <a className="nav-link">Cargar recibos de vuelo</a>
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink to="/admin-ver-recibos-vuelos">
+              {" "}
+              <a className="nav-link">Ver recibos de vuelo</a>
+            </NavLink>
+          </li>
+        </ul>
       </>)
     }
   };
@@ -338,12 +346,12 @@ export default function Header() {
                   <a className="nav-link">Registro historicos de vuelos</a>
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink to="/admin-administrar-usuarios">
                   {" "}
                   <a className="nav-link">Administrar Usuario</a>
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
             <Divider className="divider" variant="middle" />
 
