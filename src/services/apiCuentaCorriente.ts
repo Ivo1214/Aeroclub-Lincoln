@@ -5,7 +5,7 @@ const getTokenLocal = localStorage.getItem("token");
 
 export const apiCuentaCorriente = {
     // Buscar cuenta corriente de un usuario usando su ID
-  getById: async function (id: string) {
+  getById: async function (id: number) {
     const response = await client.request({
       url: `/cuentaCorriente/${id}`,
       method: "GET",
@@ -22,7 +22,7 @@ export const apiCuentaCorriente = {
       Swal.fire({
         position: "top-end",
         icon: "error",
-        title: `${response}`,
+        title: `Error al cargar el saldo.`,
         text: ``,
         showConfirmButton: false,
         timer: 2500,
