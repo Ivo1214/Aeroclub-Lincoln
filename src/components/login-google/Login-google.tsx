@@ -33,10 +33,12 @@ const clientId = import.meta.env.VITE_CLIENT_ID;
 
 function LoginGoogle() {
   const { decodificarToken } = useAuthToken();
+  const [emailGoogle, setEmailGoogle] = React.useState("");
 
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
+    setEmailGoogle("");
     setOpen(false);
   };
   const navigate = useNavigate();
@@ -45,9 +47,9 @@ function LoginGoogle() {
   const [email, setEmail] = useRecoilState(emailSignIn);
 
   const onSuccess = async (res: any) => {
-    console.log("LOGIN SUCCESS! Current user: ", res.profileObj);
-    // setOpen(true);
-    console.log("email: ", res.profileObj.email);
+    // console.log("LOGIN SUCCESS! Current user: ", res.profileObj);
+    
+    // console.log("email: ", res.profileObj.email);
     //aca tengo que guardar en un estado global el mail
     setEmail(res.profileObj.email);
     
@@ -55,7 +57,7 @@ function LoginGoogle() {
     const response = await apiLogin.getByEmail(res.profileObj.email);
     // console.log(response.data);
     if (response.data.success){
-      console.log("Logeado");
+      // console.log("Logeado");
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("nombre", res.profileObj.name); //no funciona el atom
       localStorage.setItem("avatar", res.profileObj.imageUrl); //no funciona el atom
@@ -67,7 +69,7 @@ function LoginGoogle() {
     else{
       const result = await fetchAPIAuthToken(email as any);
           if (result.success) {
-            console.log("Se encontro usuario con ese mail.");
+            // console.log("Se encontro usuario con ese mail.");
             localStorage.setItem("token", result.token);
 
             console.log("token: ", result.token);
@@ -76,12 +78,9 @@ function LoginGoogle() {
             await decodificarToken();
             navigate("/", { replace: true });
           } else {
-            console.log("No se encontro usuario con ese mail.");
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: result.message,
-            });
+            setEmailGoogle(res.profileObj.email);
+            // No se encontro un usuario cargado en la base de datos. Se pregunta si el usuario desea crearlo
+            setOpen(true);
           }
     }
 
@@ -115,10 +114,18 @@ function LoginGoogle() {
       onClose={handleClose}
       aria-describedby="alert-dialog-slide-description"
     >
-      <DialogTitle>{`¿Desear continuar con esta cuenta?`}</DialogTitle>
+      <DialogTitle>{`No se encontro usuario.`}</DialogTitle>
       <DialogContent className="container-dialog-login">
-        <DialogContentText className="color-texto-email">{`${email}`}</DialogContentText>
+        <DialogContentText className="color-texto-email">¿Desear crear un usuario con este email? {`${email}`}</DialogContentText>
       </DialogContent>
+      <DialogActions>
+        <Button onClick={handleClose}>Cancelar</Button>
+        <Button onClick={ async () => {
+          await apiLogin.post(emailGoogle);
+          setEmailGoogle("");
+          setOpen(false);
+        }}>Continuar</Button>
+      </DialogActions>
     </Dialog>
   </React.Fragment>
   </>
