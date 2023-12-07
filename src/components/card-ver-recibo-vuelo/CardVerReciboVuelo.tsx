@@ -8,7 +8,7 @@ import formatearFecha from '../../functions/formatearFecha/formatearFecha';
 
 
 
-function CardVerRecibo(recibo: any) {
+function CardVerReciboVuelo(recibo: any) {
 
   
   
@@ -120,4 +120,4 @@ function CardVerRecibo(recibo: any) {
   )
 }
 
-export { CardVerRecibo };
+export { CardVerReciboVuelo };

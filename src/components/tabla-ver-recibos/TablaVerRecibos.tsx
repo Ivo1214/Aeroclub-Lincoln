@@ -19,7 +19,7 @@ import { Modal } from "@mui/material";
 import { useState, useEffect } from "react";
 
 
-import { CardVerRecibo } from "../card-ver-recibo-vuelo/CardVerRecibo";
+import { CardVerRecibo } from "../card-ver-recibo/CardVerRecibo";
 import { apiTransacciones } from "../../services/apiTransacciones";
 
 const theme = createTheme(

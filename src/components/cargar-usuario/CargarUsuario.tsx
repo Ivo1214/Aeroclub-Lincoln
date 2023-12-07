@@ -87,10 +87,21 @@ export default function CargarUsuario() {
   //   ------------------------------ Validacion------------------------------------
 
 
+  function handleSubmit(e: any) {
+    e.preventDefault();
+    const datos = {
+      nombre: e.target.nombre.value,
+      apellido: e.target.apellido.value,
+      dni: e.target.dni.value,
+      email: e.target.email.value,
+      fecha_nacimiento: value,
+    }
+    console.log(datos);
+  }
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-        
+      <form onSubmit={handleSubmit}>
         <FormGroup
         className='formulario-cargar-usuario'
         sx={{
@@ -207,10 +218,11 @@ export default function CargarUsuario() {
             </DemoContainer>
         </Box>
         
-        <Button variant="contained" endIcon={<SendIcon />}>
-            Enviar
+        <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+            Cargar
         </Button>
         </FormGroup>
+      </form>
     </LocalizationProvider>
   );
 }

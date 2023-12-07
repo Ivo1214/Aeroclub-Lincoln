@@ -140,6 +140,7 @@ export default function TablaAsociadosPanelAdmin() {
     setOpenDialog(false);
   };
   const handleConfirmDialog = async () => {
+    console.log(borrarAsociado);
     try {
     await apiUsuarios.deleteUserByEmail(borrarAsociado);
     } catch (error:any) {

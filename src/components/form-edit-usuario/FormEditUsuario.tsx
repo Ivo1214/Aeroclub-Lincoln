@@ -16,6 +16,7 @@ import FilledInput from '@mui/material/FilledInput';
 import FormControl from '@mui/material/FormControl';
 import "./formEditUsuario.css";
 import { apiUsuarios } from '../../services/apiUsuarios';
+import { useNavigate } from 'react-router-dom';
 // import { useNavigate } from 'react-router-dom';
 
 
@@ -31,6 +32,7 @@ function formatearFecha (fechaRecibida:any) {
   return `${year}-${month}-${day}`.toString();
 }
 export default function FormEditUsuario(props:any) {
+  const navigate = useNavigate();
   const datosAsociado = props.datosAsociado;
 
 
@@ -47,7 +49,7 @@ export default function FormEditUsuario(props:any) {
       habilitado: 1
     };
     const response = await apiUsuarios.patch(datos);
-    // navigate ("panel-administrador");
+    navigate ("/panel-administrador");
   };
 
   return (

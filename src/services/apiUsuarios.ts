@@ -17,7 +17,7 @@ export const apiUsuarios = {
 
     if (response) {
       // console.log(response.data);
-      return response.data;
+      return response.data.respuesta;
     }
   },
 
@@ -132,17 +132,17 @@ export const apiUsuarios = {
   deleteUserByEmail: async function (email: String) {
     const getTokenLocal = await localStorage.getItem("token");
 
-    // const response = await client.request({
-    //     url: `/usuarios/${email}`,
-    //     method: 'DELETE',
-    //     headers: {
-    //       Authorization: "bearer " + getTokenLocal,
-    //       "content-type": "application/json",
-    //     },
-    // });
+    const response = await client.request({
+        url: `/usuarios/${email}`,
+        method: 'DELETE',
+        headers: {
+          Authorization: "bearer " + getTokenLocal,
+          "content-type": "application/json",
+        },
+    });
 
-    // if (response) {
-    //     // console.log(response.data);
+    if (response) {
+        // console.log(response.data);
     Swal.fire({
       position: "top-end",
       icon: "success",
@@ -152,17 +152,17 @@ export const apiUsuarios = {
       showConfirmButton: false,
       timer: 2500,
     });
-    //     return response.data;
-    // }else{
-    // Swal.fire({
-    //     position: 'top-end',
-    //     icon: 'error',
-    //     title: 'Error al borrar.',
-    //     text: `Vuelva a intentarlo.`,
-    //     showConfirmButton: false,
-    //     timer: 2500
-    //     })
-    // }
+        return response.data;
+    }else{
+    Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Error al borrar.',
+        text: `Vuelva a intentarlo.`,
+        showConfirmButton: false,
+        timer: 2500
+        })
+    }
   },
   getInstructores: async function () {
     const getTokenLocal = await localStorage.getItem("token");

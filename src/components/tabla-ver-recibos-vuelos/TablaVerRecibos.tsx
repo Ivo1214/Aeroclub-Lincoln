@@ -20,7 +20,7 @@ import { useState, useEffect } from "react";
 
 import { apiReciboVuelos } from "../../services/apiReciboVuelos";
 
-import { CardVerRecibo } from "../card-ver-recibo-vuelo/CardVerRecibo";
+import { CardVerReciboVuelo } from "../card-ver-recibo-vuelo/CardVerReciboVuelo";
 
 const theme = createTheme(
   {
@@ -230,7 +230,7 @@ export default function TablaRecibosVuelos() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
-          <CardVerRecibo datos={verRecibo} />
+          <CardVerReciboVuelo datos={verRecibo} />
         </Box>
       </Modal>
     </Box>
