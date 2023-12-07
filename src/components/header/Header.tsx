@@ -109,7 +109,7 @@ export default function Header() {
 
   // -------------------------     Gestores                  -----------------------------------------------------------------------------------------
   function navLogueo(){
-    if (userSesion.email != "") {
+    if (localStorage.getItem("email") != "") {
       return (
         <>
       <div className="separacion-nav">
