@@ -85,24 +85,30 @@ export default function Header() {
   function seleccionarRol() {
     if (roles == null) {
       return null;
-    } else{
-    return (
-      <ul className="dropdown-menu" aria-labelledby="roleDropdown">
-        {roles.map((rol, index) => (
-          <li key={index}>
-            <a
-              className="dropdown-item"
-              href="#"
-              onClick={() => handleRoleSelection(rol)}
-            >
-              {rol}
-            </a>
-          </li>
-        ))}
-      </ul>
-    );
+    } else {
+      return roles.length > 1 ? (
+        <ul className="dropdown-menu" aria-labelledby="roleDropdown">
+          {roles.map((rol, index) => (
+            <li key={index}>
+              <a
+                className="dropdown-item"
+                href="#"
+                onClick={() => handleRoleSelection(rol)}
+              >
+                {rol}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div>
+          <p>{roles[0]}</p>
+        </div>
+      );
+    }
   }
-  }
+  
+  
 
 
 
