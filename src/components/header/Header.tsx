@@ -53,11 +53,6 @@ export default function Header() {
       setSelectedRole(role);
       localStorage.setItem("rol", role);
     } else {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "El usuario no posee el rol que quiere seleccionar",
-      });
       if (selectedRole) {
         setSelectedRole(selectedRole);
       } else {
