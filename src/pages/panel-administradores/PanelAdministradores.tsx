@@ -10,14 +10,17 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
+import { apiRoles } from "../../services/apiRoles";
 
 function PanelAdministradores() {
   const navigate = useNavigate();
-
+  
   // Se revisa si tiene los permisos de gestor
   async function checkTokenAndRol() {
     const getTokenLocal = await localStorage.getItem("token");
-
+    const [roles, setRoles] = useState<string[]>([]);
+    setRoles(await apiRoles.get(sessionStorage.getItem("email")));
+    
     if (getTokenLocal == "") {
       Swal.fire({
         icon: "error",
@@ -31,8 +34,6 @@ function PanelAdministradores() {
       const resResolverToken = await resolverToken();
 
       if (resResolverToken.success) {
-        const roles = resResolverToken.dataToken.roles;
-
         if (!roles.includes("Gestor")) {
           Swal.fire({
             icon: "error",

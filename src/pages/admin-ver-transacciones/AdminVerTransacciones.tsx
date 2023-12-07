@@ -1,14 +1,18 @@
 import TablaVerRecibos from "../../components/tabla-ver-recibos/TablaVerRecibos";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
+import { apiRoles } from "../../services/apiRoles";
 
 function AdminVerTransacciones() {
   const navigate = useNavigate();
 
   async function checkTokenAndRol() {
     const getTokenLocal = await localStorage.getItem("token");
+    const [roles, setRoles] = useState<string[]>([]);
+    setRoles(await apiRoles.get(sessionStorage.getItem("email")));
+    
 
     if (getTokenLocal == "") {
       Swal.fire({
@@ -23,7 +27,6 @@ function AdminVerTransacciones() {
       const resResolverToken = await resolverToken();
 
       if (resResolverToken.success) {
-        const roles = resResolverToken.dataToken.roles;
 
         if (!roles.includes("Gestor")) {
           Swal.fire({

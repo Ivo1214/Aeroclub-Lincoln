@@ -10,8 +10,9 @@ import { LoginGoogle } from "../login-google/Login-google";
 import { LogoutGoogle } from "../logout-google/Logout-google";
 import { resolverToken } from "../../api/apiCalls";
 import { useRecoilState } from "recoil";
-import { usuarioEnSesion } from "../../atomos/atoms";
+import { emailSignIn, usuarioEnSesion } from "../../atomos/atoms";
 import { useAuthToken } from "../../hooks/useAuthToken";
+import { apiRoles } from "../../services/apiRoles";
 
 export default function Header() {
   const [userSesion, setUserSesion] = useRecoilState(usuarioEnSesion);
@@ -48,8 +49,7 @@ export default function Header() {
   // console.log("el mail del usuario en sesion: ", userSesion.email);
 
   const handleRoleSelection = (role: string) => {
-    // console.log(role);
-    if (userSesion.roles.includes(role)) {
+    if (roles.includes(role)) {
       setSelectedRole(role);
       localStorage.setItem("rol", role);
     } else {
@@ -61,18 +61,33 @@ export default function Header() {
       if (selectedRole) {
         setSelectedRole(selectedRole);
       } else {
-        setSelectedRole("Usuario");
+        setSelectedRole("Asociado");
       }
     }
   };
 
+  const [roles, setRoles] = useState<string[]>([]);
 
-  function seleccionarRol(){
-    const roles = userSesion.roles;
-    
+  useEffect(() => {
+    async function fetchRolesAsync() {
+      try {
+        const response = await apiRoles.get(sessionStorage.getItem("email"));
+        setRoles(response);
+      } catch (error) {
+        console.error(error);
+        setRoles([]);
+      }
+    }
+
+    fetchRolesAsync();
+  }, []); // Se ejecuta solo al montar el componente
+
+  function seleccionarRol() {
+    if (roles == null) {
+      return null;
+    } else{
     return (
-    <>
-    <ul className="dropdown-menu" aria-labelledby="roleDropdown">
+      <ul className="dropdown-menu" aria-labelledby="roleDropdown">
         {roles.map((rol, index) => (
           <li key={index}>
             <a
@@ -85,7 +100,8 @@ export default function Header() {
           </li>
         ))}
       </ul>
-    </>)
+    );
+  }
   }
 
 

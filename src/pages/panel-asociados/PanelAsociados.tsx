@@ -6,16 +6,19 @@ import TarifaActual from "../../components/card-tarifa-actual/TarifaActual";
 import SaldoActual from "../../components/card-saldo-actual/SaldoActual";
 import VencimientoCMA from "../../components/card-vencimiento-cma/VencimientoCMA";
 import VencimientoCuota from "../../components/card-vencimiento-cuota/VencimientoCuota";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
+import { apiRoles } from "../../services/apiRoles";
 
 function PanelAsociados() {
   const navigate = useNavigate();
 
   async function checkTokenAndRol() {
     const getTokenLocal = await localStorage.getItem("token");
+    const [roles, setRoles] = useState<string[]>([]);
+    setRoles(await apiRoles.get(sessionStorage.getItem("email")));
 
     if (getTokenLocal == "") {
       Swal.fire({
@@ -30,7 +33,6 @@ function PanelAsociados() {
       const resResolverToken = await resolverToken();
 
       if (resResolverToken.success) {
-        const roles = resResolverToken.dataToken.roles;
 
         if (!roles.includes("Asociado")) {
           Swal.fire({

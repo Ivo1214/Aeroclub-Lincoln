@@ -1,37 +1,46 @@
 import { client } from "./api-backend.ts";
+
 const getTokenLocal = localStorage.getItem("token");
 
-export const apiRoles = {
+export const apiLogin = {
+  // Lista completa de aeronaves
 
-  
-  // Se obtienen todos los roles
-  get: async function (email: any) {
+  get: async function () {
     const response = await client.request({
-      url: `roles/${email}`,
+      url: `/auth/`,
       method: "GET",
       headers: {
-        Authorization: "bearer " + getTokenLocal,
         "content-type": "application/json",
       },
     });
     if (response) {
       // console.log(response.data);
-      return response.data.roles;
+      return response.data.respuesta;
     }
   },
-  // Cargar rol
+
+  // Cargar aeronave
   post: async function (datos: any) {
-    const getTokenLocal = await localStorage.getItem("token");
     const response = await client.request({
-      url: `/roles`,
+      url: `/aeronaves/`,
       method: "POST",
       headers: {
         Authorization: "bearer " + getTokenLocal,
         "content-type": "application/json",
       },
       data: {
-        email: datos.email,
-        rol: datos.rol,
+        marca: datos.marca,
+        modelo: datos.modelo,
+        matricula: datos.matricula,
+        potencia: datos.potencia,
+        clase: datos.clase,
+        fecha_adquisicion: datos.fecha_adquisicion,
+        consumo_por_hora: datos.consumo_por_hora,
+        path_documentacion: datos.path_documentacion,
+        descripcion: datos.descripcion,
+        path_imagen_aeronave: datos.path_imagen_aeronave,
+        id_aeronaves: datos.id_aeronaves,
+        estado_hab_des: datos.estado_hab_des,
       },
     });
 
@@ -41,25 +50,21 @@ export const apiRoles = {
     }
   },
 
-  // Quitar rol
-  delete: async function (datos: any) {
-    const getTokenLocal = await localStorage.getItem("token");
+
+
+  getByEmail: async function (email: string) {
+    console.log(email);
     const response = await client.request({
-      url: `/roles`,
-      method: "DELETE",
+      url: `/auth/${email}`,
+      method: "GET",
       headers: {
-        Authorization: "bearer " + getTokenLocal,
         "content-type": "application/json",
-      },
-      data: {
-        email: datos.email,
-        rol: datos.rol,
       },
     });
 
     if (response) {
       // console.log(response.data);
-      return response.data;
+      return response;
     }
   },
 };

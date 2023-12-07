@@ -15,6 +15,7 @@ import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { resolverToken } from '../../api/apiCalls';
+import { apiRoles } from '../../services/apiRoles';
 
 export default function CargarUsuario() {
   // No encontre forma de añadir la variable id en la fecha, encontre esta solucion para manejar en submit.
@@ -38,6 +39,9 @@ export default function CargarUsuario() {
   
     async function checkTokenAndRol() {
       const getTokenLocal = await localStorage.getItem("token");
+      const [roles, setRoles] = useState<string[]>([]);
+    setRoles(await apiRoles.get(sessionStorage.getItem("email")));
+    
   
       if (getTokenLocal == "") {
         Swal.fire({
@@ -52,7 +56,6 @@ export default function CargarUsuario() {
         const resResolverToken = await resolverToken();
   
         if (resResolverToken.success) {
-          const roles = resResolverToken.dataToken.roles;
   
           if (!roles.includes("Gestor")) {
             Swal.fire({

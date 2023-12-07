@@ -16,6 +16,8 @@ import { fetchAPIAuthToken } from "../../api/apiCalls";
 import { useAuthToken } from "../../hooks/useAuthToken";
 import Swal from "sweetalert2";
 import "./login-google.css";
+import { apiLogin } from "../../services/apiLogin";
+import { apiRoles } from "../../services/apiRoles";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -42,14 +44,45 @@ function LoginGoogle() {
   //este recoil es un estado global para transmitir el email
   const [email, setEmail] = useRecoilState(emailSignIn);
 
-  const onSuccess = (res: any) => {
+  const onSuccess = async (res: any) => {
     console.log("LOGIN SUCCESS! Current user: ", res.profileObj);
-    setOpen(true);
+    // setOpen(true);
     //aca tengo que guardar en un estado global el mail
     console.log("email: ", res.profileObj.email);
     sessionStorage.setItem("nombre", res.profileObj.name); //no funciona el atom
     sessionStorage.setItem("avatar", res.profileObj.imageUrl); //no funciona el atom
+    sessionStorage.setItem("email", res.profileObj.email);
     setEmail(res.profileObj.email);
+    
+    const response = await apiLogin.getByEmail(res.profileObj.email);
+    console.log(response.data);
+    if (response.data.success){
+      console.log("Logeado");
+      localStorage.setItem("token", response.data.token);
+      navigate("/panel-asociado", { replace: true });
+    }
+    else{
+      const result = await fetchAPIAuthToken(email as any);
+          
+          if (result.success) {
+            localStorage.setItem("token", result.token);
+
+            console.log("token: ", result.token);
+
+            //cargo los datos del token que fui a buscar
+            await decodificarToken();
+            navigate("/", { replace: true });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: result.message,
+            });
+          }
+    }
+
+
+    
 
   };
 
@@ -82,30 +115,6 @@ function LoginGoogle() {
       <DialogContent className="container-dialog-login">
         <DialogContentText className="color-texto-email">{`${email}`}</DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose}>Cancelar</Button>
-        <Button onClick={async (e: any) => {
-          e.preventDefault();
-          const result = await fetchAPIAuthToken(email as any);
-          
-          if (result.success) {
-            localStorage.setItem("token", result.token);
-
-            console.log("token: ", result.token);
-
-            //cargo los datos del token que fui a buscar
-            await decodificarToken();
-          } else {
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: result.message,
-            });
-          }
-
-          navigate("/", { replace: true });
-        }}>Continuar</Button>
-      </DialogActions>
     </Dialog>
   </React.Fragment>
   </>

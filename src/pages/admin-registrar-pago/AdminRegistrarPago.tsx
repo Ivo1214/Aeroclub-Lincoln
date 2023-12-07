@@ -4,12 +4,16 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
 import FormRegistrarPago from "../../components/form-registrar-pago/FormRegistrarPago";
+import { apiRoles } from "../../services/apiRoles";
 
 function AdminCargarRecibos() {
   const navigate = useNavigate();
 
   async function checkTokenAndRol() {
     const getTokenLocal = await localStorage.getItem("token");
+    const [roles, setRoles] = useState<string[]>([]);
+    setRoles(await apiRoles.get(sessionStorage.getItem("email")));
+    
 
     if (getTokenLocal == "") {
       Swal.fire({
@@ -24,7 +28,6 @@ function AdminCargarRecibos() {
       const resResolverToken = await resolverToken();
 
       if (resResolverToken.success) {
-        const roles = resResolverToken.dataToken.roles;
 
         if (!roles.includes("Gestor")) {
           Swal.fire({
