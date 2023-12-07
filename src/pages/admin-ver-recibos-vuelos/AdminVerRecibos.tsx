@@ -12,7 +12,7 @@ function AdminVerRecibos() {
   async function checkTokenAndRol() {
     const getTokenLocal = await localStorage.getItem("token");
     const [roles, setRoles] = useState<string[]>([]);
-    setRoles(await apiRoles.get(sessionStorage.getItem("email")));
+    setRoles(await apiRoles.get(localStorage.getItem("email")));
     
 
     if (getTokenLocal == "") {

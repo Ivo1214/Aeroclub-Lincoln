@@ -18,6 +18,9 @@ function LogoutGoogle() {
       roles: [],
     });
     localStorage.setItem("token", "");
+    localStorage.setItem("nombre", ""); //no funciona el atom
+    localStorage.setItem("avatar", ""); //no funciona el atom
+    localStorage.setItem("email", "");
     navigate("/", { replace: true });
   };
 

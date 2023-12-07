@@ -71,7 +71,7 @@ export default function Header() {
   useEffect(() => {
     async function fetchRolesAsync() {
       try {
-        const response = await apiRoles.get(sessionStorage.getItem("email"));
+        const response = await apiRoles.get(localStorage.getItem("email"));
         setRoles(response);
       } catch (error) {
         console.error(error);
@@ -112,7 +112,7 @@ export default function Header() {
       return (
         <>
       <div className="separacion-nav">
-        <h5>{`${sessionStorage.getItem("nombre")}`}</h5>
+        <h5>{`${localStorage.getItem("nombre")}`}</h5>
           <div className="dropdown rol-nav">
             <button
               className="btn btn-secondary dropdown-toggle"
@@ -235,10 +235,10 @@ export default function Header() {
             <Avatar
               className="avatar"
               alt="Remy Sharp"
-              src={sessionStorage.getItem("avatar")}
+              src={localStorage.getItem("avatar")}
             ></Avatar>
             <div className="nombre">
-              <h4>{`${sessionStorage.getItem("nombre")}`}</h4>
+              <h4>{`${localStorage.getItem("nombre")}`}</h4>
             </div>            
             <button
               type="button"

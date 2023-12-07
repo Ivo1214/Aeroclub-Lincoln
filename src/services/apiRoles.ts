@@ -21,7 +21,6 @@ export const apiRoles = {
   },
   // Cargar rol
   post: async function (datos: any) {
-    const getTokenLocal = await localStorage.getItem("token");
     const response = await client.request({
       url: `/roles`,
       method: "POST",
@@ -43,7 +42,6 @@ export const apiRoles = {
 
   // Quitar rol
   delete: async function (datos: any) {
-    const getTokenLocal = await localStorage.getItem("token");
     const response = await client.request({
       url: `/roles`,
       method: "DELETE",

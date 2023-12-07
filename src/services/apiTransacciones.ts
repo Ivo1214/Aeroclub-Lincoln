@@ -1,12 +1,11 @@
 import Swal from "sweetalert2";
 import { client } from "./api-backend";
+const getTokenLocal = await localStorage.getItem("token");
 
 export const apiTransacciones =  {
     
   // Obtener todas las transaciones
   get: async function () {
-    const getTokenLocal = await localStorage.getItem("token");
-
     const response = await client.request({
       url: `/transacciones/`,
       method: "GET",
@@ -42,8 +41,6 @@ export const apiTransacciones =  {
 
   // Crear una transaccion
   post: async function (datos: any) {
-    const getTokenLocal = await localStorage.getItem("token");
-
     const response = await client.request({
       url: `/transacciones/`,
       method: "POST",

@@ -47,24 +47,27 @@ function LoginGoogle() {
   const onSuccess = async (res: any) => {
     console.log("LOGIN SUCCESS! Current user: ", res.profileObj);
     // setOpen(true);
-    //aca tengo que guardar en un estado global el mail
     console.log("email: ", res.profileObj.email);
-    sessionStorage.setItem("nombre", res.profileObj.name); //no funciona el atom
-    sessionStorage.setItem("avatar", res.profileObj.imageUrl); //no funciona el atom
-    sessionStorage.setItem("email", res.profileObj.email);
+    //aca tengo que guardar en un estado global el mail
     setEmail(res.profileObj.email);
     
+    
     const response = await apiLogin.getByEmail(res.profileObj.email);
-    console.log(response.data);
+    // console.log(response.data);
     if (response.data.success){
       console.log("Logeado");
       localStorage.setItem("token", response.data.token);
+      localStorage.setItem("nombre", res.profileObj.name); //no funciona el atom
+      localStorage.setItem("avatar", res.profileObj.imageUrl); //no funciona el atom
+      localStorage.setItem("email", res.profileObj.email);
+      
+
       navigate("/panel-asociado", { replace: true });
     }
     else{
       const result = await fetchAPIAuthToken(email as any);
-          
           if (result.success) {
+            console.log("Se encontro usuario con ese mail.");
             localStorage.setItem("token", result.token);
 
             console.log("token: ", result.token);
@@ -73,6 +76,7 @@ function LoginGoogle() {
             await decodificarToken();
             navigate("/", { replace: true });
           } else {
+            console.log("No se encontro usuario con ese mail.");
             Swal.fire({
               icon: "error",
               title: "Oops...",

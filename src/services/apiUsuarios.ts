@@ -1,10 +1,11 @@
 import Swal from "sweetalert2";
 import { client } from "./api-backend";
+const getTokenLocal = await localStorage.getItem("token");
 
 export const apiUsuarios = {
   // Lista completa de usuarios
   getUsuarios: async function () {
-    const getTokenLocal = await localStorage.getItem("token");
+    
 
     const response = await client.request({
       url: `/usuarios/`,
@@ -23,8 +24,6 @@ export const apiUsuarios = {
 
   // Cargar usuario
   post: async function (datos: any) {
-    const getTokenLocal = await localStorage.getItem("token");
-
     const response = await client.request({
       url: `/usuarios/`,
       method: "POST",
@@ -71,8 +70,6 @@ export const apiUsuarios = {
 
   // Actualizar un usuario
   patch: async function (datos: any) {
-    const getTokenLocal = await localStorage.getItem("token");
-
     const response = await client.request({
       url: `/usuarios/${datos.email}`,
       method: "PATCH",
@@ -111,8 +108,6 @@ export const apiUsuarios = {
 
   // Buscar usuario usando su email
   getUserByEmail: async function (email: string) {
-    const getTokenLocal = await localStorage.getItem("token");
-
     const response = await client.request({
       url: `/usuarios/${email}`,
       method: "GET",
@@ -130,8 +125,6 @@ export const apiUsuarios = {
 
   // Borrar un usuario usando su email
   deleteUserByEmail: async function (email: String) {
-    const getTokenLocal = await localStorage.getItem("token");
-
     const response = await client.request({
         url: `/usuarios/${email}`,
         method: 'DELETE',
@@ -165,8 +158,6 @@ export const apiUsuarios = {
     }
   },
   getInstructores: async function () {
-    const getTokenLocal = await localStorage.getItem("token");
-
     const response = await client.request({
       url: `/usuarios/instructores?a`,
       method: "GET",
