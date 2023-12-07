@@ -6,6 +6,18 @@ export default function formatearFecha(fechaString: string) {
     let fechaFormateada = fechaOriginal.toLocaleString('es-ES', {
       day: '2-digit',
       month: '2-digit',
+      year: 'numeric'
+    });
+  
+    return fechaFormateada;
+  }
+
+  export function formatearFechaConHora(fechaString: string) {
+    let fechaOriginal = new Date(fechaString);
+  
+    let fechaFormateada = fechaOriginal.toLocaleString('es-ES', {
+      day: '2-digit',
+      month: '2-digit',
       year: 'numeric',
       hour: '2-digit',
       minute: '2-digit',

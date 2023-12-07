@@ -97,7 +97,7 @@ function CardVerRecibo(datos_recibo: any) {
           </Typography>
           
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
-            Fecha: {formatearFecha(recibo.fecha)}
+            Fecha: {recibo.fecha}
           </Typography>
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Monto: ${recibo.monto}

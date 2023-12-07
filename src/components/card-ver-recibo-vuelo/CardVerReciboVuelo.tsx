@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import Box from "@mui/material/Box";
 import { Divider } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-import formatearFecha from '../../functions/formatearFecha/formatearFecha';
+import formatearFecha, { formatearFechaConHora } from '../../functions/formatearFecha/formatearFecha';
 
 
 
@@ -28,10 +28,10 @@ function CardVerReciboVuelo(recibo: any) {
                     Llegada: {itinerarios.codAeroLlegada}
                 </Typography>
                 <Typography className="datos-asociados" variant="body2" color="textSecondary">
-                    Hora Salida: {formatearFecha(itinerarios.horaSalida)}
+                    Hora Salida: {formatearFechaConHora(itinerarios.horaSalida)}
                 </Typography>
                 <Typography className="datos-asociados" variant="body2" color="textSecondary">
-                    Hora Llegada: {formatearFecha(itinerarios.horaLlegada)}
+                    Hora Llegada: {formatearFechaConHora(itinerarios.horaLlegada)}
                 </Typography>
                 <Typography className="datos-asociados" variant="body2" color="textSecondary">
                     Aterrizajes: {itinerarios.cantAterrizajes}
@@ -108,7 +108,7 @@ function CardVerReciboVuelo(recibo: any) {
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Observaciones: {datosRecibo.observaciones}  
           </Typography>
-          <Typography className="datos-asociados" variant="body2" color="text.secondary">
+          <Typography className="datos-asociados" variant="h6" color="text.secondary">
             Itinerarios
           </Typography>
           <Box>

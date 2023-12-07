@@ -21,6 +21,7 @@ import { useState, useEffect } from "react";
 
 import { CardVerRecibo } from "../card-ver-recibo/CardVerRecibo";
 import { apiTransacciones } from "../../services/apiTransacciones";
+import formatearFecha from "../../functions/formatearFecha/formatearFecha";
 
 const theme = createTheme(
   {
@@ -56,7 +57,7 @@ export default function TablaRecibos() {
         const reciboFormateado = {
           id: recibo.id_transacciones,
           asociado: recibo.nombre_completo_usuario,
-          fecha: recibo.fecha,
+          fecha: formatearFecha(recibo.fecha),
           monto: recibo.monto,
           motivo: recibo.motivo,
           tipo_pago_id: recibo.tipo_pago_id
