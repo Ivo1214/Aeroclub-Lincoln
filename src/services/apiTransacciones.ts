@@ -57,7 +57,8 @@ export const apiTransacciones =  {
       },
     });
 
-    if (response) {
+    if (response.data.success) {
+      // console.log(response);
       // console.log(response.data);
       Swal.fire({
         position: "top-end",

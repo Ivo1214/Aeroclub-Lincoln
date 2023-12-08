@@ -1,5 +1,6 @@
 import Swal from "sweetalert2";
 import { client } from "./api-backend.ts";
+import { format } from "date-fns";
 
 const getTokenLocal = localStorage.getItem("token");
 
@@ -74,25 +75,33 @@ export const apiReciboVuelos = {
 
   // Cargar un recibo
   post: async function (datos: any) {
-    console.log(datos);
-    const response = await client.request({
-      url: `/recibo-vuelos/`,
-      method: "POST",
-      headers: {
-        Authorization: "bearer " + getTokenLocal,
-        "content-type": "application/json",
-      },
-      data: {
-        emailAsociado: datos.emailAsociado,
-        emailInstructor: datos.emailInstructor,
-        emailGestor: datos.emailGestor,
-        observaciones: datos.observaciones,
-        matricula: datos.matricula,
-        itinerarios: datos.itinerarios,
-      },
-    });
+    // Acomodar los itinerarios y cambiar el formato de las fechas
+  const itinerariosAcomodados = datos.itinerarios.map((itinerario: any) => ({
+    horaSalida: format(new Date(itinerario.horaSalida), "yyyy-MM-dd HH:mm:ss"),
+    codAeroSalida: itinerario.codAeroSalida,
+    horaLlegada: format(new Date(itinerario.horaLlegada), "yyyy-MM-dd HH:mm:ss"),
+    codAeroLlegada: itinerario.codAeroLlegada,
+    cantAterrizajes: itinerario.cantAterrizajes,
+    tipoItinerario: itinerario.tipoItinerario,
+  }));
 
-    if (response) {
+  const response = await client.request({
+    url: `/recibo-vuelos/`,
+    method: "POST",
+    headers: {
+      Authorization: "bearer " + getTokenLocal,
+      "content-type": "application/json",
+    },
+    data: {
+      emailAsociado: datos.emailAsociado,
+      emailInstructor: datos.emailInstructor,
+      emailGestor: datos.emailGestor,
+      observaciones: datos.observaciones,
+      matricula: datos.matricula,
+      itinerarios: itinerariosAcomodados,
+    },
+  });
+    if (response.data.success) {
       // console.log(response.data);
       Swal.fire({
         position: "top-end",
@@ -108,9 +117,9 @@ export const apiReciboVuelos = {
         position: "top-end",
         icon: "error",
         title: "Error al cargar recibo.",
-        text: ``,
+        text: `${response.data.message}`,
         showConfirmButton: false,
-        timer: 2500,
+        timer: 4500,
       });
     }
   },

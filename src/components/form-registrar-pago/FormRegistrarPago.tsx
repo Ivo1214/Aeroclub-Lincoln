@@ -69,13 +69,13 @@ export default function FormRegistrarPago() {
     e.preventDefault();
 
     const datos = {
-      monto : e.target.monto.value,
+      monto : e.target.monto.value as number,
       idUsuario: value.id, 
       motivo: e.target.motivo.value,
       tipoPago: tipoPago,
       fecha: fecha.format('YYYY-MM-DD'), // Formatear la fecha
     };
-    
+    // console.log(datos);
     try {
       await apiTransacciones.post(datos);
     } catch (error: any) {
@@ -130,9 +130,9 @@ export default function FormRegistrarPago() {
                 label="Tipo de pago"
                 onChange={handleChange}
               >
-                <MenuItem value={1}>Cheque</MenuItem>
-                <MenuItem value={2}>Efectivo</MenuItem>
-                <MenuItem value={3}>Transferencia</MenuItem>
+                <MenuItem value={"Cheque"}>Cheque</MenuItem>
+                <MenuItem value={"Efectivo"}>Efectivo</MenuItem>
+                <MenuItem value={"Transferencia"}>Transferencia</MenuItem>
               </Select>
             </FormControl>
 

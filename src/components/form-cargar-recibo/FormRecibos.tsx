@@ -42,6 +42,7 @@ import { apiAeronaves } from "../../services/apiAeronaves";
 import { usuarioEnSesion } from "../../atomos/atoms";
 import { useRecoilState } from "recoil";
 import { apiReciboVuelos } from "../../services/apiReciboVuelos";
+import formatearFecha, { formatearFechaConHora } from "../../functions/formatearFecha/formatearFecha";
 
 
 const initialRows: GridRowsProp = [
@@ -167,9 +168,9 @@ export default function FormRecibos() {
   const [instructores, setInstructores] = useState([{email: "", nombre: "Seleccionar"}]);
   const fetchDataInstructores = async () => {
     try {
-      const response = await apiUsuarios.getUsuarios();
+      const response = await apiUsuarios.getInstructores();
       // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar el selector de asociados
-      const resultado = response.map((user: any)=>{
+      const resultado = response.respuesta.map((user: any)=>{
         const usuarioFormateado = { 
           id: user.id_usuarios,
           nombre: user.nombre + " " + user.apellido,
@@ -291,7 +292,7 @@ export default function FormRecibos() {
       width: 120,
       editable: true,
       type: 'singleSelect',
-      valueOptions: ['Comando', 'tipo2', 'tipo3'],
+      valueOptions: ['Vuelo nocturno', 'Doble comando', "Sólo con instrucción", "Travesía", "Vuelo por Instrumentos bajo capota"],
     },
     {
       field: 'actions',
@@ -344,10 +345,21 @@ export default function FormRecibos() {
 
 
 
+  // ************************************************************************************
+  //                         Funcion formatear itinerarios
+  // ************************************************************************************
+  function formatearItinerarios (rows: any){
+    let itinerarios = rows.map((row: any) => ({
+      horaSalida: formatearFechaConHora(row.horaSalida),
+      codAeroSalida: row.codAeroSalida,
+      horaLlegada: formatearFechaConHora(row.horaLlegada),
+      codAeroLlegada: row.codAeroLlegada,
+      cantAterrizajes: row.cantAterrizajes,
+      tipoItinerario: row.tipoItinerario,
+    }));
 
-  
-
-  
+    return itinerarios;
+  }
 
 
   // ************************************************************************************
@@ -372,17 +384,17 @@ export default function FormRecibos() {
       // Puedes mostrar un mensaje de error al usuario o tomar alguna acción adicional
       return;
     }
-    console.log(rows);
+    const itinerariosFormateados = formatearItinerarios(rows);
     const datos = {
       emailAsociado: value.email,
       emailInstructor: emailInstructor,
       emailGestor: e.target.emailGestor.value,
       observaciones: e.target.observaciones.value,
       matricula: valueAeronave.matricula,
-      itinerarios: rows,
+      itinerarios: itinerariosFormateados,
     };
     // console.log("Valores de los formularios:", rows);
-    // console.log(datos);
+    console.log(datos);
     try {
       await apiReciboVuelos.post(datos);
     } catch (error: any) {
@@ -532,8 +544,8 @@ export default function FormRecibos() {
           
         </FormGroup>
         <Button type="submit" variant="contained" endIcon={<SendIcon />}>
-            Cargar
-          </Button>
+          Cargar
+        </Button>
       </LocalizationProvider>
     </form>
   );

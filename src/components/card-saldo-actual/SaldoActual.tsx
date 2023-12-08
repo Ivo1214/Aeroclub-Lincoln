@@ -11,10 +11,12 @@ export default function SaldoActual() {
 
   const getSaldo = async () => {
     try {
+      // console.log(localStorage.getItem("email"));
       const email = await apiUsuarios.getUserByEmail(localStorage.getItem("email") as string)
       const response = await apiCuentaCorriente.getById(email.respuesta.id_usuarios);
       // Parsea la respuesta a un entero y actualiza el estado
       setSaldo(parseInt(response) || 0); // Si no se puede parsear, establece el saldo en 0
+      // console.log(saldo);
     } catch (error: any) {
       console.log(error.message);
       setSaldo(null); // Manejo de error, establece el saldo en null
