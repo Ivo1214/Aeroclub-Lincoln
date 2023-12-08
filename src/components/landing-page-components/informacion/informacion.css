@@ -1,47 +1,48 @@
 
 .container-informacion{
-    /* display: flex; */
-    /* flex-direction: row; */
-    /* align-items: center; */
-    /* justify-content: center; */
-}
-.image{
-    height:clamp(5em, 15em, 20em);
-    max-width: 40%;
-}
-/* .informacion{
-    Esto provoca el overflow
     display: flex;
-    flex-direction: column;
-    padding: 5px 2vw 5px 2vw;
-    justify-content:center;
-    align-items:center;
-    max-width: 80vw;
-}
-.container-informacion{
-    margin: 0 !important;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
-
-    .texto{
-        font-size: clamp(1em,1em,2em);
-        font-family: 'Montserrat';
-    }
-
-    Revisar estilo de imagen, esto rompe el responsive al hacerse mas chica la pantalla
-    .image{
-        height:clamp(5em, 15em, 20em);
-        max-width: 40%;
-    }
+    align-items: center;
+    flex-direction: column;
+    padding: 5rem 10%;
+    gap: 4rem;
 }
 
-@media screen and (max-width: 550px) {
-    .container-informacion{
-        flex-direction: column;
-    }
-    .image{
-        height:clamp(5em, 11em, 30em);
-    }
-} */
+.texto-informacion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem 0;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.texto-informacion p{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.informacion{
+    display: flex;
+    justify-content: center;
+    background-color: #cee4fd;
+    border-radius: 20px;
+    
+}
+
+.informacion img{
+    width: 25rem;
+    border-top-right-radius: 20px;
+}
+
+.imagen-informacion {
+    width: 25rem;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 0px  !important;
+}

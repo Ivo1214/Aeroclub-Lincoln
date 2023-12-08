@@ -51,32 +51,18 @@ const Contacto = () => {
                 // <p className="texto"><span className="resaltar">Domingos</span>: xxhs a xxhs</p>
         //     </div>
         // </div>
-        <Card className='card-contacto'>
-            <CardContent className='box-contacto'>
-                <h3 className="titulo">Contacto</h3>
-                <div className="iconos">
-                    <TwitterIcon className="bi bi-twitter-x"/>
-                    <FacebookIcon className="bi bi-facebook"/>
-                    <WhatsAppIcon className="bi bi-whatsapp"/>
-                    <InstagramIcon className="bi bi-instagram"/>
+
+        <section className="container-ubicacion">
+            <div className="informacion-ubicacion">
+                <div className="texto-ubicacion">
+                    <h1>Ubicación</h1>
+                    <p>Lincoln es fácilmente accesible desde todas las direcciones. Ya sea que vengas desde el norte, sur, este u oeste, encontrarás rutas convenientes que te conducirán directamente a nuestras puertas. 
+                            La proximidad a las principales autopistas y vías de transporte público hace que llegar a nuestro rincón sea sencillo y conveniente.</p>
                 </div>
-            </CardContent>
-            <CardContent className='box-contacto'>
-                <h3 className="titulo">Ubicación</h3>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.8240087078457!2d-61.53565848255615!3d-34.8857654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95c744bf6daa3221%3A0x9664f190883cf985!2sAeroclub%20Lincoln!5e0!3m2!1ses-419!2sar!4v1698345205217!5m2!1ses-419!2sar" 
-                     // style="border:0;" 
-                     // allowfullscreen="" 
-                     // loading="lazy" 
-                     // referrerpolicy="no-referrer-when-downgrade"
-                />
-            </CardContent>
-            <CardContent className='box-contacto'>
-                <h3 className="titulo">Horario</h3>
-                <p className="texto"><span className="resaltar">Lunes</span> a <span className="resaltar">Viernes</span>: xxhs a xxhs</p>
-                <p className="texto"><span className="resaltar">Sabados</span>: xxhs a xxhs</p>
-                <p className="texto"><span className="resaltar">Domingos</span>: xxhs a xxhs</p>
-            </CardContent>
-        </Card>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3272.8240087078457!2d-61.53565848255615!3d-34.8857654!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95c744bf6daa3221%3A0x9664f190883cf985!2sAeroclub%20Lincoln!5e0!3m2!1ses-419!2sar!4v1698345205217!5m2!1ses-419!2sar" />
+                        
+            </div>
+        </section>
     );
 };
 
