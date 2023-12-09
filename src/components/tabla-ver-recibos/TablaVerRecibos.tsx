@@ -157,7 +157,7 @@ export default function TablaRecibos() {
     {
       field: "actions",
       type: "actions",
-      headerName: "Actions",
+      headerName: "Acciones",
       width: 100,
       cellClassName: "actions",
       getActions: ({ id }) => {

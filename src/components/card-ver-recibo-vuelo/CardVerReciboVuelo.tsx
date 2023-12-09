@@ -15,7 +15,7 @@ function CardVerReciboVuelo(recibo: any) {
     const datosRecibo = recibo.datos[0];
   function listaItinerarios () {
     let itinerarios = datosRecibo.itinerarios;
-
+    console.log(recibo);
       // Si no es un array (Solo tiene 1 itinerario cargado) devuelvo 1 solo Typography
     if (!Array.isArray(itinerarios)) {
       return (

@@ -39,6 +39,11 @@ export default function Header() {
     }
   }, [userSesion]);
 
+
+// ------------------------------------------------------------------------------------------------------------------
+//                              Roles
+// ------------------------------------------------------------------------------------------------------------------
+
   useEffect (() => {
     const rolPrevio = localStorage.getItem("rol");
     if (rolPrevio !== "") {
@@ -64,6 +69,7 @@ export default function Header() {
   const [roles, setRoles] = useState<string[]>([]);
 
   useEffect(() => {
+    // Se obtienen todos los roles del usuario logeado
     async function fetchRolesAsync() {
       try {
         const response = await apiRoles.get(localStorage.getItem("email"));
@@ -73,7 +79,7 @@ export default function Header() {
         setRoles([]);
       }
     }
-
+    // console.log(roles);
     fetchRolesAsync();
   }, []); // Se ejecuta solo al montar el componente
 
