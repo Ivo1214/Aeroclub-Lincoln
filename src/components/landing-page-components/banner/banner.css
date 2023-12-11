@@ -1,12 +1,12 @@
 header {
-    height: 100vh;
+    height: 94vh;
     width: 100%;
     text-align: center;
     background: linear-gradient(to right, rgba(0, 0, 0, 0.205), rgba(0, 0, 0, 0.205)), url(../../../assets/images/banner.png);
     background-size: 100% 100%;
   }
   header .textos-header {
-    height: 100vh;
+    height: 96vh;
     display: flex;
     justify-content: end;
     flex-direction: column; /*para que el texto se escriba uno bajo el otro*/
@@ -20,7 +20,7 @@ header {
     background-color: rgba(0, 0, 0, 0.76);
     width: 100%;
     padding: 2rem 0;
-    border: 2px solid rgb(88, 0, 0);
+    border-top: 2px solid rgb(88, 0, 0);
   }
   header .textos-header #header-titulo { /*texto 1 Tamaño*/
     font-size: clamp(3rem, 5rem, 9vw);

@@ -43,6 +43,6 @@
 .imagen-informacion {
     width: 25rem;
     border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-bottom-left-radius: 0px;
     border-top-right-radius: 0px  !important;
 }

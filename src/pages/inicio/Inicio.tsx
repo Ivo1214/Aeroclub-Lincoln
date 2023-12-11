@@ -22,9 +22,11 @@ const Inicio = () => {
 
   return (
     <div className="home-page">
-      <Banner></Banner>
-      <Informacion></Informacion>
-      <Contacto></Contacto>
+      <div className="banner-landing-page">
+        <Banner></Banner>
+        <Informacion></Informacion>
+        <Contacto></Contacto>
+      </div>
     </div>
   );
 };
