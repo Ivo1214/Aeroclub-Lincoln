@@ -62,7 +62,7 @@ export default function TablaRecibosVuelos() {
           matricula: recibo[0].matricula,
           observaciones: recibo[0].observaciones,
           precioTotal: recibo[0].precioTotal,
-          itinerarios: recibo[1],
+          itinerarios: recibo.slice(1), // Utiliza slice para obtener todos los elementos a partir de la posición 1
         };
         i = i + 1;
         return reciboFormateado;

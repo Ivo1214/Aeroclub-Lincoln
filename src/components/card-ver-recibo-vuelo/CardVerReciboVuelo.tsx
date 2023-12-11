@@ -12,7 +12,7 @@ function CardVerReciboVuelo(recibo: any) {
 
   
   
-    const datosRecibo = recibo.datos[0];
+  const datosRecibo = recibo.datos[0];
   function listaItinerarios () {
     let itinerarios = datosRecibo.itinerarios;
     console.log(recibo);
