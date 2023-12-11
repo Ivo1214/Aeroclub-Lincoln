@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import { NavLink, useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import "./Header.css";
 import Divider from "@mui/material/Divider";
 import Avatar from "@mui/material/Avatar";
 import { LoginGoogle } from "../login-google/Login-google";
 import { LogoutGoogle } from "../logout-google/Logout-google";
-import { resolverToken } from "../../api/apiCalls";
 import { useRecoilState } from "recoil";
-import { emailSignIn, usuarioEnSesion } from "../../atomos/atoms";
+import { usuarioEnSesion } from "../../atomos/atoms";
 import { useAuthToken } from "../../hooks/useAuthToken";
 import { apiRoles } from "../../services/apiRoles";
 
@@ -170,7 +168,7 @@ export default function Header() {
         <li className="nav-item">
           <NavLink to="/cargar-usuario">
             {" "}
-            <a className="nav-link">Cargar Usuarios</a>
+            <a className="nav-link">Cargar Usarios</a>
           </NavLink>
         </li>   
       </ul>
@@ -179,15 +177,15 @@ export default function Header() {
         <h4>Recibos</h4>
         <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li className="nav-item">
-            <NavLink to="/admin-ver-recibos">
-              {" "}
-              <a className="nav-link">Ver recibos de pago</a>
-            </NavLink>
-          </li>
           <li className="nav-item">
             <NavLink to="/admin-registrar-pago">
               {" "}
               <a className="nav-link">Registrar pago</a>
+            </NavLink>
+          </li>
+            <NavLink to="/admin-ver-recibos">
+              {" "}
+              <a className="nav-link">Ver recibos de pago</a>
             </NavLink>
           </li>
           <p></p>
@@ -316,7 +314,7 @@ export default function Header() {
             <Divider className="divider" variant="middle" />
 
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-              {/* <div className="dropdown">
+              <div className="dropdown">
                 <a
                   className="btn btn-secondary dropdown-toggle mi-info"
                   href="#"
@@ -344,7 +342,7 @@ export default function Header() {
                     </a>
                   </li>
                 </ul>
-              </div> */}
+              </div>
               <li className="nav-item turnos">
                 <NavLink to="/">
                   {" "}

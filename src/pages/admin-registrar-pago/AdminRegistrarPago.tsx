@@ -1,10 +1,10 @@
-import FormRecibos from "../../components/form-cargar-recibo/FormRecibos";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
 import FormRegistrarPago from "../../components/form-registrar-pago/FormRegistrarPago";
 import { apiRoles } from "../../services/apiRoles";
+import "./adminRegistrarPago.css";
 
 function AdminCargarRecibos() {
   const navigate = useNavigate();
@@ -59,8 +59,10 @@ function AdminCargarRecibos() {
 
   return (
     <div className="panelAdminContainer">
-      <h1 className="panelAdminTitle">Registrar Pago</h1>
-      <FormRegistrarPago></FormRegistrarPago>
+      <div className="tamano-registrar-pago">
+        <h1 className="panelAdminTitle">Registrar Pago</h1>
+        <FormRegistrarPago></FormRegistrarPago>
+      </div>
     </div>
   );
 }

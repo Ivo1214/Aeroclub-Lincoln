@@ -14,7 +14,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import dayjs, { Dayjs } from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { apiTransacciones } from "../../services/apiTransacciones";
-
+import "./formRegistrarPagos.css";
 
 
 
@@ -75,7 +75,7 @@ export default function FormRegistrarPago() {
       tipoPago: tipoPago,
       fecha: fecha.format('YYYY-MM-DD'), // Formatear la fecha
     };
-    // console.log(datos);
+    
     try {
       await apiTransacciones.post(datos);
     } catch (error: any) {
@@ -84,7 +84,7 @@ export default function FormRegistrarPago() {
   };
 
   return (
-    <form onSubmit={enviar}>
+    <form onSubmit={enviar} className="form-registrar-pagos">
     <LocalizationProvider dateAdapter={AdapterDayjs}>
         <FormGroup
         //   className="formulario-editar-usuario"
@@ -153,7 +153,7 @@ export default function FormRegistrarPago() {
               onChange={(newFecha) => setFecha(newFecha)}
             />
         </FormGroup>
-        <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+        <Button type="submit" variant="contained" endIcon={<SendIcon />} className="boton-registrar-pagos">
             Cargar
         </Button>
     </LocalizationProvider>

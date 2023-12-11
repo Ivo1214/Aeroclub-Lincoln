@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
 import { apiRoles } from "../../services/apiRoles";
+import "./adminCargaRecibos.css";
 
 function AdminCargarRecibos() {
   const navigate = useNavigate();
@@ -60,8 +61,10 @@ function AdminCargarRecibos() {
 
   return (
     <div className="panelAdminContainer">
-      <h1 className="panelAdminTitle">Cargar Recibo de vuelo</h1>
-      <FormRecibos></FormRecibos>
+      <div className="admin-carga-recibos">
+        <h1 className="panelAdminTitle">Cargar Recibo de vuelo</h1>
+        <FormRecibos></FormRecibos>
+      </div>
     </div>
   );
 }
