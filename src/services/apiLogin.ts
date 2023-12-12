@@ -21,7 +21,8 @@ export const apiLogin = {
   },
 
   // Crear usuario
-  post: async function (emailUsuario: string) {
+  post: async function (datos: any) {
+    console.log(datos);
     const response = await client.request({
       url: `/auth`,
       method: "POST",
@@ -29,7 +30,12 @@ export const apiLogin = {
         "content-type": "application/json",
       },
       data: {
-        email: emailUsuario
+        email: datos.email,
+        nombre: datos.nombre,
+        apellido: datos.apellido,
+        telefono: datos.telefono,
+        dni: datos.dni,
+        direccion: datos.direccion
       },
     });
     // console.log(response.data.success);
@@ -40,7 +46,7 @@ export const apiLogin = {
         icon: "success",
         title:
           "Usuario creado.",
-        text: `Ya puedes acceder con el Email: ${emailUsuario}`,
+        text: `Ya puedes acceder con el Email: ${datos.email}`,
         showConfirmButton: false,
         timer: 4500,
       });
@@ -50,9 +56,9 @@ export const apiLogin = {
         position: 'top-end',
         icon: 'error',
         title: 'Error al crear usuario.',
-        text: ``,
+        text: `${response.data.mensaje}`,
         showConfirmButton: false,
-        timer: 2500
+        timer: 4500
       })
     }
   },

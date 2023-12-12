@@ -37,7 +37,7 @@ export default function FormRegistrarPago() {
   const [asociados, setAsociados] = useState([]);
   const fetchDataAsociados = async () => {
     try {
-      const response = await apiUsuarios.getUsuarios();
+      const response = await apiUsuarios.getAsociados();
       // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar el selector de asociados
       const resultado = response.map((user: any)=>{
         const usuarioFormateado = { 

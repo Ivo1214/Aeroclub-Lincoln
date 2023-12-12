@@ -81,25 +81,6 @@ function EditToolbar(props: EditToolbarProps) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export default function FormRecibos() {
   // Cargo el input de gestor con el usuario de la sesion
   const [userSesion, setUserSesion] = useRecoilState(usuarioEnSesion);
@@ -110,7 +91,7 @@ export default function FormRecibos() {
   const [asociados, setAsociados] = useState([]);
   const fetchDataAsociados = async () => {
     try {
-      const response = await apiUsuarios.getUsuarios();
+      const response = await apiUsuarios.getAsociados();
       // Mapeo la respuesta de la api y la convierto a un array de objetos que se usara para cargar el selector de asociados
       const resultado = response.map((user: any)=>{
         const usuarioFormateado = { 

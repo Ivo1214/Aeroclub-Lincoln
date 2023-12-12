@@ -13,6 +13,7 @@ import AdminRegistrarPago from "../pages/admin-registrar-pago/AdminRegistrarPago
 import AdminVerTransacciones from "../pages/admin-ver-transacciones/AdminVerTransacciones";
 import CargaUsuarios from "../pages/carga-usuarios/CargaUsuarios";
 import AdminCargarCombustible from "../pages/admin-cargar-recibo-combustible/AdminCargarCombustible";
+import CargaUsuariosNuevos from "../pages/carga-usuarios-nuevos/CargaUsuariosNuevos";
 
 export const AppRouter = () => {
   return (
@@ -58,6 +59,10 @@ export const AppRouter = () => {
           <Route 
             path="/cargar-usuario" 
             element={<CargaUsuarios />}
+          ></Route>
+          <Route 
+            path="/cargar-usuario-nuevo" 
+            element={<CargaUsuariosNuevos></CargaUsuariosNuevos>}
           ></Route>
         </Route>
         <Route path="/inicio" element={<Inicio />} />

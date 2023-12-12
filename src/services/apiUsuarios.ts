@@ -70,6 +70,7 @@ export const apiUsuarios = {
 
   // Actualizar un usuario
   patch: async function (datos: any) {
+    console.log(datos);
     const response = await client.request({
       url: `/usuarios/${datos.email}`,
       method: "PATCH",
@@ -80,6 +81,11 @@ export const apiUsuarios = {
       data: {
         estado_hab_des: datos.estado_hab_des,
         apellido: datos.apellido,
+        nombre: datos.nombre,
+        telefono: datos.telefono,
+        dni: datos.dni,
+        direccion: datos.direccion,
+        habilitado: 1
       },
     });
 
@@ -172,5 +178,22 @@ export const apiUsuarios = {
       return response.data;
     }
   },
+  getAsociados: async function () {
+    const response = await client.request({
+      url: `/usuarios/asociados`,
+      method: "GET",
+      headers: {
+        Authorization: "bearer " + getTokenLocal,
+        "content-type": "application/json",
+      },
+    });
+
+    if (response) {
+      // console.log(response.data.respuesta);
+      return response.data.respuesta;
+    }
+  },
+
+  
   
 };

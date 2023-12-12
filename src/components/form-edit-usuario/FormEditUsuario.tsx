@@ -45,7 +45,11 @@ export default function FormEditUsuario(props:any) {
     e.preventDefault();
     const datos = {
       email: e.target.email.value,
+      nombre: e.target.nombre.value,
       apellido: e.target.apellido.value,
+      telefono: e.target.telefono.value,
+      direccion: e.target.direccion.value,
+      dni: e.target.dni.value,
       habilitado: 1
     };
     const response = await apiUsuarios.patch(datos);
@@ -89,6 +93,7 @@ export default function FormEditUsuario(props:any) {
               defaultValue = {datosAsociado.email}
               label="E-mail"
               variant="filled"
+              disabled
             />
           </Box>
           {/* Direccion y Telefono */}
@@ -113,6 +118,7 @@ export default function FormEditUsuario(props:any) {
                 <DatePicker
                 format="MM - DD - YYYY"
                 value={fecha_alta}
+                disabled
                 onChange={(newValue) => setFecha_alta(newValue)}
                 label="Fecha de alta" 
                 slotProps={{

@@ -121,7 +121,7 @@ function LoginGoogle() {
       <DialogActions>
         <Button onClick={handleClose}>Cancelar</Button>
         <Button onClick={ async () => {
-          await apiLogin.post(emailGoogle);
+          navigate('/cargar-usuario-nuevo', { state: { emailGoogle } });
           setEmailGoogle("");
           setOpen(false);
         }}>Continuar</Button>
