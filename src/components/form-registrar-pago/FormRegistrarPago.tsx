@@ -112,12 +112,13 @@ export default function FormRegistrarPago() {
             </Box>
 
             <FormControl fullWidth sx={{ m: 1 }}>
-                <InputLabel htmlFor="outlined-adornment-amount">Monto *</InputLabel>
+                <InputLabel htmlFor="outlined-adornment-amount">Monto</InputLabel>
                 <OutlinedInput
                     id="monto"
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
                     label="Monto"
                     type="number"
+                    required
                 />
             </FormControl>
             
@@ -128,6 +129,7 @@ export default function FormRegistrarPago() {
                 id="tipoPago"
                 value={tipoPago}
                 label="Tipo de pago"
+                required
                 onChange={handleChange}
               >
                 <MenuItem value={"Cheque"}>Cheque</MenuItem>
@@ -141,6 +143,7 @@ export default function FormRegistrarPago() {
                     id="motivo"
                     label="Motivo"
                     placeholder=""
+                    required
                     multiline
                 />
             </Box>

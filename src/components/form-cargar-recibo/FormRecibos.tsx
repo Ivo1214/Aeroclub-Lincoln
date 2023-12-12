@@ -446,9 +446,10 @@ export default function FormRecibos() {
             <TextField
               id="emailGestor"
               value={userSesion.email}
-              label="E-mail Gestor *"
+              label="E-mail Gestor"
               variant="filled"
               defaultValue=""
+              required
             />
           </Box>
 

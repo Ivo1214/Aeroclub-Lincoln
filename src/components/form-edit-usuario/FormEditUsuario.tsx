@@ -72,12 +72,14 @@ export default function FormEditUsuario(props:any) {
               defaultValue = {datosAsociado.nombre}
               label="Nombre"
               variant="filled"
+              required
             />
             <TextField
               id="apellido"
               defaultValue = {datosAsociado.apellido}
               label="Apellido"
               variant="filled"
+              required
             />
           </Box>
           {/* DNI y E-Mail */}
@@ -87,12 +89,14 @@ export default function FormEditUsuario(props:any) {
               defaultValue = {datosAsociado.dni}
               label="DNI"
               variant="filled"
+              required
             />
             <TextField
               id="email"
               defaultValue = {datosAsociado.email}
               label="E-mail"
               variant="filled"
+              required
               disabled
             />
           </Box>
@@ -103,6 +107,7 @@ export default function FormEditUsuario(props:any) {
               defaultValue = {datosAsociado.direccion}
               label="Dirección"
               variant="filled"
+              required
             />
             <TextField
               id="telefono"
@@ -111,7 +116,6 @@ export default function FormEditUsuario(props:any) {
               variant="filled"
             />
           </Box>
-          {/* Fecha alta y fecha de baja */}
           <Box className="fila-formulario-editar-usuario">
             {/* Fecha de alta */}
             <DemoContainer components={['DatePicker']}>

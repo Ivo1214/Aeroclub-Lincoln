@@ -61,6 +61,7 @@ export default function FormReciboCombustible() {
                 label="E-mail Gestor *"
                 variant="filled"
                 defaultValue=""
+                required
                 disabled
               />
             </Box>
@@ -72,6 +73,7 @@ export default function FormReciboCombustible() {
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
                     label="Monto"
                     type="number"
+                    required
                 />
             </FormControl>
             
@@ -82,6 +84,7 @@ export default function FormReciboCombustible() {
                 id="tipoPago"
                 value={tipoPago}
                 label="Tipo de pago"
+                required
                 onChange={handleChange}
               >
                 <MenuItem value={"Cheque"}>Cheque</MenuItem>
@@ -95,6 +98,7 @@ export default function FormReciboCombustible() {
                     id="motivo"
                     label="Motivo"
                     placeholder=""
+                    required
                     defaultValue="Cargar combustible"
                     multiline
                 />
