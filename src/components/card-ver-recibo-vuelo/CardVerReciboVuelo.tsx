@@ -65,7 +65,7 @@ function CardVerReciboVuelo(recibo: any) {
                     Aterrizajes: {itinerario.cantAterrizajes}
                 </Typography>
                 <Typography className="datos-asociados" variant="body2" color="textSecondary">
-                    Tipo itinerario{itinerario.tipoItinerario}
+                    Tipo itinerario: {itinerario.tipoItinerario}
                 </Typography>
                 
             </Box>

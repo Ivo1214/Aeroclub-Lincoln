@@ -12,6 +12,7 @@ import AdminCargarRecibo from "../pages/admin-cargar-recibo/AdminCargarRecibo";
 import AdminRegistrarPago from "../pages/admin-registrar-pago/AdminRegistrarPago";
 import AdminVerTransacciones from "../pages/admin-ver-transacciones/AdminVerTransacciones";
 import CargaUsuarios from "../pages/carga-usuarios/CargaUsuarios";
+import AdminCargarCombustible from "../pages/admin-cargar-recibo-combustible/AdminCargarCombustible";
 
 export const AppRouter = () => {
   return (
@@ -49,6 +50,10 @@ export const AppRouter = () => {
           <Route
             path="/admin-registrar-pago"
             element={<AdminRegistrarPago />}
+          ></Route>
+          <Route
+            path="/admin-cargar-recibos-combustible"
+            element={<AdminCargarCombustible />}
           ></Route>
           <Route 
             path="/cargar-usuario" 

@@ -81,5 +81,48 @@ export const apiTransacciones =  {
     }
   },
 
+  // Crear un recibo de combustible
+  postCombustible: async function (datos: any) {
+    console.log(datos);
+    const response = await client.request({
+      url: `/recibo-combustible`,
+      method: "POST",
+      headers: {
+        Authorization: "bearer " + getTokenLocal,
+        "content-type": "application/json",
+      },
+      data: {
+        emailGestor: datos.emailGestor,
+        observaciones: datos.observaciones, 
+        monto: datos.monto,
+        tipoPago: datos.tipoPago,
+        motivo: datos.motivo,
+      },
+    });
+
+    if (response.data.success) {
+      // console.log(response);
+      // console.log(response.data);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Transacción exitosa.",
+        text: ``,
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      return response.data;
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Error en la transacción.",
+        text: `${response.data.mensaje}`,
+        showConfirmButton: false,
+        timer: 4500,
+      });
+    }
+  },
+
 
 };

@@ -70,7 +70,7 @@ function CardMostrarAsociados({ asociado }: Props) {
             Apellido: {asociado.apellido}
           </Typography>
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
-            Saldo: $ {asociado.saldo}
+            Saldo: {asociado.saldo}
           </Typography>
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
             E-Mail: {asociado.email}

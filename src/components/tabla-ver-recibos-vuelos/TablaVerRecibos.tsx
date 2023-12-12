@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import DownloadIcon from '@mui/icons-material/Download';
+import EmailIcon from '@mui/icons-material/Email';
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   GridRowsProp,
@@ -21,6 +21,8 @@ import { useState, useEffect } from "react";
 import { apiReciboVuelos } from "../../services/apiReciboVuelos";
 
 import { CardVerReciboVuelo } from "../card-ver-recibo-vuelo/CardVerReciboVuelo";
+import { apiEnviarRecibo } from "../../services/apiEnviarRecibo";
+import Swal from "sweetalert2";
 
 const theme = createTheme(
   {
@@ -58,6 +60,7 @@ export default function TablaRecibosVuelos() {
           id: i,
           asociado: recibo[0].asociado,
           gestor: recibo[0].gestor,
+          numRecibo: recibo[0].numRecibo,
           instructor: recibo[0].instructor,
           matricula: recibo[0].matricula,
           observaciones: recibo[0].observaciones,
@@ -108,8 +111,19 @@ export default function TablaRecibosVuelos() {
   
   const handleDescargarClick = (id: GridRowId) => () => {
     setVerRecibo(rows.filter((row) => row.id === id));
-    // Añadir logica para descargar el recibo
-    alert("Implementar logica para descargar el recibo");
+    Swal.fire({
+      title: `¿Desea enviar el recibo al E-Mail del asociado: ${rows.filter((row) => row.id === id)[0].asociado}?`,
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Enviar",
+      denyButtonText: `Cancelar`
+    }).then((result) => {
+      if (result.isConfirmed) {
+        apiEnviarRecibo.get(rows.filter((row) => row.id === id)[0].numRecibo);
+      } else if (result.isDenied) {
+        Swal.fire("Has cancelado el envio", "", "info");
+      }
+    });
   };
 
   const processRowUpdate = (newRow: GridRowModel) => {
@@ -180,7 +194,7 @@ export default function TablaRecibosVuelos() {
             color="inherit"
           />,
           <GridActionsCellItem
-            icon={<DownloadIcon />}
+            icon={<EmailIcon />}
             label="Descargar recibo"
             className="textPrimary"
             onClick={handleDescargarClick(id)}

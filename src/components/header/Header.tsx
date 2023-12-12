@@ -168,7 +168,7 @@ export default function Header() {
         <li className="nav-item">
           <NavLink to="/cargar-usuario">
             {" "}
-            <a className="nav-link">Cargar Usarios</a>
+            <a className="nav-link">Cargar Usuarios</a>
           </NavLink>
         </li>   
       </ul>
@@ -200,6 +200,13 @@ export default function Header() {
             <NavLink to="/admin-ver-recibos-vuelos">
               {" "}
               <a className="nav-link">Ver recibos de vuelo</a>
+            </NavLink>
+          </li>
+          <p></p>
+          <li className="nav-item">
+            <NavLink to="/admin-cargar-recibos-combustible">
+              {" "}
+              <a className="nav-link">Cargar recibo de combustible</a>
             </NavLink>
           </li>
         </ul>

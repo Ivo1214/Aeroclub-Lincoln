@@ -168,26 +168,6 @@ export default function CargarUsuario() {
             </DemoContainer>
         </Box>
         <Box className="fila-formulario-editar-usuario">
-            <TextField
-            id="cantidadAterrizajes"
-            label="Cantidad de aterrizajes"
-            variant="filled"
-            defaultValue=""
-            helperText={error}
-            error={Boolean(error)}
-            onBlur={(e) => handleValidation(e.target.value)}
-            />
-            <TextField
-            id="horasVuelo"
-            label="Cantidad de horas de vuelo"
-            variant="filled"
-            defaultValue=""
-            helperText={error}
-            error={Boolean(error)}
-            onBlur={(e) => handleValidation(e.target.value)}
-            />
-        </Box>
-        <Box className="fila-formulario-editar-usuario">
             {/* Fecha ultima cuota paga */}
             <DemoContainer components={['DatePicker']}>
                 <DatePicker
