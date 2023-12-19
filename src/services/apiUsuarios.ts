@@ -193,7 +193,59 @@ export const apiUsuarios = {
       return response.data.respuesta;
     }
   },
+  // Saber si el usuario esta habilitado
+  getHabilitado: async function (email: string, token: string) {
+    const response = await client.request({
+      url: `/usuarios/${email}`,
+      method: "GET",
+      headers: {
+        Authorization: "bearer " + token,
+        "content-type": "application/json",
+      },
+    });
 
+    if (response) {
+      // console.log(response.data);
+      return response.data.respuesta.estado_hab_des;
+    }
+  },
+  // Reabilitar usuario
+  rehabilitar: async function (email: string, token: string) {
+    // console.log(email);
+    const response = await client.request({
+      url: `/usuarios/${email}`,
+      method: "PATCH",
+      headers: {
+        Authorization: "bearer " + token,
+        "content-type": "application/json",
+      },
+      data: {
+        estado_hab_des: 1
+      },
+    });
+
+    if (response) {
+      // console.log(response.data);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Has rehabilitado tu usuario.",
+        text: `Vuelve a logearte para acceder al sistema.`,
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      return response.data;
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Error al rehabilitar asociado.",
+        text: ``,
+        showConfirmButton: false,
+        timer: 2500,
+      });
+    }
+  },
   
   
 };

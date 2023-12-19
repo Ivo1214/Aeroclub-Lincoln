@@ -18,6 +18,7 @@ import Swal from "sweetalert2";
 import "./login-google.css";
 import { apiLogin } from "../../services/apiLogin";
 import { apiRoles } from "../../services/apiRoles";
+import { apiUsuarios } from "../../services/apiUsuarios";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -56,33 +57,55 @@ function LoginGoogle() {
     
     const response = await apiLogin.getByEmail(res.profileObj.email);
     // console.log(response.data);
-    if (response.data.success){
-      // console.log("Logeado");
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("nombre", res.profileObj.name); //no funciona el atom
-      localStorage.setItem("avatar", res.profileObj.imageUrl); //no funciona el atom
-      localStorage.setItem("email", res.profileObj.email);
-      
 
-      navigate("/panel-asociado", { replace: true });
-    }
-    else{
-      const result = await fetchAPIAuthToken(email as any);
-          if (result.success) {
-            // console.log("Se encontro usuario con ese mail.");
-            localStorage.setItem("token", result.token);
-
-            console.log("token: ", result.token);
-
-            //cargo los datos del token que fui a buscar
-            await decodificarToken();
-            navigate("/", { replace: true });
+        if (response.data.success){
+          // Se revisa que el usuario haya sido registrado previamente y se le pregunta si desea rehabilitarlo
+          const habilitado = await apiUsuarios.getHabilitado(res.profileObj.email as string, response.data.token);
+          // console.log(habilitado);
+          if (habilitado === 0) {
+            Swal.fire({
+              title: "Ya tenias un usuario registrado previamente, ¿Deseas rehabilitarlo?",
+              showDenyButton: true,
+              showCancelButton: false,
+              confirmButtonText: "Si",
+              denyButtonText: `No`
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                await apiUsuarios.rehabilitar(res.profileObj.email, response.data.token);
+              } else if (result.isDenied) {
+                Swal.fire("No has rehabilitado tu usuario", "", "info");
+              }
+            });
+            
           } else {
-            setEmailGoogle(res.profileObj.email);
-            // No se encontro un usuario cargado en la base de datos. Se pregunta si el usuario desea crearlo
-            setOpen(true);
+            // console.log("Logeado");
+            // console.log(response);
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("nombre", res.profileObj.name); //no funciona el atom
+            localStorage.setItem("avatar", res.profileObj.imageUrl); //no funciona el atom
+            localStorage.setItem("email", res.profileObj.email);
+            
+
+            navigate("/panel-asociado", { replace: true });
           }
-    }
+        }
+        else{
+          const result = await fetchAPIAuthToken(email as any);
+              if (result.success) {
+                console.log("Se encontro usuario con ese mail.");
+                localStorage.setItem("token", result.token);
+
+                console.log("token: ", result.token);
+
+                //cargo los datos del token que fui a buscar
+                await decodificarToken();
+                navigate("/", { replace: true });
+              } else {
+                setEmailGoogle(res.profileObj.email);
+                // No se encontro un usuario cargado en la base de datos. Se pregunta si el usuario desea crearlo
+                setOpen(true);
+              }
+        }
 
 
     
