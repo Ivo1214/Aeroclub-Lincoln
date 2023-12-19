@@ -123,6 +123,40 @@ export const apiTransacciones =  {
       });
     }
   },
+  // Obtener todas las transaciones de un usuario
+  getByUsuario: async function (id: number) {
+    const response = await client.request({
+      url: `/transacciones/usuario/${id}`,
+      method: "GET",
+      headers: {
+        Authorization: "bearer " + getTokenLocal,
+        "content-type": "application/json",
+      },
+    });
+
+    if (response) {
+        // console.log(response.data);
+        // Swal.fire({
+        //   position: "top-end",
+        //   icon: "success",
+        //   title: "Transacciones cargadas con exito.",
+        //   text: ``,
+        //   showConfirmButton: false,
+        //   timer: 2500,
+        // });
+        // console.log(response.data.response);
+        return response.data.response;
+      } else {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Error al cargar transaciones.",
+          text: ``,
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      }
+  },
 
 
 };

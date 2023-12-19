@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
 import { apiRoles } from "../../services/apiRoles";
+import TablaRecibosUsuario from "../../components/tabla-transacciones-usuario/TablaRecibosUsuario";
 
 function PanelAsociados() {
   const navigate = useNavigate();
@@ -86,7 +87,8 @@ function PanelAsociados() {
 
       <div className="colorTablaPanelAsociado">
         <div className="TablaTurnos">
-          <TablaTurnosPanelAsociados />
+          {/* <TablaTurnosPanelAsociados /> */}
+          <TablaRecibosUsuario></TablaRecibosUsuario>
         </div>
       </div>
     </div>
