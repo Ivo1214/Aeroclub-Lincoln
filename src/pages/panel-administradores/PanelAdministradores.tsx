@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
 import { apiRoles } from "../../services/apiRoles";
+import AddIcon from '@mui/icons-material/Add';
 
 function PanelAdministradores() {
   const navigate = useNavigate();
@@ -72,16 +73,18 @@ function PanelAdministradores() {
           <TablaAsociadosPanelAdmin />
         </div>
         <Button
+          className="botonCargarAsociado"
           onClick={() => {
             navigate("/cargar-usuario", { replace: true });
           }}
           size="large"
-        >
+        ><AddIcon></AddIcon>
           Cargar asociado
         </Button>
       </div>
 
       <div className="panelAdminColorAeronaves">
+        <h2 className="panelAdminTitle">Aeronaves</h2>
         <AeronaversAlertaPanelAdmin/>
       </div>
     </div>

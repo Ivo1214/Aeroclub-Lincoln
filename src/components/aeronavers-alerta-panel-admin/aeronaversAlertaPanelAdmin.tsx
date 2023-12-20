@@ -85,9 +85,7 @@ export function AeronaversAlertaPanelAdmin() {
 
   return (
     <div className="alertaAeronavesContainer">
-      <h3 className="alrtaAeronavesTitle">Aeronaves</h3>
-
-      <div className="alertsContainer">{aeronavesElements}</div>
+      {aeronavesElements}
     </div>
   );
 }

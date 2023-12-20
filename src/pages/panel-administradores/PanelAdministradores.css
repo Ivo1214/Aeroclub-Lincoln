@@ -29,10 +29,11 @@
 }
 
 .panelAdminColorAeronaves{
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background-color: rgb(197, 197, 197);
+  max-width: 85%;
+  padding: 1rem 4rem;
+  margin: 2rem 0;
+  border-radius: 15px;
+  background-color: var(--fondoTablaAsociado)
 }
 
 
@@ -54,6 +55,17 @@
   border-radius: 15px;
   border: solid 2px whitesmoke;
   margin-bottom: 20px;
+}
+
+.botonCargarAsociado{
+  margin-top: 15px !important;
+  margin-bottom: 5px !important;
+  background-color: whitesmoke !important;
+}
+
+.botonCargarAsociado:hover{
+  transform: scale(1.1);
+  transition: all 150ms ease;
 }
 
 @media (max-width: 485px) {
