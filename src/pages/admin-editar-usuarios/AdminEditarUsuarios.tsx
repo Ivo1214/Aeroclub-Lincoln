@@ -12,9 +12,10 @@ function AdminEditarUsuarios(props:any) {
   // navigate("/admin-editar-usuarios", { state: { asociado: datosAsociado }, replace: true });
  
   return (
-    <div className="panelAdminContainer">
-      <h1 className="panelAdminTitle">Editar Usuario</h1>
-      <FormEditUsuario datosAsociado={datosAsociado}></FormEditUsuario>
+    <div className='editar-usuarios'>
+      <div className="edicionDeUsuarios">
+        <FormEditUsuario datosAsociado={datosAsociado}></FormEditUsuario>
+      </div>
     </div>
   );
 }

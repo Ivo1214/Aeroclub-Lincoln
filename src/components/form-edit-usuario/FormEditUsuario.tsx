@@ -17,6 +17,7 @@ import FormControl from '@mui/material/FormControl';
 import "./formEditUsuario.css";
 import { apiUsuarios } from '../../services/apiUsuarios';
 import { useNavigate } from 'react-router-dom';
+import { Typography } from '@mui/material';
 // import { useNavigate } from 'react-router-dom';
 
 
@@ -60,11 +61,14 @@ export default function FormEditUsuario(props:any) {
     <form onSubmit={handleSubmit}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <FormGroup
-          className='formulario-editar-usuario'
+          className='formulario-cargar-usuario'
           sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
+              '& .MuiTextField-root': { m: 1,  },
           }}
         >
+          <Typography className="titulo-cargar-usuario" variant="h4">
+            Editar un usuario
+          </Typography>
           {/* Nombre y apellido */}
           <Box className="fila-formulario-editar-usuario">
             <TextField
@@ -133,7 +137,7 @@ export default function FormEditUsuario(props:any) {
                 />
             </DemoContainer>
           </Box>
-          <Button type="submit" variant="contained" endIcon={<SaveIcon />}>
+          <Button className='botonEditarUsuario' type="submit" variant="contained" endIcon={<SaveIcon />}>
             Guardar
           </Button>
         </FormGroup>
