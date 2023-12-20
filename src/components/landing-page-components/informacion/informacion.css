@@ -35,6 +35,22 @@
     
 }
 
+.informacionCardClima{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #cee4fd;
+    border-radius: 20px;
+    padding-bottom: 3rem;
+    
+}
+
+.informacionCardClima p{
+    font-size: 1.2rem;
+    
+}
+
 .informacion img{
     width: 25rem;
     border-top-right-radius: 20px;

@@ -227,7 +227,7 @@ export default function Header() {
   }, []);
 
   return (
-    <nav className="navbar bg-body-tertiary fixed-top">
+    <nav className="navbar bg-body-tertiary">
       <div className="container-fluid">
         <a className="navbar-brand">
           {" "}
@@ -296,12 +296,12 @@ export default function Header() {
                   <a className="nav-link">Panel de control</a>
                 </a>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink to="/">
                   {" "}
                   <a className="nav-link">Contactos</a>
                 </NavLink>
-              </li>
+              </li> */}
               <li className="nav-item dropdown">
                 <div className="dropdown rol">
                   Seleccionar rol:
@@ -318,7 +318,7 @@ export default function Header() {
                 </div>
               </li>
             </ul>
-            <Divider className="divider" variant="middle" />
+            {/* <Divider className="divider" variant="middle" />
 
             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
               <div className="dropdown">
@@ -374,12 +374,12 @@ export default function Header() {
                   <a className="nav-link">Registro historicos de vuelos</a>
                 </NavLink>
               </li>
-              {/* <li className="nav-item">
+              <li className="nav-item">
                 <NavLink to="/admin-administrar-usuarios">
                   {" "}
                   <a className="nav-link">Administrar Usuario</a>
                 </NavLink>
-              </li> */}
+              </li>
             </ul>
             <Divider className="divider" variant="middle" />
 
@@ -402,7 +402,7 @@ export default function Header() {
                   <a className="nav-link">Editar mis datos</a>
                 </NavLink>
               </li>
-            </ul>
+            </ul> */}
 
             {funcionGestorNav()}
           </div>

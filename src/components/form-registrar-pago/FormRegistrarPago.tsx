@@ -111,7 +111,7 @@ export default function FormRegistrarPago() {
                 />
             </Box>
 
-            <FormControl fullWidth sx={{ m: 1 }}>
+            <FormControl >
                 <InputLabel htmlFor="outlined-adornment-amount">Monto</InputLabel>
                 <OutlinedInput
                     id="monto"
@@ -122,7 +122,7 @@ export default function FormRegistrarPago() {
                 />
             </FormControl>
             
-            <FormControl fullWidth>
+            <FormControl >
               <InputLabel id="demo-simple-select-label">Tipo de pago</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -145,6 +145,8 @@ export default function FormRegistrarPago() {
                     placeholder=""
                     required
                     multiline
+                    rows={3}
+                    fullWidth
                 />
             </Box>
 

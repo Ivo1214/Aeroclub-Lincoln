@@ -384,15 +384,17 @@ export default function FormRecibos() {
   };
 
   return (
-    <form onSubmit={enviar}>
+    <form className="reducirTabla" onSubmit={enviar}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <FormGroup
+        <FormGroup className="cargaReciboVuelo"
+        
           // Esta clase hace que se vea mal los selectores
           // className="formulario-editar-usuario"
           sx={{
-            "& .MuiTextField-root": { m: 1, width: "25ch" },
+            "& .MuiTextField-root": { m: 1, width: "30ch" },
           }}
         >
+          <h1 className="panelAdminTitle">Cargar Recibo de vuelo</h1>
           <Box className="fila-formulario-editar-usuario">
             <Autocomplete
               disablePortal
@@ -411,7 +413,7 @@ export default function FormRecibos() {
               renderInput={(params) => <TextField {...params} label="Asociado *" />}
             />
           </Box>
-          <Box className="fila-formulario-editar-usuario">
+          <Box className="fila-formulario-editar-usuario VueloInstructor">
             <FormControlLabel control={
               <Checkbox
                 checked={conInstructor}
@@ -459,7 +461,7 @@ export default function FormRecibos() {
               label="Observaciones"
               placeholder=""
               multiline
-              rows={4}
+              rows={3}
             />
           </Box>
 
@@ -488,45 +490,51 @@ export default function FormRecibos() {
             renderInput={(params) => <TextField {...params} label="Matricula *" />}
           /> */}
           </Box>
-
-          <Box className="fila-formulario-recibo-observaciones">
-            <h1>Itinerarios</h1>
-          </Box>
-
-          <Box
-      sx={{
-        height: 500,
-        width: '100%',
-        '& .actions': {
-          color: 'text.secondary',
-        },
-        '& .textPrimary': {
-          color: 'text.primary',
-        },
-      }}
-    >
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        editMode="row"
-        rowModesModel={rowModesModel}
-        onRowModesModelChange={handleRowModesModelChange}
-        onRowEditStop={handleRowEditStop}
-        processRowUpdate={processRowUpdate}
-        slots={{
-          toolbar: EditToolbar,
-        }}
-        slotProps={{
-          toolbar: { setRows, setRowModesModel },
-        }}
-      />
-    </Box>
-
-          
-
-          
         </FormGroup>
-        <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+
+
+
+
+
+
+      <div className="cajaItinerarios">
+        <Box className="fila-formulario-recibo-observaciones">
+            <h1>Itinerarios</h1>
+        </Box>
+
+        <Box
+          sx={{
+            height: 500,
+            width: '100%',
+            '& .actions': {
+              color: 'text.secondary',
+            },
+            '& .textPrimary': {
+              color: 'text.primary',
+            },
+          }}
+        >
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          editMode="row"
+          rowModesModel={rowModesModel}
+          onRowModesModelChange={handleRowModesModelChange}
+          onRowEditStop={handleRowEditStop}
+          processRowUpdate={processRowUpdate}
+          slots={{
+            toolbar: EditToolbar,
+          }}
+          slotProps={{
+            toolbar: { setRows, setRowModesModel },
+          }}
+        />
+        </Box>
+      </div>
+      
+      
+
+        <Button className="botonCargaRecibo" type="submit" variant="contained" endIcon={<SendIcon />}>
           Cargar
         </Button>
       </LocalizationProvider>

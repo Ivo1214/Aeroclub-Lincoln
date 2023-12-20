@@ -5,6 +5,7 @@ import "./saldo-actual.css"
 import { apiCuentaCorriente } from '../../services/apiCuentaCorriente';
 import { useEffect, useState } from 'react';
 import { apiUsuarios } from '../../services/apiUsuarios';
+import  banner  from "../../assets/images/banner.png";
 
 export default function SaldoActual() {
   const [saldo, setSaldo] = useState<number | null>(null);
@@ -28,15 +29,26 @@ export default function SaldoActual() {
   }, []);
 
   return (
-    <Card className="card-saldo">
-      <CardContent>
-        <Typography variant="h5" component="div">
-          Saldo:
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          $ {saldo !== null ? saldo : "Cargando..."} {/* Muestra "Cargando..." mientras se obtiene el saldo */}
-        </Typography>
-      </CardContent>
-    </Card>
+  // <section className="containerInformacionPanelControl">
+  //   <div className="informacionPanelControl">
+  //     <div className="textoInformacionPanelControl">
+  //         <h1>Su saldo es:</h1>
+  //         <p> $ {saldo !== null ? saldo : "Cargando..."} {/* Muestra "Cargando..." mientras se obtiene el saldo */}</p>
+  //     </div>
+  //   </div>
+  // </section>
+
+  <section className="containerInformacionPanelControl">
+    <h1>¡Bienvenido!</h1>
+    <p>{`${localStorage.getItem("nombre")}`}</p>
+    <div className="informacionPanelControl">
+      <img src={localStorage.getItem("avatar")} alt="" />
+      <div className="textoInformacionPanelControl">
+          <h1>Su saldo es:</h1>
+          <p> $ {saldo !== null ? saldo : "Cargando..."} {/* Muestra "Cargando..." mientras se obtiene el saldo */}</p>
+      </div>
+    </div>
+  </section>
+
   );
 }

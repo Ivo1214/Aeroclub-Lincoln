@@ -4,6 +4,7 @@ import imagen  from "../../../assets/images/banner.png";
 import banner2  from "../../../assets/images/banner2.png";
 import banner3  from "../../../assets/images/banner3.png";
 import banner4  from "../../../assets/images/banner4.png";
+import { CardClima } from '../../card-clima/CardClima';
 
 const Informacion = () => {
     return (
@@ -40,7 +41,20 @@ const Informacion = () => {
         //         <img className="image" src="../assets/images/example.png" alt="example"/>
         //     </Box>
         // </Container>
+
             <section className="container-informacion">
+
+                <div className="informacion">
+                <CardClima></CardClima>
+                    <div className="texto-informacion">
+                        <h1>Clima en el Aeropuerto Lincoln en Tiempo Real</h1>
+                        <p> Muestra los datos meteorológicos más recientes para proporcionarte información precisa sobre las condiciones 
+                            climáticas en el Aeropuerto Lincoln. Desde la temperatura actual hasta la velocidad del viento y la visibilidad, 
+                            tendrás todos los detalles que necesitas al alcance de tus dedos.</p>
+                    </div>
+
+                </div>
+
                 <div className="informacion">
                     <div className="texto-informacion">
                         <h1>Explorando los Cielos</h1>

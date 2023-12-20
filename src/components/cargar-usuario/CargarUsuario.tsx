@@ -89,7 +89,7 @@ export default function CargarUsuario() {
       <FormGroup
       className='formulario-cargar-usuario'
       sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
+          '& .MuiTextField-root': { m: 1,  },
       }}
       >
       <Typography className="titulo-cargar-usuario" variant="h4">
@@ -144,7 +144,7 @@ export default function CargarUsuario() {
           />
       </Box>
       
-      <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+      <Button className='botonCargarUsuarioNuevo' type="submit" variant="contained" endIcon={<SendIcon />}>
         Cargar
       </Button>
       </FormGroup>
