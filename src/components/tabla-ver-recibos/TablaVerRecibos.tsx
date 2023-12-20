@@ -21,6 +21,7 @@ import { useState, useEffect } from "react";
 import { CardVerRecibo } from "../card-ver-recibo/CardVerRecibo";
 import { apiTransacciones } from "../../services/apiTransacciones";
 import formatearFecha from "../../functions/formatearFecha/formatearFecha";
+import "./TablaVerRecibos.css";
 
 const theme = createTheme(
   {
@@ -35,11 +36,10 @@ const modalStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 600,
-  bgcolor: "background.paper",
+  bgcolor: "var(--fondo)",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 2,
 };
 
 export default function TablaRecibos() {
@@ -207,7 +207,7 @@ export default function TablaRecibos() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={modalStyle}>
+        <Box className="modalVerRecibos" sx={modalStyle}>
           <CardVerRecibo datos={verRecibo} />
         </Box>
       </Modal>
