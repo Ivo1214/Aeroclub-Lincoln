@@ -209,7 +209,6 @@ export default function TablaRecibosVuelos() {
     <Box
       sx={{
         height: 500,
-        width: "100%",
         "& .actions": {
           color: "text.secondary",
         },

@@ -17,7 +17,7 @@ import {
 import { Modal } from "@mui/material";
 import { useState, useEffect } from "react";
 
-
+import "./TablaRecibosUsuario.css";
 import { CardVerRecibo } from "../card-ver-recibo/CardVerRecibo";
 import { apiTransacciones } from "../../services/apiTransacciones";
 import formatearFecha from "../../functions/formatearFecha/formatearFecha";
