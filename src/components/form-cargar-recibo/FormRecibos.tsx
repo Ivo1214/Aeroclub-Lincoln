@@ -459,6 +459,7 @@ export default function FormRecibos() {
               label="Observaciones"
               placeholder=""
               multiline
+              rows={4}
             />
           </Box>
 
