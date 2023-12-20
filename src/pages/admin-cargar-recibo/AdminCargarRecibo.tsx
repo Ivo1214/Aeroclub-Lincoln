@@ -62,7 +62,6 @@ function AdminCargarRecibos() {
   return (
     <div className="panelAdminContainer">
       <div className="admin-carga-recibos">
-        <h1 className="panelAdminTitle">Cargar Recibo de vuelo</h1>
         <FormRecibos></FormRecibos>
       </div>
     </div>

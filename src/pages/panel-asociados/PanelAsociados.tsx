@@ -65,21 +65,20 @@ function PanelAsociados() {
 
   return (
     <div className="panelAsociadoContainer">
-      <div className="panelAsociadoColorClima">
-        <div className="panelAsociadoContainerClima">
-          <div className="panelAdminContainerCardClima">
-            <CardClima></CardClima>
-          </div>
+        <div className="panelAsociadoContainerSaldo">
           <SaldoActual></SaldoActual>
         </div>
-      </div>
+
+        <div className="tablaTransaccionesAsociados">
+          <TablaRecibosUsuario/>
+        </div>
 
       {/* <div className="filaPanelAsociado">
         <TarifaActual></TarifaActual>
         <CondicionPista />
       </div> */}
       
-        <div className="filaPanelAsociado">
+        {/* <div className="filaPanelAsociado">
           <VencimientoCuota></VencimientoCuota>
           <VencimientoCMA></VencimientoCMA>
         </div>
@@ -87,10 +86,9 @@ function PanelAsociados() {
 
       <div className="colorTablaPanelAsociado">
         <div className="TablaTurnos">
-          {/* <TablaTurnosPanelAsociados /> */}
-          <TablaRecibosUsuario></TablaRecibosUsuario>
+          <TablaTurnosPanelAsociados />
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

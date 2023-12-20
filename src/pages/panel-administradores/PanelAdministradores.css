@@ -1,18 +1,12 @@
-.panelAdminContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  min-height: 100vh;
-  background-color: var(--fondoClaro);
+.panelAdminContainer{
+  border: 1rem solid var(--border); 
 }
 
-.panelAdminContainerCardClima{
-  background-color: #e8fcfc;
-  border-radius: 20px;
-  
+.panelAdminColorTablaAsociados{
+  padding: 0.5rem 4rem;
+  margin: 2rem 0;
+  border-radius: 15px;
+  background-color: var(--fondoTablaAsociado)
 }
 
 .panelAdminContainerClima{
@@ -30,12 +24,17 @@
   background-color: rgb(197, 197, 197);
 }
 
+.panelAdminTitle{
+  margin-top: 1rem !important;
+}
+
 .panelAdminColorAeronaves{
   width: 100%;
   display: flex;
   justify-content: center;
   background-color: rgb(197, 197, 197);
 }
+
 
 .table--showColors tr:nth-child(odd) {
   background: var(--azulClaro);

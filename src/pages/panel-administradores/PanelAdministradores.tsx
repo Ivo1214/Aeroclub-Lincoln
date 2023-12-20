@@ -65,15 +65,7 @@ function PanelAdministradores() {
 
 
   return (
-    <div className="panelAdminContainer">
-      <div className="panelAdminColorClima">
-        <div className="panelAdminContainerClima">
-          <div className="panelAdminContainerCardClima">
-            <CardClima></CardClima>
-          </div>
-        </div>
-      </div>
-
+    <div className="panelAdminContainer">      
       <div className="panelAdminColorTablaAsociados">
         <h1 className="panelAdminTitle">Asociados</h1>
         <div className="tablaAdmin">

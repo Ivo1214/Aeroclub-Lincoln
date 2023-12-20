@@ -5,7 +5,9 @@ import "./cargaUsuarios.css"
 function CargaUsuarios() {
     return (
         <div className='cargar-usuarios'>
-            <CargarUsuario/>
+            <div className="cargaDeUsuarios">
+                <CargarUsuario/>
+            </div>
         </div>
     );
 };

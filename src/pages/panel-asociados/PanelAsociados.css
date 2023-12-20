@@ -7,8 +7,9 @@
     width: 100%;
     gap: 10px;
     min-height: 100vh;
-    background-color: var(--fondoClaro);
+    background-color: var(--fondo);
     padding-bottom: 10px;
+    border: 1rem solid var(--border);  
   }
   .filaPanelAsociado{
     display: flex;
@@ -34,18 +35,7 @@
   .TablaTurnos{
     max-width: 95%;
   }
-
-  
-
-
-
-
-  .panelAsociadoContainerCardClima {
-    background-color: #e8fcfc;
-    border-radius: 20px;
-  }
-    
-  .panelAsociadoContainerClima{
+  .panelAsociadoContainerSaldo{
     padding-top: 50px;
     padding-bottom: 50px;
     display: flex;
@@ -54,9 +44,6 @@
     gap: 40px;
     
   }
+
   
-  .panelAsociadoColorClima{
-    width: 100%;
-    background-color: rgb(197, 197, 197);
-  }
   

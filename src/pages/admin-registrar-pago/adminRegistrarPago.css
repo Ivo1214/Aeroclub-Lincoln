@@ -1,3 +1,6 @@
 .tamano-registrar-pago{
-    zoom: 1.5;
+    padding: 0.5rem 4rem 2.5rem ;
+    margin: 2rem 0;
+    border-radius: 15px;
+    background-color: var(--fondoTarjetas);
 }

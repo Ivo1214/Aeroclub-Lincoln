@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { resolverToken } from "../../api/apiCalls";
 import { apiRoles } from "../../services/apiRoles";
+import { Box } from "@mui/material";
 
 function AdminVerRecibos() {
   const navigate = useNavigate();
@@ -59,8 +60,10 @@ function AdminVerRecibos() {
 
   return (
     <div className="panelAdminContainer">
-      <h1 className="panelAdminTitle">Recibos de vuelos</h1>
-      <TablaVerRecibos></TablaVerRecibos>
+      <div className="panelAdminVerRecibos">
+        <h1 className="panelAdminTitle">Recibos de vuelos</h1>
+        <TablaVerRecibos></TablaVerRecibos>
+      </div>
     </div>
   );
 }

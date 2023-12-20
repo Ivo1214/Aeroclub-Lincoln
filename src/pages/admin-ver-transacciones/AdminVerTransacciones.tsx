@@ -19,6 +19,7 @@ function AdminVerTransacciones() {
         icon: "error",
         title: "Oops...",
         text: "Sin autorización, no tenes iniciada sesión",
+        position: 'center'
       });
       navigate("/", { replace: true });
     }
@@ -33,6 +34,7 @@ function AdminVerTransacciones() {
             icon: "error",
             title: "Oops...",
             text: "El usuario no posee el rol de gestor para acceder",
+            position: 'center'
           });
 
           navigate("/", { replace: true });
@@ -46,6 +48,7 @@ function AdminVerTransacciones() {
         icon: "error",
         title: "Oops...",
         text: "Un error inesperado",
+        position: 'center'
       });
     }
   }
@@ -58,8 +61,10 @@ function AdminVerTransacciones() {
 
   return (
     <div className="panelAdminContainer">
-      <h1 className="panelAdminTitle">Recibos</h1>
-      <TablaVerRecibos></TablaVerRecibos>
+      <div className="panelAdminVerRecibos">
+        <h1 className="panelAdminTitle">Recibos</h1>
+        <TablaVerRecibos></TablaVerRecibos>
+      </div>
     </div>
   );
 }

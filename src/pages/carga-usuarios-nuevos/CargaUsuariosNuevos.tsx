@@ -5,7 +5,9 @@ import CargarUsuarioNuevo from '../../components/cargar-usuario-nuevo/CargarUsua
 function CargaUsuariosNuevos() {
     return (
         <div className='cargar-usuarios'>
+            <div className="cargaDeUsuarios">
             <CargarUsuarioNuevo></CargarUsuarioNuevo>
+            </div>
         </div>
     );
 };
