@@ -90,9 +90,7 @@ function PanelAdministradores() {
       </div>
 
       <div className="panelAdminColorAeronaves">
-        <AeronaversAlertaPanelAdmin
-          aeronaves={aeronaves}
-        ></AeronaversAlertaPanelAdmin>
+        <AeronaversAlertaPanelAdmin/>
       </div>
     </div>
   );
