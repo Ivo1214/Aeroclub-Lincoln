@@ -21,49 +21,62 @@ export const AppRouter = () => {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Inicio />}></Route>
+          
           <Route
             path="panel-administrador"
             element={<PanelAdministradores />}
-          />
+            />
+
+          <Route 
+            path="panel-asociado"
+            element={<PanelAsociados />} 
+            />
+
           <Route
             path="admin-administrar-usuarios"
             element={<AdminAdministrarUsuarios />}
           />
+
           <Route
             path="admin-editar-usuarios"
             element={<AdminEditarUsuarios />}
           />
-          <Route 
-            path="panel-asociado"
-            element={<PanelAsociados />} />
+
           <Route
             path="/admin-ver-recibos-vuelos"
             element={<AdminVerRecibos />}
           ></Route>
+
           <Route
             path="/admin-ver-recibos"
             element={<AdminVerTransacciones />}
           ></Route>
+
           <Route
             path="/admin-cargar-recibos-vuelos"
             element={<AdminCargarRecibo />}
           ></Route>
+
           <Route
             path="/admin-registrar-pago"
             element={<AdminRegistrarPago />}
           ></Route>
+
           <Route
             path="/admin-cargar-recibos-combustible"
             element={<AdminCargarCombustible />}
           ></Route>
+
           <Route 
             path="/cargar-usuario" 
             element={<CargaUsuarios />}
           ></Route>
+
           <Route 
             path="/cargar-usuario-nuevo" 
             element={<CargaUsuariosNuevos></CargaUsuariosNuevos>}
           ></Route>
+          
         </Route>
         <Route path="/inicio" element={<Inicio />} />
       </Routes>
