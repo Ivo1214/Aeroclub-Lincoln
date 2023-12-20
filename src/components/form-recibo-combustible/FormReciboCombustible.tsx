@@ -58,16 +58,17 @@ export default function FormReciboCombustible() {
               <TextField
                 id="emailGestor"
                 value={userSesion.email}
-                label="E-mail Gestor *"
+                label="E-mail Gestor"
                 variant="filled"
                 defaultValue=""
                 required
                 disabled
+                fullWidth
               />
             </Box>
 
-            <FormControl fullWidth sx={{ m: 1 }}>
-                <InputLabel htmlFor="outlined-adornment-amount">Monto *</InputLabel>
+            <FormControl >
+                <InputLabel htmlFor="outlined-adornment-amount">Monto</InputLabel>
                 <OutlinedInput
                     id="monto"
                     startAdornment={<InputAdornment position="start">$</InputAdornment>}
@@ -77,7 +78,7 @@ export default function FormReciboCombustible() {
                 />
             </FormControl>
             
-            <FormControl fullWidth>
+            <FormControl >
               <InputLabel id="demo-simple-select-label">Tipo de pago</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -101,6 +102,8 @@ export default function FormReciboCombustible() {
                     required
                     defaultValue="Cargar combustible"
                     multiline
+                    rows={3}
+                    fullWidth
                 />
             </Box>
             <Box className="fila-formulario-recibo-observaciones">
@@ -109,6 +112,8 @@ export default function FormReciboCombustible() {
                     label="Observaciones"
                     placeholder=""
                     multiline
+                    rows={3}
+                    fullWidth
                 />
             </Box>
 
