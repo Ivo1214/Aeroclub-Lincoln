@@ -1,3 +1,11 @@
+.panelAdminColorAeronaves{
+  width: 55%;
+  padding: 1rem 4rem;
+  margin: 2rem 0;
+  border-radius: 15px;
+  background-color: var(--fondoTablaAsociado)
+}
+
 .panelAdminContainer{
   border: 1rem solid var(--border); 
 }
@@ -26,16 +34,16 @@
 
 .panelAdminTitle{
   margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
 }
 
-.panelAdminColorAeronaves{
-  max-width: 85%;
-  padding: 1rem 4rem;
-  margin: 2rem 0;
-  border-radius: 15px;
-  background-color: var(--fondoTablaAsociado)
+.aeronavesPanel{
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center;
+  flex-wrap: wrap !important;
 }
-
 
 .table--showColors tr:nth-child(odd) {
   background: var(--azulClaro);

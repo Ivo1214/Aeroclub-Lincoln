@@ -85,7 +85,9 @@ function PanelAdministradores() {
 
       <div className="panelAdminColorAeronaves">
         <h2 className="panelAdminTitle">Aeronaves</h2>
+        <div className="aeronavesPanel">
         <AeronaversAlertaPanelAdmin/>
+        </div>
       </div>
     </div>
   );
