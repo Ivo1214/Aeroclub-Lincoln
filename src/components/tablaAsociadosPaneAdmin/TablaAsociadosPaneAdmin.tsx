@@ -52,15 +52,14 @@ const theme = createTheme(
   esES,
 );
 const modalStyle = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 600,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  position: "absolute" as "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "var(--fondo)",
+  border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 2,
 };
 
 // Ejemplo de estructura de datos para la tabla
@@ -294,7 +293,7 @@ export default function TablaAsociadosPanelAdmin() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={modalStyle}>
+        <Box className="modalVerAsociado" sx={modalStyle}>
           <AdminDetallesAsociados datos={verAsociado}/>
         </Box>
       </Modal>

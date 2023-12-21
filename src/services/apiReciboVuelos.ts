@@ -18,14 +18,14 @@ export const apiReciboVuelos = {
 
     if (Array.isArray(response.data.respuesta)) {
       // console.log(response.data);
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Recibos cargados con exito.",
-        text: ``,
-        showConfirmButton: false,
-        timer: 2500,
-      });
+      // Swal.fire({
+      //   position: "top-end",
+      //   icon: "success",
+      //   title: "Recibos cargados con exito.",
+      //   text: ``,
+      //   showConfirmButton: false,
+      //   timer: 2500,
+      // });
       return response.data;
     } else {
       Swal.fire({
@@ -52,14 +52,14 @@ export const apiReciboVuelos = {
 
     if (Array.isArray(response.data.respuesta)) {
       // console.log(response.data);
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "Recibos cargados con exito.",
-        text: ``,
-        showConfirmButton: false,
-        timer: 2500,
-      });
+      // Swal.fire({
+      //   position: "top-end",
+      //   icon: "success",
+      //   title: "Recibos cargados con exito.",
+      //   text: ``,
+      //   showConfirmButton: false,
+      //   timer: 2500,
+      // });
       return response.data;
     } else {
       Swal.fire({

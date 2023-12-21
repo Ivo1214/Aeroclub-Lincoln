@@ -1,7 +1,7 @@
 import "./aeronaversAlertaPanelAdmin.css";
 import { apiAeronaves } from "../../services/apiAeronaves";
 import { useEffect, useState } from "react";
-import imagen from "../../assets/images/banner.png";
+import imagen from "../../assets/images/imagenAvion.jpg";
 
 export function AeronaversAlertaPanelAdmin() {
   const [aeronavesElements, setAeronavesElements] = useState<JSX.Element[]>([]);

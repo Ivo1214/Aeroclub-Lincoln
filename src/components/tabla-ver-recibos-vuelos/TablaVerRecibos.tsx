@@ -23,6 +23,7 @@ import { apiReciboVuelos } from "../../services/apiReciboVuelos";
 import { CardVerReciboVuelo } from "../card-ver-recibo-vuelo/CardVerReciboVuelo";
 import { apiEnviarRecibo } from "../../services/apiEnviarRecibo";
 import Swal from "sweetalert2";
+import "./TablaVerRecibosVuelo.css";
 
 const theme = createTheme(
   {
@@ -37,11 +38,10 @@ const modalStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 600,
-  bgcolor: "background.paper",
+  bgcolor: "var(--fondo)",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 2,
 };
 
 export default function TablaRecibosVuelos() {
@@ -242,7 +242,7 @@ export default function TablaRecibosVuelos() {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={modalStyle}>
+        <Box className="modalVerRecibosVuelos" sx={modalStyle}>
           <CardVerReciboVuelo datos={verRecibo} />
         </Box>
       </Modal>

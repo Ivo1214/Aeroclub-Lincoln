@@ -1,0 +1,5 @@
+.cardVerReciboVuelo{
+    width: fit-content;
+    padding: 30px;
+    background-color: var(--fondoTablaAsociado);
+}

@@ -17,14 +17,14 @@ export const apiTransacciones =  {
 
     if (response) {
         // console.log(response.data);
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Transacciones cargadas con exito.",
-          text: ``,
-          showConfirmButton: false,
-          timer: 2500,
-        });
+        // Swal.fire({
+        //   position: "top-end",
+        //   icon: "success",
+        //   title: "Transacciones cargadas con exito.",
+        //   text: ``,
+        //   showConfirmButton: false,
+        //   timer: 2500,
+        // });
         // console.log(response.data.response);
         return response.data.response;
       } else {

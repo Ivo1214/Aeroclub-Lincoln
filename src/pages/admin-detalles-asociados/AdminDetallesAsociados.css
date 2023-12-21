@@ -7,32 +7,28 @@
   align-items: center;
 }
 
-.detallesAsociadosTitle {
-  margin: 0;
-  padding: 0;
-  margin-bottom: 40px;
-  font-size: 36px;
-}
-
 .detallesAsociadosContainerButtons {
-  height: 100px;
-  width: 600px;
+  width: fit-content;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  margin-top: 40px;
+  padding-top: 10px;
 }
 
-.detallesAsociadosButton {
-  width: 40%;
-  height: 45px;
-  background-color: var(--azulClaro);
-  border: var(--celeste) 5px solid;
-  border-radius: 15px;
-  color: black;
-  font-size: 24px;
-  font-weight: bold;
-  margin-top: 40px;
-  margin-bottom: 60px;
+.titulo-roles{
+  padding-top: 10px;
+  font-size: 1.4rem !important;
+  text-align: center;
 }
+.roles-asociado{
+  text-align: center;
+}
+
+
+.detallesUsuarioBoton:hover{
+  color: black;
+  transform: scale(1.5);
+  transition: all 150ms ease;
+}
+

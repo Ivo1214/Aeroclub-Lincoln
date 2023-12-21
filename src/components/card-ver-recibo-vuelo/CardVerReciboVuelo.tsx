@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import { Divider } from '@mui/material';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import formatearFecha, { formatearFechaConHora } from '../../functions/formatearFecha/formatearFecha';
+import "./CardVerReciboVuelo.css";
 
 
 
@@ -90,7 +91,7 @@ function CardVerReciboVuelo(recibo: any) {
 
   return (
   <div className="card">
-      <Card sx={{ maxWidth: 345 }}>
+      <Card className='cardVerReciboVuelo' sx={{ maxWidth: 345 }}>
         <CardContent>
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Asociado: {datosRecibo.asociado}
@@ -108,7 +109,7 @@ function CardVerReciboVuelo(recibo: any) {
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Observaciones: {datosRecibo.observaciones}  
           </Typography>
-          <Typography className="datos-asociados" variant="h6" color="text.secondary">
+          <Typography className="datos-asociados titulo-itinerarios" variant="h6" color="text.secondary">
             Itinerarios
           </Typography>
           <Box>

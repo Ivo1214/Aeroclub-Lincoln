@@ -1,4 +1,4 @@
-.cardVerRecibo{
+.cardVerReciboVuelo{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,4 +7,10 @@
 
 .datos-asociados{
     font-size: 1rem !important;
+}
+
+.titulo-itinerarios{
+    padding-top: 10px;
+    font-size: 1.4rem !important;
+    text-align: center;
 }

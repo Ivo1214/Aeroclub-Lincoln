@@ -10,7 +10,7 @@ function CardVerRecibo(datos_recibo: any) {
   
   return (
   <div className="card">
-      <Card className='cardVerRecibo'>
+      <Card className='cardVerRecibo cardVerReciboUsuario'>
         <CardContent>
           <Typography className="datos-asociados" variant="body2" color="text.secondary">
             Asociado: {recibo.asociado}
