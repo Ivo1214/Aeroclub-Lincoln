@@ -14,6 +14,7 @@ import AdminVerTransacciones from "../pages/admin-ver-transacciones/AdminVerTran
 import CargaUsuarios from "../pages/carga-usuarios/CargaUsuarios";
 import AdminCargarCombustible from "../pages/admin-cargar-recibo-combustible/AdminCargarCombustible";
 import CargaUsuariosNuevos from "../pages/carga-usuarios-nuevos/CargaUsuariosNuevos";
+import PanelInstructores from "../pages/panel-instructores/PanelInstructores";
 
 export const AppRouter = () => {
   return (
@@ -30,6 +31,11 @@ export const AppRouter = () => {
           <Route 
             path="panel-asociado"
             element={<PanelAsociados />} 
+            />
+
+          <Route 
+            path="panel-instructor"
+            element={<PanelInstructores />} 
             />
 
           <Route

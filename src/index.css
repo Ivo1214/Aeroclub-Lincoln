@@ -84,6 +84,13 @@ body {
 }
 
 
+.panelVerMovimientos{
+  padding: 0.5rem 4rem 2.5rem ;
+  margin: 2rem 0;
+  border-radius: 15px;
+  background-color: var(--fondoTablaAsociado);
+}
+
 
 /* -----------------------Ver Recibos ------------------------------- */
 

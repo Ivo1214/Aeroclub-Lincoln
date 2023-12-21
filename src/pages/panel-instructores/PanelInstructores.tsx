@@ -1,4 +1,4 @@
-import "./PanelAsociados.css";
+import "./PanelInstructores.css";
 import TablaTurnosPanelAsociados from "../../components/tablaTurnosPanelAsociados/TablaTurnosPanelAsociados";
 import { CardClima } from "../../components/card-clima/CardClima";
 import CondicionPista from "../../components/condicion-pista/CondicionPista";
@@ -13,7 +13,7 @@ import { resolverToken } from "../../api/apiCalls";
 import { apiRoles } from "../../services/apiRoles";
 import TablaRecibosUsuario from "../../components/tabla-transacciones-usuario/TablaRecibosUsuario";
 
-function PanelAsociados() {
+function PanelInstructores() {
   const navigate = useNavigate();
 
   async function checkTokenAndRol() {
@@ -95,4 +95,4 @@ function PanelAsociados() {
   );
 }
 
-export default PanelAsociados;
+export default PanelInstructores;

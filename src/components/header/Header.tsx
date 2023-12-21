@@ -282,7 +282,7 @@ export default function Header() {
                         navigate("/panel-asociado", { replace: true });
                         break;
                         case "Instructor":
-                          navigate("/", { replace: true });
+                          navigate("/panel-instructor", { replace: true });
                         break;
                         case "Mecanico":
                         navigate("/", { replace: true });
