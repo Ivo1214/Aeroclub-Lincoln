@@ -39,7 +39,6 @@
 
 .aeronavesPanel{
   width: 100% !important;
-  display: flex !important;
   justify-content: center !important;
   align-items: center;
   flex-wrap: wrap !important;

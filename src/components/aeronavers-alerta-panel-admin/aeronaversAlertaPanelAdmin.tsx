@@ -9,7 +9,6 @@ export function AeronaversAlertaPanelAdmin() {
   async function fetchAeronaves() {
     const aeronaves = await apiAeronaves.get();
     const elements = 
-    <>
       <div className="mostrarAeronavesContainer">
         {aeronaves.map((aeronave: any) => (
           <article key={aeronave.id_aeronaves} id="tarjetaAeronave">
@@ -27,7 +26,6 @@ export function AeronaversAlertaPanelAdmin() {
           
           ))}
     </div>
-    </>
     
 
     setAeronavesElements(elements);
