@@ -1,50 +1,34 @@
 import "./aeronaversAlertaPanelAdmin.css";
 import { apiAeronaves } from "../../services/apiAeronaves";
 import { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
+import imagen from "../../assets/images/banner.png";
 
 export function AeronaversAlertaPanelAdmin() {
   const [aeronavesElements, setAeronavesElements] = useState<JSX.Element[]>([]);
 
   async function fetchAeronaves() {
     const aeronaves = await apiAeronaves.get();
-    const elements = aeronaves.map((aeronave: any) => (
-      <Card
-        key={aeronave.id_aeronaves}
-        sx={{
-          display: "flex",
-          backgroundColor: backgroundColor(aeronave.estados_aeronaves_id),
-        }}
-      >
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography component="div" variant="h5">
-              {aeronave.modelo}
-            </Typography>
-            <Typography variant="subtitle1" color="text.secondary" component="div">
-              {aeronave.matricula}
-            </Typography>
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              component="div"
-            >
-              Estado: {estado(aeronave.estados_aeronaves_id)}
-            </Typography>
-          </CardContent>
-        </Box>
-        <CardMedia
-          component="img"
-          sx={{ width: 151 }}
-          image={aeronave.path_imagen_aeronave}
-          alt="Imagen de la aeronave"
-        />
-      </Card>
-    ));
+    const elements = 
+    <>
+      <div className="mostrarAeronavesContainer">
+        {aeronaves.map((aeronave: any) => (
+          <article key={aeronave.id_aeronaves} id="tarjetaAeronave">
+              <div className="nombreAeronave" >
+                <img src={imagen} alt="" />
+                <div>
+                    <h2>{aeronave.modelo}</h2>
+                    <p>{aeronave.matricula}</p>
+                </div>
+                <div className="estado">
+                  <h4 style={{ backgroundColor: backgroundColor(aeronave.estados_aeronaves_id) }}>{estado(aeronave.estados_aeronaves_id)}</h4>
+                </div>
+              </div>
+            </article>
+          
+          ))}
+    </div>
+    </>
+    
 
     setAeronavesElements(elements);
   }
